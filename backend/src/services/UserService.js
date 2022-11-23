@@ -9,7 +9,8 @@ const user_verification = require('../models/User_verification')
 
 const create = async ({ name, email, password, pic, verified }) => {
   const userExists = await findByEmail(email)
-  if (userExists) return { error: 'UserService: User already exists' }
+  if (userExists)
+    return { error: 'UserService: User with that email already exists' }
   //An account with that email address already exists. Please use a unique email.
   const hashedPassword = await encrypt(password)
   const newUser = await User.create({
@@ -30,25 +31,22 @@ const create = async ({ name, email, password, pic, verified }) => {
     token: generateToken(newUser._id),
   }
 }
-//refactor...
 const login = async ({ email, password }) => {
   const user = await User.findOne({ email })
   if (!user) return { error: 'UserService_login: User does not exist' }
 
   const check = await compare(password, user.get('password'))
+  if (!check) return { error: 'UserService_login: Invalid email or password' }
 
-  if (user && check) {
-    loggers.info('UserService_login: The user has logged in')
-    return {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      pic: user.pic,
-      verified: user.verified,
-      token: generateToken(user._id),
-    }
+  loggers.info('UserService_login: The user has logged in')
+  return {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    pic: user.pic,
+    verified: user.verified,
+    token: generateToken(user._id),
   }
-  return { error: 'UserService_login: Invalid email or password' }
 }
 
 const findByEmail = async (email) => {

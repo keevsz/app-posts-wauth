@@ -15,7 +15,7 @@ const google = new GoogleStrategy(googleStrategyOptions, async function (
   const userExists = await UserService.findByEmail(emails[0].value)
   if (userExists) {
     if (!userExists.verified) {
-      console.log('error: not verified')
+      console.log('error: not verified') // LINK ACCOUNT WITH GOOGLE
       return done(
         'VERIFY YOUR EMAIL BEFORE USING THIS TYPE OF AUTH, IF YOU THINK ITS AN ERROR, CONTACT WITH US',
         null

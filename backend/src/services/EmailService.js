@@ -6,15 +6,15 @@ const { generatePassword } = require('../utils/handlePassword')
 const user_verification = require('../models/User_verification')
 
 const getEmailHtml = ({ userId, token, type }) => {
-  const html = `<div> Click <a href='http://localhost:5000/api/user/${type}/${userId}/${token}'>here</a></div>`
+  const html = `<div> Click <a href='http://localhost:5000/api/user/${type}/${userId}/${token}'>here</a> to ${type}</div>`
   return html
 }
 
 const send = async ({ userEmail, type }) => {
-  if (type === 'password-reset') {
-    const userExists = await userService.findByEmail(userEmail)
-    if (!userExists) return { error: 'EmailService: User does not exist' }
+  const userExists = await userService.findByEmail(userEmail)
+  if (!userExists) return { error: 'EmailService: User does not exist' }
 
+  if (type === 'password-reset') {
     let token = await reset_password.findOne({ userId: userExists._id })
     if (!token) {
       token = await reset_password.create({
@@ -23,7 +23,7 @@ const send = async ({ userEmail, type }) => {
       })
     }
     await transporter.sendMail({
-      from: '"kevsz" <keviv1q2@gmail.com>',
+      from: 'keviv1q2@gmail.com',
       to: userEmail,
       subject: 'Hello ✔',
       text: 'Reset password',
@@ -34,8 +34,8 @@ const send = async ({ userEmail, type }) => {
   }
 
   if (type === 'email-verify') {
-    const userExists = await userService.findByEmail(userEmail)
-    if (!userExists) return { error: 'EmailService: User does not exist' }
+    if (userExists.verified)
+      return { error: 'EmailService: User already verified' }
 
     let token = await user_verification.findOne({ userId: userExists._id })
     if (!token) {
@@ -44,9 +44,8 @@ const send = async ({ userEmail, type }) => {
         token: generatePassword(),
       })
     }
-    console.log(userExists)
     await transporter.sendMail({
-      from: '"kevsz" <keviv1q2@gmail.com>',
+      from: 'keviv1q2@gmail.com',
       to: userEmail,
       subject: 'Hello ✔',
       text: 'Verify your email',
