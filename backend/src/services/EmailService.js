@@ -14,11 +14,9 @@ const send = async ({ userEmail, type }) => {
     const userExists = await userService.findByEmail(userEmail)
     if (!userExists) return { error: 'EmailService: User does not exist' }
 
-    console.log(userExists)
     let token = await reset_password.findOne({ userId: userExists._id })
     if (!token) {
       token = await reset_password.create({ userId: userExists, token: generatePassword() })
-      console.log('created', token)
     }
     await transporter.sendMail({
       from: '"kevsz" <keviv1q2@gmail.com>',

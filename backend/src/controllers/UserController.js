@@ -5,8 +5,14 @@ const { handleHttpError } = require('../utils/handleError')
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password, pic } = matchedData(req)
-    const response = await userServices.create({ name, email, password, pic })
+    const { name, email, password, pic, verified } = matchedData(req)
+    const response = await userServices.create({
+      name,
+      email,
+      password,
+      pic,
+      verified,
+    })
     if (response.error) throw new Error(response.error)
 
     res.status(201).json(response)
@@ -52,8 +58,14 @@ const getUser = async (req, res) => {
 }
 
 const sendUser = async (req, res) => {
-  const user = req.user
-  res.status(201).json(user)
+  try {
+    const user = req.user
+    console.log(req.error)
+
+    res.status(201).json(user)
+  } catch ({ message }) {
+    handleHttpError({ res, message, from: 'UserController_sendUser' })
+  }
 }
 
 const sendEmail = async (req, res) => {
@@ -71,7 +83,11 @@ const sendEmail = async (req, res) => {
 const changePassword = async (req, res) => {
   try {
     const { userId, token, newPassword } = matchedData(req)
-    const response = await userServices.changePassword({ newPassword, token, userId })
+    const response = await userServices.changePassword({
+      newPassword,
+      token,
+      userId,
+    })
     if (response.error) throw new Error(response.error)
 
     res.status(201).json(response)
@@ -87,5 +103,5 @@ module.exports = {
   getUser,
   sendUser,
   sendEmail,
-  changePassword
+  changePassword,
 }
