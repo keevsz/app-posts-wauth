@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react"
-import Profile from "../Components/Profile/Profile"
-import { useParams } from "react-router-dom"
-import { GlobalState } from "../Context/GlobalProvider"
-import axios from "axios"
-import { Box, Center, Spinner, Text } from "@chakra-ui/react"
-import Post from "../Components/Post/Post"
+import React, { useEffect, useState } from 'react'
+import Profile from '../Components/Profile/Profile'
+import { useParams } from 'react-router-dom'
+import { GlobalState } from '../Context/GlobalProvider'
+import axios from 'axios'
+import { Box, Center, Spinner, Text } from '@chakra-ui/react'
+import Post from '../Components/Post/Post'
 
 export const ProfilePage = () => {
   const { user, setPosts, posts } = GlobalState()
@@ -41,7 +41,7 @@ export const ProfilePage = () => {
           Authorization: `Bearer ${user.token}`,
         },
       }
-      const { data } = await axios.get("/api/post", config)
+      const { data } = await axios.get('/api/post', config)
       setPosts(data)
     } catch (error) {
       console.log(error)

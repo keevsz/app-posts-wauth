@@ -1,9 +1,9 @@
-import { Box } from "@chakra-ui/react"
-import axios from "axios"
-import React from "react"
-import PostForm from "../Components/Post/PostForm"
-import Posts from "../Components/Post/Posts"
-import { GlobalState } from "../Context/GlobalProvider"
+import { Box } from '@chakra-ui/react'
+import axios from 'axios'
+import React from 'react'
+import PostForm from '../Components/Post/PostForm'
+import Posts from '../Components/Post/Posts'
+import { GlobalState } from '../Context/GlobalProvider'
 
 const PostsPage = () => {
   const { user, setPosts, setComments } = GlobalState()
@@ -15,7 +15,7 @@ const PostsPage = () => {
           Authorization: `Bearer ${user.token}`,
         },
       }
-      const { data } = await axios.get("/api/post", config)
+      const { data } = await axios.get('/api/post', config)
       setPosts(data)
     } catch (error) {
       console.log(error)
@@ -29,7 +29,7 @@ const PostsPage = () => {
           Authorization: `Bearer ${user.token}`,
         },
       }
-      const { data } = await axios.get("/api/comment", config)
+      const { data } = await axios.get('/api/comment', config)
       setComments(data)
     } catch (error) {
       console.log(error)
@@ -43,14 +43,15 @@ const PostsPage = () => {
       for (let key in post) {
         form.append(key, post[key])
       }
-      form.append("user", user.id)
+      form.append('user', user.id)
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${user.token}`,
         },
       }
-      await axios.post("/api/post", form, config)
+      console.log(form)
+      await axios.post('/api/post', form, config)
     } catch (error) {
       console.log(error)
     }

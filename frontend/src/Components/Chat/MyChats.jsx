@@ -17,14 +17,14 @@ import {
   Stack,
   Text,
   useToast,
-} from "@chakra-ui/react"
-import axios from "axios"
-import React, { useEffect, useState } from "react"
-import { getPic, getSender, getSenderFull } from "../../config/ChatLogics"
-import { GlobalState } from "../../Context/GlobalProvider"
-import ChatLoading from "./ChatLoading"
-import GroupChatModal from "../miscellaneous/GroupChatModal"
-import UserListItem from "../UserAvatar/UserListItem"
+} from '@chakra-ui/react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { getPic, getSender, getSenderFull } from '../../config/ChatLogics'
+import { GlobalState } from '../../Context/GlobalProvider'
+import ChatLoading from './ChatLoading'
+import GroupChatModal from '../miscellaneous/GroupChatModal'
+import UserListItem from '../UserAvatar/UserListItem'
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState()
@@ -43,23 +43,23 @@ const MyChats = ({ fetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       }
-      const { data } = await axios.get("/api/chat", config)
+      const { data } = await axios.get('/api/chat', config)
       setChats(data)
     } catch (error) {
       toast({
-        title: "Error",
+        title: 'Error',
         description: error.message,
-        status: "error",
+        status: 'error',
         duration: 2000,
         isClosable: true,
-        position: "top-left",
+        position: 'top-left',
       })
       return
     }
   }
 
   useEffect(() => {
-    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")))
+    setLoggedUser(JSON.parse(localStorage.getItem('userInfo')))
     fetchChats()
   }, [fetchAgain])
 
@@ -76,12 +76,12 @@ const MyChats = ({ fetchAgain }) => {
       setSearchResult(data)
     } catch (error) {
       toast({
-        title: "Ocurrió un error",
-        warning: "Error al cargar resultados",
-        status: "error",
+        title: 'Ocurrió un error',
+        warning: 'Error al cargar resultados',
+        status: 'error',
         duration: 2000,
         isClosable: true,
-        position: "bottom-left",
+        position: 'bottom-left',
       })
       return
     }
@@ -91,12 +91,16 @@ const MyChats = ({ fetchAgain }) => {
     try {
       setLoadingChat(true)
       const config = {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       }
-      const { data } = await axios.post("/api/chat", { userId }, config)
+      const { data } = await axios.post(
+        '/api/chat',
+        { userId, user: user.id, token: user.token },
+        config
+      )
 
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats])
 
@@ -105,12 +109,12 @@ const MyChats = ({ fetchAgain }) => {
       setIsOpen(false)
     } catch (error) {
       toast({
-        title: "Error",
+        title: 'Error',
         description: error.message,
-        status: "error",
+        status: 'error',
         duration: 2000,
         isClosable: true,
-        position: "top-left",
+        position: 'top-left',
       })
       return
     }
@@ -118,18 +122,18 @@ const MyChats = ({ fetchAgain }) => {
 
   return (
     <Box
-      d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
+      d={{ base: selectedChat ? 'none' : 'flex', md: 'flex' }}
       flexDir="column"
       alignItems="center"
       p={1}
       bg="white"
-      w={{ base: "2xs", md: "41%" }}
+      w={{ base: '2xs', md: '41%' }}
       borderWidth="1px"
     >
       <Box
         pb={3}
         px={3}
-        fontSize={{ base: "28px", md: "30px" }}
+        fontSize={{ base: '28px', md: '30px' }}
         fontFamily="Work sans"
         d="flex"
         w="100%"
@@ -181,7 +185,7 @@ const MyChats = ({ fetchAgain }) => {
                   ))
                 )}
                 {loadingChat && (
-                  <Spinner ml="auto" textAlign={"center"} d="flex"></Spinner>
+                  <Spinner ml="auto" textAlign={'center'} d="flex"></Spinner>
                 )}
               </Box>
             </PopoverBody>
@@ -210,8 +214,8 @@ const MyChats = ({ fetchAgain }) => {
                 cursor="pointer"
                 bg={
                   selectedChat === getSenderFull(null, chat)
-                    ? "#EFEFEF"
-                    : "#FFFFFF"
+                    ? '#EFEFEF'
+                    : '#FFFFFF'
                 }
                 key={chat._id}
               >
@@ -225,7 +229,7 @@ const MyChats = ({ fetchAgain }) => {
                       <Text fontSize="xs">
                         <b>{chat.latestMessage.sender.name} : </b>
                         {chat.latestMessage.content.length > 20
-                          ? chat.latestMessage.content.substring(0, 10) + "..."
+                          ? chat.latestMessage.content.substring(0, 10) + '...'
                           : chat.latestMessage.content}
                       </Text>
                     )}

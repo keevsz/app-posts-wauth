@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   Box,
   Button,
@@ -8,9 +8,9 @@ import {
   Input,
   InputRightElement,
   useToast,
-} from "@chakra-ui/react"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
+} from '@chakra-ui/react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
   const toast = useToast()
@@ -20,24 +20,24 @@ const Register = () => {
   const navigate = useNavigate()
 
   const initialState = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    pic: "",
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    pic: '',
   }
 
   const [user, setUser] = useState(initialState)
 
   const postDetails = (pics) => {
     setLoading(true)
-    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+    if (pics.type === 'image/jpeg' || pics.type === 'image/png') {
       const data = new FormData()
-      data.append("file", pics)
-      data.append("upload_preset", "chat-app")
-      data.append("cloud_name", "dalp4xrqs")
-      fetch("https://api.cloudinary.com/v1_1/dalp4xrqs/image/upload", {
-        method: "post",
+      data.append('file', pics)
+      data.append('upload_preset', 'chat-app')
+      data.append('cloud_name', 'dalp4xrqs')
+      fetch('https://api.cloudinary.com/v1_1/dalp4xrqs/image/upload', {
+        method: 'post',
         body: data,
       })
         .then((res) => res.json())
@@ -51,11 +51,11 @@ const Register = () => {
         })
     } else {
       toast({
-        title: "Seleccione una imagen",
-        status: "warning",
+        title: 'Seleccione una imagen',
+        status: 'warning',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       })
       setLoading(false)
       return
@@ -68,11 +68,11 @@ const Register = () => {
     const { name, email, password, confirmPassword } = user
     if (!name || !email || !password || !confirmPassword) {
       toast({
-        title: "Complete todos los campos",
-        status: "warning",
+        title: 'Complete todos los campos',
+        status: 'warning',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       })
       setLoading(false)
       return
@@ -80,31 +80,32 @@ const Register = () => {
 
     try {
       const config = {
-        headers: { "Content-type": "application/json" },
+        headers: { 'Content-type': 'application/json' },
       }
-
-      const { data } = await axios.post("/api/user/register", user, config)
+      console.log('hola')
+      const { data } = await axios.post('/api/user/register', user, config)
+      console.log('hola')
 
       toast({
-        title: "Registrado",
-        status: "success",
+        title: 'Registrado',
+        status: 'success',
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       })
 
-      localStorage.setItem("userInfo", JSON.stringify(data))
+      localStorage.setItem('userInfo', JSON.stringify(data))
       setLoading(false)
-      navigate("/home/posts")
+      navigate('/home/posts')
     } catch (error) {
       console.log(error.message)
-      if (error.message === "Request failed with status code 406") {
+      if (error.message === 'Request failed with status code 406') {
         toast({
-          title: "El correo ya existe",
-          status: "error",
+          title: 'El correo ya existe',
+          status: 'error',
           duration: 2000,
           isClosable: true,
-          position: "bottom",
+          position: 'bottom',
         })
       }
 
@@ -119,7 +120,7 @@ const Register = () => {
         id="rpic"
         isRequired
         mt="10px"
-        _hover={{ opacity: "0.5" }}
+        _hover={{ opacity: '0.5' }}
       >
         <Input
           type="file"
@@ -136,10 +137,10 @@ const Register = () => {
             reader.readAsDataURL(e.target.files[0])
 
             reader.onload = function () {
-              let preview = document.getElementById("preview")
+              let preview = document.getElementById('preview')
               preview.src = reader.result
-              let divimg = document.getElementById("imagediv")
-              divimg.removeAttribute("hidden")
+              let divimg = document.getElementById('imagediv')
+              divimg.removeAttribute('hidden')
             }
           }}
         ></Input>
@@ -150,7 +151,7 @@ const Register = () => {
             objectFit="cover"
             boxSize="28"
             borderRadius={100}
-            mb={"10px"}
+            mb={'10px'}
           ></Image>
         </Center>
       </FormControl>
@@ -178,7 +179,7 @@ const Register = () => {
 
       <FormControl id="rpassword" isRequired mt="10px">
         <Input
-          type={show ? "text" : "password"}
+          type={show ? 'text' : 'password'}
           placeholder="Contraseña"
           variant="filled"
           className="ph-center"
@@ -190,7 +191,7 @@ const Register = () => {
 
       <FormControl id="rrepeatpassword" isRequired mt="10px">
         <Input
-          type={show ? "text" : "password"}
+          type={show ? 'text' : 'password'}
           placeholder="Contraseña"
           variant="filled"
           className="ph-center"

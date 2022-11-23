@@ -13,18 +13,18 @@ import {
   Spinner,
   useDisclosure,
   useToast,
-} from "@chakra-ui/react"
-import axios from "axios"
-import React, { useState } from "react"
-import { getSenderFull } from "../../config/ChatLogics"
-import { GlobalState } from "../../Context/GlobalProvider"
-import UserBadgeItem from "../UserAvatar/UserBadgeItem"
-import UserListItem from "../UserAvatar/UserListItem"
+} from '@chakra-ui/react'
+import axios from 'axios'
+import React, { useState } from 'react'
+import { getSenderFull } from '../../config/ChatLogics'
+import { GlobalState } from '../../Context/GlobalProvider'
+import UserBadgeItem from '../UserAvatar/UserBadgeItem'
+import UserListItem from '../UserAvatar/UserListItem'
 
 const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [groupChatName, setGroupChatName] = useState()
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState('')
   const [searchResult, setSearchResult] = useState([])
   const [loading, setLoading] = useState(false)
   const [renameLoading, setRenameLoading] = useState(false)
@@ -38,11 +38,11 @@ const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   const handleRemove = async (user1) => {
     if (selectedChat.groupAdmin._id !== user.id && user1._id !== user.id) {
       toast({
-        title: "No eres administrador",
-        status: "error",
+        title: 'No eres administrador',
+        status: 'error',
         duration: 5000,
         isclosable: true,
-        position: "bottom",
+        position: 'bottom',
       })
       return
     }
@@ -67,12 +67,12 @@ const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       setLoading(false)
     } catch (error) {
       toast({
-        title: "Error",
+        title: 'Error',
         description: error.response.data.message,
-        status: "error",
+        status: 'error',
         duration: 5000,
         isclosable: true,
-        position: "bottom",
+        position: 'bottom',
       })
       setRenameLoading(false)
     }
@@ -88,7 +88,7 @@ const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         },
       }
       const { data } = await axios.put(
-        "/api/chat/rename",
+        '/api/chat/rename',
         {
           chatId: selectedChat._id,
           chatName: groupChatName,
@@ -100,16 +100,16 @@ const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       setRenameLoading(false)
     } catch (error) {
       toast({
-        title: "Error",
+        title: 'Error',
         description: error.response.data.message,
-        status: "error",
+        status: 'error',
         duration: 5000,
         isclosable: true,
-        position: "bottom",
+        position: 'bottom',
       })
       setRenameLoading(false)
     }
-    setGroupChatName("")
+    setGroupChatName('')
   }
 
   const handleSearch = async (query) => {
@@ -130,26 +130,27 @@ const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       setSearchResult(data)
     } catch (error) {
       toast({
-        title: "Error Occured!",
-        description: "Failed to Load the Search Results",
-        status: "error",
+        title: 'Error Occured!',
+        description: 'Failed to Load the Search Results',
+        status: 'error',
         duration: 5000,
         isClosable: true,
-        position: "bottom-left",
+        position: 'bottom-left',
       })
       setLoading(false)
     }
   }
 
   const handleAddUser = async (user1) => {
-    if (selectedChat.users.find((u) => u._id === user1._id)) return
+    if (selectedChat.users.find((u) => u._id === user1._id))
+      return alert('Usuario en el chat')
     if (selectedChat.groupAdmin._id !== user.id) {
       toast({
-        title: "No eres administrador",
-        status: "error",
+        title: 'No eres administrador',
+        status: 'error',
         duration: 5000,
         isclosable: true,
-        position: "bottom",
+        position: 'bottom',
       })
       return
     }
@@ -170,12 +171,12 @@ const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       setLoading(false)
     } catch (error) {
       toast({
-        title: "Error",
+        title: 'Error',
         description: error.response.data.message,
-        status: "error",
+        status: 'error',
         duration: 5000,
         isclosable: true,
-        position: "bottom",
+        position: 'bottom',
       })
       setLoading(false)
     }
@@ -184,7 +185,7 @@ const UpdateGroupChat = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
   return (
     <>
       <IconButton
-        d={{ base: "flex" }}
+        d={{ base: 'flex' }}
         icon={<i className="fa-solid fa-circle-info"></i>}
         onClick={onOpen}
       >

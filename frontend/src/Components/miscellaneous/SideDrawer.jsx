@@ -20,20 +20,20 @@ import {
   PopoverContent,
   PopoverTrigger,
   Spinner,
-} from "@chakra-ui/react"
-import axios from "axios"
-import React, { useEffect, useState } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
-import { GlobalState } from "../../Context/GlobalProvider"
-import { Effect } from "react-notification-badge"
-import NotificationBadge from "react-notification-badge/lib/components/NotificationBadge"
-import { Howl } from "howler"
+} from '@chakra-ui/react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { GlobalState } from '../../Context/GlobalProvider'
+import { Effect } from 'react-notification-badge'
+import NotificationBadge from 'react-notification-badge/lib/components/NotificationBadge'
+import { Howl } from 'howler'
 
-import "../styles.css"
+import '../styles.css'
 
-import { io } from "socket.io-client"
-import UserListItem from "../UserAvatar/UserListItem"
-const ENDPOINT = "https://kevs-mern-social-media.herokuapp.com/"
+import { io } from 'socket.io-client'
+import UserListItem from '../UserAvatar/UserListItem'
+const ENDPOINT = 'http://localhost:5000/'
 var socket
 
 const SideDrawer = () => {
@@ -56,12 +56,12 @@ const SideDrawer = () => {
 
   useEffect(() => {
     socket = io(ENDPOINT)
-    socket.emit("setup", user)
-    socket.on("connected", () => console.log("connected"))
+    socket.emit('setup', user)
+    socket.on('connected', () => console.log('connected'))
   }, [])
 
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
+    socket.on('message recieved', (newMessageRecieved) => {
       setNotification([newMessageRecieved, ...notification])
       setTimeout(() => {
         setNotification([])
@@ -74,12 +74,12 @@ const SideDrawer = () => {
   })
 
   const logoutHandler = () => {
-    localStorage.removeItem("userInfo")
-    navigate("/")
+    localStorage.removeItem('userInfo')
+    navigate('/')
   }
   const initialFocusRef = React.useRef()
   const soundSrc =
-    "https://res.cloudinary.com/dalp4xrqs/video/upload/v1650926612/audios/X2Download_mp3cut.net_pufirh.mp3"
+    'https://res.cloudinary.com/dalp4xrqs/video/upload/v1650926612/audios/X2Download_mp3cut.net_pufirh.mp3'
   const callMySound = (src) => {
     const sound = new Howl({
       src,
@@ -99,7 +99,7 @@ const SideDrawer = () => {
       setLoading(true)
       const config = {
         headers: {
-          Authorization: "Bearer " + user.token,
+          Authorization: 'Bearer ' + user.token,
         },
       }
       const { data } = await axios.get(`/api/user?search=${query}`, config)
@@ -123,7 +123,7 @@ const SideDrawer = () => {
         width="100%"
         height="16"
         borderWidth="1px"
-        style={{ zIndex: "100" }}
+        style={{ zIndex: '100' }}
       ></Box>
 
       <Box
@@ -135,7 +135,7 @@ const SideDrawer = () => {
         w="90%"
         maxW="2xl"
         height="15"
-        style={{ zIndex: "100" }}
+        style={{ zIndex: '100' }}
       >
         <Box className="ocultar-div">
           <NavLink variant="ghost" to="/home/posts">
@@ -185,7 +185,7 @@ const SideDrawer = () => {
               />
               <PopoverBody>
                 {!loading ? (
-                  <span style={{ marginLeft: "10px" }}>Personas</span>
+                  <span style={{ marginLeft: '10px' }}>Personas</span>
                 ) : null}
                 {loading ? (
                   <Center>
@@ -216,7 +216,7 @@ const SideDrawer = () => {
           d="flex"
           alignItems="center"
           bg="white"
-          style={{ zIndex: "100" }}
+          style={{ zIndex: '100' }}
         >
           <NavLink variant="ghost" to="/home/posts">
             <i className="fa-solid fa-house-user fa-xl"></i>

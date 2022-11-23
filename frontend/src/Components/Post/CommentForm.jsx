@@ -1,16 +1,16 @@
-import { Avatar, Box, Center, Input } from "@chakra-ui/react"
-import axios from "axios"
-import React, { useState } from "react"
-import { GlobalState } from "../../Context/GlobalProvider"
+import { Avatar, Box, Center, Input } from '@chakra-ui/react'
+import axios from 'axios'
+import React, { useState } from 'react'
+import { GlobalState } from '../../Context/GlobalProvider'
 
 const CommentForm = ({ post }) => {
   const { user, comments, setComments } = GlobalState()
 
-  const [comment, setComment] = useState("")
+  const [comment, setComment] = useState('')
 
   const sendComment = async (event) => {
-    if (event.key === "Enter") {
-      setComment("")
+    if (event.key === 'Enter') {
+      setComment('')
 
       const config = {
         headers: {
@@ -19,11 +19,10 @@ const CommentForm = ({ post }) => {
       }
 
       const { data } = await axios.post(
-        "/api/comment",
+        '/api/comment',
         {
           description: comment,
-          user: user.id,
-          post: post,
+          post: post._id,
         },
         config
       )
@@ -40,7 +39,7 @@ const CommentForm = ({ post }) => {
           Authorization: `Bearer ${user.token}`,
         },
       }
-      const { data } = await axios.get("/api/comment", config)
+      const { data } = await axios.get('/api/comment', config)
       setComments(data)
     } catch (error) {
       console.log(error)
@@ -50,12 +49,12 @@ const CommentForm = ({ post }) => {
   return (
     <div
       style={{
-        width: "85%",
-        margin: "auto",
-        display: "flex",
-        paddingTop: "10px",
-        paddingLeft: "20px",
-        paddingRight: "20px",
+        width: '85%',
+        margin: 'auto',
+        display: 'flex',
+        paddingTop: '10px',
+        paddingLeft: '20px',
+        paddingRight: '20px',
       }}
     >
       <Box>
@@ -70,7 +69,7 @@ const CommentForm = ({ post }) => {
         p="2"
         variant="unstyled"
         size="xs"
-        style={{ backgroundColor: "#F0F2F5" }}
+        style={{ backgroundColor: '#F0F2F5' }}
         borderRadius="lg"
         placeholder="Escribe un comentario..."
         onChange={(e) => {

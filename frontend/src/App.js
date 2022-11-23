@@ -1,12 +1,11 @@
-import logo from "./logo.svg"
-import { Routes, Route } from "react-router-dom"
-import "./App.css"
-import HomePage from "./Pages/HomePage"
-import ChatPage from "./Pages/ChatPage"
-import ContentPage from "./Pages/ContentPage"
-import PostPage from "./Pages/PostsPage"
-import { ProfilePage } from "./Pages/ProfilePage"
-import NotFound from "./Components/miscellaneous/NotFound"
+import { Routes, Route } from 'react-router-dom'
+import './App.css'
+import HomePage from './Pages/HomePage'
+import ChatPage from './Pages/ChatPage'
+import ContentPage from './Pages/ContentPage'
+import PostPage from './Pages/PostsPage'
+import { ProfilePage } from './Pages/ProfilePage'
+import NotFound from './Components/miscellaneous/NotFound'
 
 function App() {
   return (

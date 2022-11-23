@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   Box,
   Button,
@@ -7,11 +7,10 @@ import {
   Image,
   Input,
   InputRightElement,
-  Text,
   useToast,
-} from "@chakra-ui/react"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
+} from '@chakra-ui/react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [show, setShow] = useState()
@@ -21,8 +20,8 @@ const Login = () => {
   const navigate = useNavigate()
 
   const initialState = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   }
 
   const [credentials, setCredentials] = useState(initialState)
@@ -32,11 +31,11 @@ const Login = () => {
     const { email, password } = credentials
     if (!email || !password) {
       toast({
-        title: "Complete todos los campos",
-        status: "warning",
+        title: 'Complete todos los campos',
+        status: 'warning',
         duration: 2000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       })
       setLoading(false)
       return
@@ -44,43 +43,43 @@ const Login = () => {
 
     try {
       const config = {
-        headers: { "Content-type": "application/json" },
+        headers: { 'Content-type': 'application/json' },
       }
       const userData = {
         email,
         password,
       }
-      const { data } = await axios.post("api/user/login", userData, config)
+      const { data } = await axios.post('api/user/login', userData, config)
 
       toast({
-        title: "Logeado",
-        status: "success",
+        title: 'Logeado',
+        status: 'success',
         duration: 5000,
         isClosable: true,
-        position: "top-right",
+        position: 'top-right',
       })
-      localStorage.setItem("userInfo", JSON.stringify(data))
+      localStorage.setItem('userInfo', JSON.stringify(data))
       setLoading(false)
-      navigate("/home/posts")
+      navigate('/home/posts')
     } catch (error) {
       console.log(error.message)
-      if (error.message === "Request failed with status code 404") {
+      if (error.message === 'Request failed with status code 404') {
         toast({
-          title: "Usuario no encontrado",
-          status: "error",
+          title: 'Usuario no encontrado',
+          status: 'error',
           duration: 2000,
           isClosable: true,
-          position: "bottom",
+          position: 'bottom',
         })
       }
 
-      if (error.message === "Request failed with status code 400") {
+      if (error.message === 'Request failed with status code 400') {
         toast({
-          title: "Correo o contraseña invalida",
-          status: "error",
+          title: 'Correo o contraseña invalida',
+          status: 'error',
           duration: 2000,
           isClosable: true,
-          position: "bottom",
+          position: 'bottom',
         })
       }
       setLoading(false)
@@ -108,7 +107,7 @@ const Login = () => {
       <FormControl id="lpassword" isRequired my="2">
         <Input
           className="ph-center"
-          type={show ? "text" : "password"}
+          type={show ? 'text' : 'password'}
           placeholder="Contraseña"
           variant="filled"
           onChange={(e) => {

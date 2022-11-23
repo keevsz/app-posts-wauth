@@ -2,21 +2,20 @@ import {
   Avatar,
   Menu,
   MenuButton,
-  MenuItem,
   MenuList,
   Text,
   Tooltip,
-} from "@chakra-ui/react"
-import React from "react"
-import { NavLink } from "react-router-dom"
-import ScrollableFeed from "react-scrollable-feed"
+} from '@chakra-ui/react'
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import ScrollableFeed from 'react-scrollable-feed'
 import {
   isLastMessage,
   isSameSender,
   isSameSenderMargin,
   isSameUser,
-} from "../../config/ChatLogics"
-import { GlobalState } from "../../Context/GlobalProvider"
+} from '../../config/ChatLogics'
+import { GlobalState } from '../../Context/GlobalProvider'
 const ScrollableChat = ({ messages }) => {
   const { user } = GlobalState()
   return (
@@ -24,7 +23,7 @@ const ScrollableChat = ({ messages }) => {
       <ScrollableFeed>
         {messages &&
           messages.map((m, i) => (
-            <div style={{ display: "flex" }} key={m._id}>
+            <div style={{ display: 'flex' }} key={m._id}>
               {(isSameSender(messages, m, i, user.id) ||
                 isLastMessage(messages, i, user.id)) && (
                 <>
@@ -45,9 +44,9 @@ const ScrollableChat = ({ messages }) => {
                         ></Avatar>
                       </MenuButton>
                     </Tooltip>
-                    <MenuList _hover={{ backgroundColor: "#FAFAFA" }}>
+                    <MenuList _hover={{ backgroundColor: '#FAFAFA' }}>
                       <NavLink to={`/home/profile/${m.sender._id}`}>
-                        <Text _hover={{ cursor: "pointer" }} ml="15px">
+                        <Text _hover={{ cursor: 'pointer' }} ml="15px">
                           Ver perfil
                         </Text>
                       </NavLink>
@@ -58,13 +57,13 @@ const ScrollableChat = ({ messages }) => {
               <span
                 style={{
                   backgroundColor: `${
-                    m.sender._id === user.id ? "#74D7D4" : "#F2F3F4"
+                    m.sender._id === user.id ? '#74D7D4' : '#F2F3F4'
                   }`,
                   marginLeft: isSameSenderMargin(messages, m, i, user.id),
                   marginTop: isSameUser(messages, m, i, user.id) ? 3 : 10,
-                  borderRadius: "20px",
-                  padding: "5px 15px",
-                  maxWidth: "45%",
+                  borderRadius: '20px',
+                  padding: '5px 15px',
+                  maxWidth: '45%',
                 }}
               >
                 {m.content}

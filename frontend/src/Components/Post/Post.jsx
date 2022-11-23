@@ -13,17 +13,17 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
-} from "@chakra-ui/react"
-import React from "react"
+} from '@chakra-ui/react'
+import React from 'react'
 
-import Moment from "react-moment"
-import "moment-timezone"
-import "moment/locale/es"
-import Comment from "./Comment"
-import { GlobalState } from "../../Context/GlobalProvider"
-import CommentForm from "./CommentForm"
-import axios from "axios"
-import { NavLink } from "react-router-dom"
+import Moment from 'react-moment'
+import 'moment-timezone'
+import 'moment/locale/es'
+import Comment from './Comment'
+import { GlobalState } from '../../Context/GlobalProvider'
+import CommentForm from './CommentForm'
+import axios from 'axios'
+import { NavLink } from 'react-router-dom'
 
 const Post = ({ post, fetchPosts }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -32,8 +32,8 @@ const Post = ({ post, fetchPosts }) => {
 
   const handleLike = async (id) => {
     let element = document.getElementById(id)
-    let elementStyle = window.getComputedStyle(element, "hover")
-    let elementColor = elementStyle.getPropertyValue("color")
+    let elementStyle = window.getComputedStyle(element, 'hover')
+    let elementColor = elementStyle.getPropertyValue('color')
     const config = {
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -41,32 +41,32 @@ const Post = ({ post, fetchPosts }) => {
     }
     let count = document.getElementById(`count-${post._id}`).textContent
 
-    if (elementColor === "rgb(255, 0, 0)") {
+    if (elementColor === 'rgb(255, 0, 0)') {
       const data = { postId: post._id, userId: user.id }
-      await axios.post("/api/post/unsetlike", data, config)
-      document.getElementById(id).style.color = "gray"
+      await axios.post('/api/post/like', data, config)
+      document.getElementById(id).style.color = 'gray'
       document.getElementById(`count-${post._id}`).innerHTML =
         parseInt(count) - 1
-      console.log("Dislike")
+      console.log('Dislike')
     } else {
       const data = { postId: post._id, userId: user.id }
-      await axios.post("/api/post/setlike", data, config)
-      document.getElementById(id).style.color = "red"
+      await axios.post('/api/post/like', data, config)
+      document.getElementById(id).style.color = 'red'
       document.getElementById(`count-${post._id}`).innerHTML =
         parseInt(count) + 1
-      console.log("Like")
+      console.log('Like')
     }
   }
 
   const hidden = (id) => {
     let box = document.getElementById(id)
-    let hidden = box.hasAttribute("hidden")
+    let hidden = box.hasAttribute('hidden')
 
     //"" esta oculto
     if (hidden === true) {
-      box.removeAttribute("hidden")
+      box.removeAttribute('hidden')
     } else {
-      box.setAttribute("hidden", "true")
+      box.setAttribute('hidden', 'true')
     }
   }
 
@@ -78,7 +78,7 @@ const Post = ({ post, fetchPosts }) => {
     }
 
     await axios.delete(`/api/post/${post._id}`, config)
-    console.log("Borrado")
+    console.log('Borrado')
     fetchPosts()
   }
 
@@ -91,7 +91,7 @@ const Post = ({ post, fetchPosts }) => {
       borderWidth="1px"
       bg="white"
       borderBottom
-      borderBottomColor={"white"}
+      borderBottomColor={'white'}
       className="animate__animated animate__bounceIn "
     >
       <Box m={4}>
@@ -102,11 +102,11 @@ const Post = ({ post, fetchPosts }) => {
             </NavLink>
             <Box>
               <NavLink to={`/home/profile/${post.user._id}`}>
-                <Text style={{ fontWeight: "600" }} ml={3}>
+                <Text style={{ fontWeight: '600' }} ml={3}>
                   {post.user.name}
                 </Text>
               </NavLink>
-              <Text fontSize="xs" style={{ fontWeight: "100" }} ml={3}>
+              <Text fontSize="xs" style={{ fontWeight: '100' }} ml={3}>
                 <Moment fromNow>{post.createdAt}</Moment>
                 <br />
               </Text>
@@ -137,10 +137,10 @@ const Post = ({ post, fetchPosts }) => {
         <Box mx="16">
           <Box mt={1}></Box>
           <Box mb={2}>
-            <Text style={{ fontWeight: "400" }} as="i">
+            <Text style={{ fontWeight: '400' }} as="i">
               {post.title}
             </Text>
-            <Text style={{ fontWeight: "200" }}>{post.description}</Text>
+            <Text style={{ fontWeight: '200' }}>{post.description}</Text>
           </Box>
         </Box>
         <Box mx="auto" mb="8px">
@@ -150,13 +150,13 @@ const Post = ({ post, fetchPosts }) => {
                 onClick={onOpen}
                 boxSize={445}
                 borderRadius={15}
-                src={post.image.url}
+                src={post.image}
                 objectFit="cover"
-                _hover={{ bg: "#F7F7F7", cursor: "pointer" }}
+                _hover={{ bg: '#F7F7F7', cursor: 'pointer' }}
               ></Image>
             </Center>
           ) : (
-            ""
+            ''
           )}
         </Box>
 
@@ -170,11 +170,11 @@ const Post = ({ post, fetchPosts }) => {
           <Box
             d="flex"
             id={`liked-${post._id}`}
-            color={post.likes.includes(user.id) ? "red" : "gray.500"}
+            color={post.likes.includes(user.id) ? 'red' : 'gray.500'}
             onClick={() => {
               handleLike(`liked-${post._id}`)
             }}
-            _hover={{ cursor: "pointer" }}
+            _hover={{ cursor: 'pointer' }}
             ml="3"
           >
             <div>
@@ -185,7 +185,7 @@ const Post = ({ post, fetchPosts }) => {
             </Box>
           </Box>
           <Box
-            _hover={{ cursor: "pointer" }}
+            _hover={{ cursor: 'pointer' }}
             d="flex"
             onClick={() => {
               hidden(`comment-${post._id}`)
@@ -204,7 +204,7 @@ const Post = ({ post, fetchPosts }) => {
           hidden={true}
           className="animate__animated animate__bounceIn "
         >
-          <hr width="80%" style={{ margin: "auto" }}></hr>
+          <hr width="80%" style={{ margin: 'auto' }}></hr>
           <CommentForm post={post}></CommentForm>
           {comments.map((c) =>
             c.post === post._id ? (
@@ -235,7 +235,7 @@ const Post = ({ post, fetchPosts }) => {
               </a>
             </div>
           ) : (
-            ""
+            ''
           )}
         </ModalContent>
       </Modal>

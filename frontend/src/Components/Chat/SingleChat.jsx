@@ -7,20 +7,20 @@ import {
   Spinner,
   Text,
   useToast,
-} from "@chakra-ui/react"
-import axios from "axios"
-import React, { useEffect, useState } from "react"
-import { getSender, getSenderFull, isChatGroup } from "../../config/ChatLogics"
-import { GlobalState } from "../../Context/GlobalProvider"
-import ProfileModal from "../miscellaneous/ProfileModal"
-import UpdateGroupChat from "../miscellaneous/UpdateGroupChat"
-import ScrollableChat from "./ScrollableChat"
-import "../styles.css"
-import Lottie from "react-lottie"
-import animationData from "../../animations/3759-typing.json"
+} from '@chakra-ui/react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { getSender, getSenderFull, isChatGroup } from '../../config/ChatLogics'
+import { GlobalState } from '../../Context/GlobalProvider'
+import ProfileModal from '../miscellaneous/ProfileModal'
+import UpdateGroupChat from '../miscellaneous/UpdateGroupChat'
+import ScrollableChat from './ScrollableChat'
+import '../styles.css'
+import Lottie from 'react-lottie'
+import animationData from '../../animations/3759-typing.json'
 
-import { io } from "socket.io-client"
-const ENDPOINT = "https://kevs-mern-social-media.herokuapp.com/"
+import { io } from 'socket.io-client'
+const ENDPOINT = 'http://localhost:3000/'
 var socket, selectedChatCompare
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -28,7 +28,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     GlobalState()
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState()
-  const [newMessage, setNewMessage] = useState("")
+  const [newMessage, setNewMessage] = useState('')
   const [socketConnected, setSocketConnected] = useState(false)
   const [typing, setTyping] = useState(false)
   const [istyping, setIsTyping] = useState(false)
@@ -38,7 +38,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
   }
   const toast = useToast()
@@ -58,15 +58,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       )
       setMessages(data)
       setLoading(false)
-      socket.emit("join chat", selectedChat._id)
+      socket.emit('join chat', selectedChat._id)
     } catch (error) {
       toast({
-        title: "Error",
+        title: 'Error',
         description: error.message,
-        status: "error",
+        status: 'error',
         duration: 2000,
         isClosable: true,
-        position: "bottom",
+        position: 'bottom',
       })
       return
     }
@@ -74,10 +74,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   useEffect(() => {
     socket = io(ENDPOINT)
-    socket.emit("setup", user)
-    socket.on("connected", () => setSocketConnected(true))
-    socket.on("typing", () => setIsTyping(true))
-    socket.on("stop typing", () => setIsTyping(false))
+    socket.emit('setup', user)
+    socket.on('connected', () => setSocketConnected(true))
+    socket.on('typing', () => setIsTyping(true))
+    socket.on('stop typing', () => setIsTyping(false))
   }, [])
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   }, [selectedChat])
 
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
+    socket.on('message recieved', (newMessageRecieved) => {
       if (
         !selectedChatCompare ||
         selectedChatCompare._id !== newMessageRecieved.chat._id
@@ -105,8 +105,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   })
 
   const sendMessage = async (event) => {
-    if (event.key === "Enter" && newMessage) {
-      socket.emit("stop typing", selectedChat._id)
+    if (event.key === 'Enter' && newMessage) {
+      socket.emit('stop typing', selectedChat._id)
       try {
         const config = {
           headers: {
@@ -114,26 +114,28 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
         }
 
-        setNewMessage("")
+        setNewMessage('')
         const { data } = await axios.post(
-          "/api/message",
+          '/api/message',
           {
             content: newMessage,
             chatId: selectedChat._id,
+            user: user.id,
+            token: user.token,
           },
           config
         )
 
-        socket.emit("new message", data)
+        socket.emit('new message', data)
         setMessages([...messages, data])
       } catch (error) {
         toast({
-          title: "Error",
+          title: 'Error',
           description: error.message,
-          status: "error",
+          status: 'error',
           duration: 2000,
           isClosable: true,
-          position: "bottom",
+          position: 'bottom',
         })
         return
       }
@@ -147,7 +149,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     if (!typing) {
       setTyping(true)
 
-      socket.emit("typing", selectedChat._id)
+      socket.emit('typing', selectedChat._id)
     }
 
     let lastTypingTime = new Date().getTime()
@@ -157,7 +159,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       var timeNow = new Date().getTime()
       var timeDifference = timeNow - lastTypingTime
       if (timeDifference >= timerLength && typing) {
-        socket.emit("stop typing", selectedChat._id)
+        socket.emit('stop typing', selectedChat._id)
         setTyping(false)
       }
     }, timerLength)
@@ -168,20 +170,20 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       {selectedChat ? (
         <>
           <Text
-            fontSize={{ base: "18px", md: "20px" }}
+            fontSize={{ base: '18px', md: '20px' }}
             textAlign="center"
             pb={3}
             px={2}
             w="100%"
             fontFamily="Work sans"
             d="flex"
-            justifyContent={{ base: "space-between" }}
+            justifyContent={{ base: 'space-between' }}
             alignItems="center"
           >
             <IconButton
-              d={{ base: "flex", md: "none" }}
+              d={{ base: 'flex', md: 'none' }}
               icon={<i className="fa-solid fa-angle-left"></i>}
-              onClick={() => setSelectedChat("")}
+              onClick={() => setSelectedChat('')}
             ></IconButton>
             {isChatGroup(selectedChat) ? (
               <>
@@ -234,7 +236,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 variant="filled"
                 bg="#FFFFF"
                 border="1px"
-                borderColor={"gray.200"}
+                borderColor={'gray.200'}
                 placeholder="Escriba un mensaje..."
                 onChange={typingHandler}
                 value={newMessage}
