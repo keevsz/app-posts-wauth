@@ -4,6 +4,7 @@ const generateToken = require('../config/generateToken')
 const { compare } = require('bcryptjs')
 const { encrypt } = require('../utils/handlePassword')
 const loggers = require('../utils/handleLogger')
+const reset_password = require('../models/Reset_password')
 
 const create = async ({ name, email, password, pic }) => {
   const userExists = await findByEmail(email)
@@ -52,6 +53,17 @@ const findByEmail = async (email) => {
   return userExists
 }
 
+const changePassword = async ({ newPassword, token, userId }) => {
+  const tokenExists = await reset_password.findOne({ token, userId })
+  if (!tokenExists) return { error: 'Invalid token' }
+
+  const hashedPassword = await encrypt(newPassword)
+  await User.findByIdAndUpdate({
+    password: hashedPassword
+  })
+  loggers.info('UserService_changePassword: User password has been updated')
+  return 'User password updated'
+}
 
 const filter = async ({ search }) => {
   const filter = {
@@ -80,4 +92,4 @@ const getOne = async (id) => {
   }
 }
 
-module.exports = { create, findByEmail, login, filter, getOne }
+module.exports = { create, findByEmail, login, filter, getOne, changePassword }

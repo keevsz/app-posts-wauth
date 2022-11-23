@@ -40,10 +40,20 @@ const validatorRecoveryPassword = [
     return validateResults(req, res, next)
   },
 ]
+
+const validatorChangePasswordWithToken = [
+  check('userId').exists().notEmpty().isString(),
+  check('token').exists().notEmpty().isString(),
+  check('newPassword').exists().notEmpty().isString(),
+  (req, res, next) => {
+    return validateResults(req, res, next)
+  },
+]
 module.exports = {
   validatorLogin,
   validatorRegister,
   validatorGetUser,
   validatorGetUsers,
-  validatorRecoveryPassword
+  validatorRecoveryPassword,
+  validatorChangePasswordWithToken
 }

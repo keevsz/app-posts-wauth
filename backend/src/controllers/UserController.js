@@ -58,7 +58,6 @@ const sendUser = async (req, res) => {
 
 const sendEmail = async (req, res) => {
   try {
-    console.log('hola')
     const { userEmail, type } = matchedData(req)
     const response = await emailService.send({ userEmail, type })
     if (response.error) throw new Error(response.error)
@@ -69,6 +68,18 @@ const sendEmail = async (req, res) => {
   }
 }
 
+const changePassword = async (req, res) => {
+  try {
+    const { userId, token, newPassword } = matchedData(req)
+    const response = await userServices.changePassword({ newPassword, token, userId })
+    if (response.error) throw new Error(response.error)
+
+    res.status(201).json(response)
+  } catch ({ message }) {
+    handleHttpError({ res, message, from: 'UserController_changePassword' })
+  }
+}
+
 module.exports = {
   registerUser,
   loginUser,
@@ -76,4 +87,5 @@ module.exports = {
   getUser,
   sendUser,
   sendEmail,
+  changePassword
 }

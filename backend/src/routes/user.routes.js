@@ -16,8 +16,15 @@ router.get('/login/google/callback',
     res.status(201).json(user)
   })
 
-router.post('/recoverypassword', AuthValidator.validatorRecoveryPassword, UserController.sendEmail)
+router.post('/password-reset',
+  AuthValidator.validatorRecoveryPassword,
+  UserController.sendEmail
+)
 
+router.post('/password-reset/:userId/:token',
+  AuthValidator.validatorChangePasswordWithToken,
+  UserController.changePassword
+)
 
 router.post(
   '/register',

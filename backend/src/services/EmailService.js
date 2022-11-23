@@ -1,22 +1,36 @@
 const { transporter } = require('../config/nodemailer')
 const userService = require('./UserService')
 const loggers = require('../utils/handleLogger')
+const reset_password = require('../models/Reset_password')
+const { generatePassword } = require('../utils/handlePassword')
+
+const getHtml = ({ userId, token }) => {
+  const html = `<div> Click <a href='http://localhost:3000/${userId}/${token}'>here</a> to reset password </div>`
+  return html
+}
 
 const send = async ({ userEmail, type }) => {
-  console.log(userEmail, type)
   if (type === 'recovery_password') {
     const userExists = await userService.findByEmail(userEmail)
     if (!userExists) return { error: 'EmailService: User does not exist' }
+
+    console.log(userExists)
+    let token = await reset_password.findOne({ userId: userExists._id })
+    if (!token) {
+      token = await reset_password.create({ userId: userExists, token: generatePassword() })
+      console.log('created', token)
+    }
     await transporter.sendMail({
       from: '"kevsz" <keviv1q2@gmail.com>',
       to: userEmail,
       subject: 'Hello ✔',
-      text: 'Hello world?',
-      html: '<b>Hello world?</b>',
+      text: 'Reset password',
+      html: getHtml({ userId: userExists._id, token: token.token }),
     })
     loggers.info('EmailService_send: Email sended to recovery password')
+    return `Email type ${type}, sended to ${userEmail}`
   }
-  return 'Email sended'
+  return { error: 'EmailService: Invalid type' }
 }
 
 module.exports = { send }
