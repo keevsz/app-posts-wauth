@@ -59,6 +59,7 @@ const getUser = async (req, res) => {
 
 const sendUser = async (req, res) => {
   try {
+    console.log('pass by here')
     const user = req.user
     console.log(req.error)
 
@@ -96,6 +97,22 @@ const changePassword = async (req, res) => {
   }
 }
 
+const verifyEmail = async (req, res) => {
+  try {
+    const { userId, token } = matchedData(req)
+    console.log(userId, token)
+    const response = await userServices.userVerification({
+      token,
+      userId,
+    })
+    if (response.error) throw new Error(response.error)
+
+    res.status(201).json(response)
+  } catch ({ message }) {
+    handleHttpError({ res, message, from: 'UserController_verifyEmail' })
+  }
+}
+
 module.exports = {
   registerUser,
   loginUser,
@@ -104,4 +121,5 @@ module.exports = {
   sendUser,
   sendEmail,
   changePassword,
+  verifyEmail,
 }

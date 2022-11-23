@@ -5,17 +5,19 @@ const { compare } = require('bcryptjs')
 const { encrypt } = require('../utils/handlePassword')
 const loggers = require('../utils/handleLogger')
 const reset_password = require('../models/Reset_password')
+const user_verification = require('../models/User_verification')
 
-const create = async ({ name, email, password, pic }) => {
+const create = async ({ name, email, password, pic, verified }) => {
   const userExists = await findByEmail(email)
   if (userExists) return { error: 'UserService: User already exists' }
-
+  //An account with that email address already exists. Please use a unique email.
   const hashedPassword = await encrypt(password)
   const newUser = await User.create({
     name,
     email,
     password: hashedPassword,
     pic: pic || DEFAULT_PIC,
+    verified,
   })
 
   loggers.info('UserService: User has been registered')
@@ -24,10 +26,11 @@ const create = async ({ name, email, password, pic }) => {
     name,
     email,
     pic: newUser.pic,
+    verified: newUser.verified,
     token: generateToken(newUser._id),
   }
 }
-
+//refactor...
 const login = async ({ email, password }) => {
   const user = await User.findOne({ email })
   if (!user) return { error: 'UserService_login: User does not exist' }
@@ -41,6 +44,7 @@ const login = async ({ email, password }) => {
       name: user.name,
       email: user.email,
       pic: user.pic,
+      verified: user.verified,
       token: generateToken(user._id),
     }
   }
@@ -59,7 +63,7 @@ const changePassword = async ({ newPassword, token, userId }) => {
 
   const hashedPassword = await encrypt(newPassword)
   await User.findByIdAndUpdate(userId, {
-    password: hashedPassword
+    password: hashedPassword,
   })
   loggers.info('UserService_changePassword: User password has been updated')
   return 'User password updated'
@@ -72,8 +76,7 @@ const filter = async ({ search }) => {
       { email: { $regex: search, $options: 'i' } },
     ],
   }
-  const users = await User.find(search ? filter : {})
-    .select('-password')
+  const users = await User.find(search ? filter : {}).select('-password')
 
   loggers.info('UserService_filter: User has been filtered by email or name')
   return users
@@ -88,8 +91,28 @@ const getOne = async (id) => {
     pic: user.pic,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
+    verified: user.verified,
     token: generateToken(user._id),
   }
 }
 
-module.exports = { create, findByEmail, login, filter, getOne, changePassword }
+const userVerification = async ({ userId, token }) => {
+  const tokenExists = await user_verification.findOne({ token, userId })
+  if (!tokenExists) return { error: 'Invalid token' }
+
+  await User.findByIdAndUpdate(userId, {
+    verified: true,
+  })
+  loggers.info('UserService_userVerification: Email has been verified')
+  return 'Verify to true of user'
+}
+
+module.exports = {
+  create,
+  findByEmail,
+  login,
+  filter,
+  getOne,
+  changePassword,
+  userVerification,
+}

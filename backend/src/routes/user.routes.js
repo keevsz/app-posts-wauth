@@ -4,26 +4,50 @@ const UserController = require('../controllers/UserController')
 const { verifyToken } = require('../middlewares/authMiddleware')
 const passport = require('passport')
 
-router.get('/login/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'] }))
-
-router.get('/login/google/callback',
+router.get(
+  '/login/google',
   passport.authenticate('google', {
-    failureRedirect: '/login', session: false
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
+  })
+)
+
+router.get(
+  '/login/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: '/login',
+    session: false,
   }),
   (req, res) => {
     const user = req.user
     res.status(201).json(user)
-  })
+  }
+)
 
-router.post('/password-reset',
-  AuthValidator.validatorRecoveryPassword,
+router.post(
+  '/password-reset',
+  AuthValidator.validtorSendEmail,
   UserController.sendEmail
 )
 
-router.post('/password-reset/:userId/:token',
+router.post(
+  '/password-reset/:userId/:token',
   AuthValidator.validatorChangePasswordWithToken,
   UserController.changePassword
+)
+
+router.post(
+  '/email-verify',
+  AuthValidator.validtorSendEmail,
+  UserController.sendEmail
+)
+
+router.get(
+  '/email-verify/:userId/:token',
+  AuthValidator.validatorVerifyEmail,
+  UserController.verifyEmail
 )
 
 router.post(
@@ -32,19 +56,17 @@ router.post(
   UserController.registerUser
 )
 
-router.post('/login',
-  AuthValidator.validatorLogin,
-  UserController.loginUser
-)
+router.post('/login', AuthValidator.validatorLogin, UserController.loginUser)
 
-
-router.get('/',
+router.get(
+  '/',
   verifyToken,
   AuthValidator.validatorGetUsers,
   UserController.getUsers
 )
 
-router.get('/:id',
+router.get(
+  '/:id',
   verifyToken,
   AuthValidator.validatorGetUser,
   UserController.getUser

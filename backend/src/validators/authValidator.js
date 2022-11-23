@@ -5,7 +5,7 @@ const validatorRegister = [
   check('name').exists().notEmpty().isLength({ min: 3, max: 99 }),
   check('email').exists().notEmpty().normalizeEmail().isEmail(),
   check('password').exists().notEmpty().isLength({ min: 6, max: 50 }),
-  check('pic').isString(),
+  check('pic').optional().isString(),
   (req, res, next) => {
     return validateResults(req, res, next)
   },
@@ -33,7 +33,7 @@ const validatorGetUsers = [
   },
 ]
 
-const validatorRecoveryPassword = [
+const validtorSendEmail = [
   check('userEmail').exists().notEmpty().isString(),
   check('type').exists().notEmpty().isString(),
   (req, res, next) => {
@@ -49,11 +49,20 @@ const validatorChangePasswordWithToken = [
     return validateResults(req, res, next)
   },
 ]
+
+const validatorVerifyEmail = [
+  check('userId').exists().notEmpty().isString(),
+  check('token').exists().notEmpty().isString(),
+  (req, res, next) => {
+    return validateResults(req, res, next)
+  },
+]
 module.exports = {
   validatorLogin,
   validatorRegister,
   validatorGetUser,
   validatorGetUsers,
-  validatorRecoveryPassword,
-  validatorChangePasswordWithToken
+  validtorSendEmail,
+  validatorChangePasswordWithToken,
+  validatorVerifyEmail,
 }
