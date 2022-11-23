@@ -58,7 +58,7 @@ const changePassword = async ({ newPassword, token, userId }) => {
   if (!tokenExists) return { error: 'Invalid token' }
 
   const hashedPassword = await encrypt(newPassword)
-  await User.findByIdAndUpdate({
+  await User.findByIdAndUpdate(userId, {
     password: hashedPassword
   })
   loggers.info('UserService_changePassword: User password has been updated')

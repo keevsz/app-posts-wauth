@@ -4,8 +4,8 @@ const loggers = require('../utils/handleLogger')
 const reset_password = require('../models/Reset_password')
 const { generatePassword } = require('../utils/handlePassword')
 
-const getHtml = ({ userId, token }) => {
-  const html = `<div> Click <a href='http://localhost:3000/${userId}/${token}'>here</a> to reset password </div>`
+const getEmailHtml = ({ userId, token }) => {
+  const html = `<div> Click <a href='http://localhost:5000/changepassword/${userId}/${token}'>here</a> to reset password </div>`
   return html
 }
 
@@ -25,7 +25,7 @@ const send = async ({ userEmail, type }) => {
       to: userEmail,
       subject: 'Hello ✔',
       text: 'Reset password',
-      html: getHtml({ userId: userExists._id, token: token.token }),
+      html: getEmailHtml({ userId: userExists._id, token: token.token }),
     })
     loggers.info('EmailService_send: Email sended to recovery password')
     return `Email type ${type}, sended to ${userEmail}`
