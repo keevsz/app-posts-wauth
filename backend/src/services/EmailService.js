@@ -4,9 +4,12 @@ const loggers = require('../utils/handleLogger')
 const reset_password = require('../models/Reset_password')
 const { generatePassword } = require('../utils/handlePassword')
 const user_verification = require('../models/User_verification')
+const { BASE_URL } = require('../config')
 
 const getEmailHtml = ({ userId, token, type }) => {
-  const html = `<div> Click <a href='http://localhost:5000/api/user/${type}/${userId}/${token}'>here</a> to ${type}</div>`
+  const stringType =
+    type === 'password-reset' ? 'reset your password' : 'verify your email'
+  const html = `<div> Click <a href='${BASE_URL}/api/user/${type}/${userId}/${token}'>here</a> to ${stringType}</div>`
   return html
 }
 

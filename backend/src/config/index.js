@@ -5,6 +5,8 @@ if (process.env.NODE_ENV === 'test') MONGO_URI = process.env.TEST_MONGODB_URI
 if (process.env.NODE_ENV === 'development')
   MONGO_URI = process.env.TEST_MONGODB_URI
 
+let BASE_URL = process.env.BASE_URL || 'http://localhost:5000'
+
 module.exports = {
   PORT: process.env.PORT || 5000,
   MONGO_URI,
@@ -21,4 +23,7 @@ module.exports = {
   },
   GOOGLE_SECRET: process.env.GOOGLE_SECRET,
   GMAIL_SECRET: process.env.GMAIL_SECRET,
+  HOST_NODEMAILER: process.env.HOST_NODEMAILER,
+  PORT_NODEMAILER: process.env.PORT_NODEMAILER,
+  BASE_URL,
 }

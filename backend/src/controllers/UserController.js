@@ -59,7 +59,6 @@ const getUser = async (req, res) => {
 
 const sendUser = async (req, res) => {
   try {
-    console.log('pass by here')
     const user = req.user
     console.log(req.error)
 
@@ -100,7 +99,6 @@ const changePassword = async (req, res) => {
 const verifyEmail = async (req, res) => {
   try {
     const { userId, token } = matchedData(req)
-    console.log(userId, token)
     const response = await userServices.userVerification({
       token,
       userId,
