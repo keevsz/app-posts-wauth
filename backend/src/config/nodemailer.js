@@ -4,10 +4,10 @@ const { GOOGLE_SECRET, GMAIL_SECRET } = require('.')
 let transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 465,
-  secure: true, // true for 465, false for other ports
+  secure: true,
   auth: {
-    user: GMAIL_SECRET, // generated ethereal user
-    pass: GOOGLE_SECRET, // generated ethereal password
+    user: GMAIL_SECRET,
+    pass: GOOGLE_SECRET,
   },
 })
 
