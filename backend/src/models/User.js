@@ -12,7 +12,6 @@ const userSchema = mongoose.Schema(
         'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg',
     },
     verified: { type: Boolean, default: false },
-    phonenumber: { type: String, unique: true },
   },
   { timestamps: true }
 )

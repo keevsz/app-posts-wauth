@@ -2,7 +2,6 @@ const express = require('express')
 const passport = require('passport')
 const morgan = require('morgan')
 // const apicache = require('apicache')
-const { PORT } = require('./config')
 const app = express()
 require('./config/database')()
 // const cache = apicache.middleware
@@ -16,7 +15,8 @@ app.use(morgan('tiny'))
 app.use('/api', require('./routes/index.routes'))
 app.use('/api/user', require('./routes/user.routes'))
 
-const server = app.listen(PORT, console.log(`Server on: ${PORT}`))
+const port = process.env.PORT || 5000
+const server = app.listen(port, console.log(`Server on: ${port}`))
 
 const io = require('socket.io')(server, {
   pingTimeout: 60000,
