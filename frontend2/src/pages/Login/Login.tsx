@@ -34,25 +34,18 @@ export const Login = () => {
     const user = await callEndpoint(
       login({ email: watch('email'), password: watch('password') })
     )
+    document.cookie = 'user=' + user.data.token
     setUserToLocalStorage(createUserAdapter(user))
     dispatch(createUser(createUserAdapter(user)))
     navigate('/')
   }
 
   const user = getFromLocalStorage('user')
+  console.log(user)
   useEffect(() => {
     if (user) return navigate('/')
   }, [])
 
-  const redirectToGoogleAuth = async () => {
-    const googleLoginURL =
-      'https://kevsz-sm-backend.onrender.com/api/user/login/google'
-    const newWindow = window.open(
-      googleLoginURL,
-      '_blank',
-      'width=500,height=500'
-    )
-  }
   return (
     <>
       {loading ? (
@@ -84,11 +77,12 @@ export const Login = () => {
               <p>{errors.password?.message}</p>
               <input type="submit" />
             </form>
-            <input
-              type="button"
-              value="Google"
-              onClick={redirectToGoogleAuth}
-            />
+            <a
+              className="enlace"
+              href="http://localhost:5000/api/user/login/google"
+            >
+              Iniciar con Google
+            </a>
           </>
         )
       )}

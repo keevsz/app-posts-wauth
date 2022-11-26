@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const AuthValidator = require('../validators/authValidator')
 const UserController = require('../controllers/UserController')
-const { verifyToken } = require('../middlewares/authMiddleware')
+const { verifyToken, decodedToken } = require('../middlewares/authMiddleware')
 const passport = require('passport')
-const successLoginUrl = 'http://localhost:5173/login/success'
-const errorLoginUrl = 'http://localhost:5173/login/error'
+const userService = require('../services/UserService')
+
 router.get(
   '/login/google',
   passport.authenticate('google', {
@@ -18,16 +18,28 @@ router.get(
 router.get(
   '/login/google/callback',
   passport.authenticate('google', {
-    failureMessage: 'Cannot login to Google',
-    failureRedirect: errorLoginUrl,
-    successRedirect: successLoginUrl,
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
     session: false,
   }),
   (req, res) => {
-    const user = req.user
-    res.status(201).json(user)
+    if (req.user) {
+      res.cookie('token', req.user.token)
+      res.redirect('http://localhost:5173/login/success')
+    } else {
+      res.redirect('http://localhost:3000/login')
+    }
   }
 )
+
+router.get('/verify-token/:token', async (req, res) => {
+  const token = req.params.token
+  const decoded = decodedToken(token) // verifyToken
+  const user = await userService.getOne(decoded.id)
+  res.send(user)
+})
 
 router.post(
   '/password-reset',

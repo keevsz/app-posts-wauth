@@ -3,6 +3,16 @@ const { googleStrategyOptions } = require('.')
 const UserService = require('../services/UserService')
 const { generatePassword } = require('../utils/handlePassword')
 const generateToken = require('./generateToken')
+const passport = require('passport')
+
+passport.serializeUser((user, done) => {
+  done(null, user.id)
+})
+
+passport.deserializeUser(async (id, done) => {
+  const user = await UserService.findByEmail(id)
+  done(null, user)
+})
 
 const google = new GoogleStrategy(googleStrategyOptions, async function (
   accessToken,
@@ -12,7 +22,6 @@ const google = new GoogleStrategy(googleStrategyOptions, async function (
 ) {
   try {
     const { displayName, emails, photos } = profile
-
     const userExists = await UserService.findByEmail(emails[0].value)
     if (userExists) {
       if (!userExists.verified) {

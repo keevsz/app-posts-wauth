@@ -3,7 +3,7 @@ const { JWT_SECRET } = require('.')
 
 const generateToken = (id) => {
   return jwt.sign({ id }, JWT_SECRET, {
-    expiresIn: '30d',
+    expiresIn: 60 * 60 * 24,
   })
 }
 

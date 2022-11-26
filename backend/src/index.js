@@ -2,15 +2,17 @@ const express = require('express')
 const passport = require('passport')
 const morgan = require('morgan')
 const cors = require('cors')
+const cookieParser = require('cookie-parser')
 require('./config/database')()
 const app = express()
 app.use(cors())
 
 const Strategy = require('./config/passportStrategies')
-
+app.use(passport.initialize())
 passport.use(Strategy.google)
 app.use(express.json())
 app.use(morgan('tiny'))
+app.use(cookieParser())
 // app.use(cache('2 minutes')) //*redis
 app.use('/api', require('./routes/index.routes'))
 app.use('/api/user', require('./routes/user.routes'))

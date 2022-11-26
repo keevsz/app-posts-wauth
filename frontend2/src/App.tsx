@@ -1,4 +1,4 @@
-import { lazy } from 'react'
+import { lazy, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './pages/Home/AppLayout'
@@ -14,8 +14,15 @@ const Login = lazy(() => import('./pages/Login/Login'))
 
 const App = () => {
   const dispatch = useDispatch()
-  const user = getFromLocalStorage('user')
-  dispatch(createUser(user))
+
+  const getAndCreateUser = (userToLS: any) => {
+    if (userToLS) {
+      localStorage.setItem('user', JSON.stringify(userToLS))
+    }
+    const user = getFromLocalStorage('user')
+    dispatch(createUser(user))
+  }
+  getAndCreateUser(null)
 
   return (
     <BrowserRouter>
@@ -33,7 +40,10 @@ const App = () => {
           <Route path="/:email" element={<Profile></Profile>}></Route>
         </Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
-        <Route path="/login/success" element={<LoginSuccess />}></Route>
+        <Route
+          path="/login/success"
+          element={<LoginSuccess render={getAndCreateUser}></LoginSuccess>}
+        ></Route>
       </Routes>
     </BrowserRouter>
   )

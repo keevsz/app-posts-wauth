@@ -1,11 +1,27 @@
-import { useEffect } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export const LoginSuccess = () => {
+interface Props {
+  render: any
+}
+
+export const LoginSuccess = ({ render }: Props) => {
+  let valor = document.cookie.split('token=')
+  const [cookie] = useState(valor[1])
+  const navigate = useNavigate()
+
   useEffect(() => {
-    setTimeout(() => {
-      window.close()
-    }, 1000)
-  }, [])
+    async function getUser() {
+      const response = await axios.get(
+        `http://localhost:5000/api/user/verify-token/${cookie}`
+      )
+      return response
+    }
+    getUser()
+    render(getUser())
+    navigate('/')
+  }, [cookie])
 
   return <div>Gracias por logearte</div>
 }
