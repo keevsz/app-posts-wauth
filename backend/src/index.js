@@ -1,17 +1,17 @@
 const express = require('express')
 const passport = require('passport')
 const morgan = require('morgan')
-// const apicache = require('apicache')
-const app = express()
+const cors = require('cors')
 require('./config/database')()
-// const cache = apicache.middleware
+const app = express()
+app.use(cors())
+
 const Strategy = require('./config/passportStrategies')
 
 passport.use(Strategy.google)
 app.use(express.json())
 app.use(morgan('tiny'))
 // app.use(cache('2 minutes')) //*redis
-
 app.use('/api', require('./routes/index.routes'))
 app.use('/api/user', require('./routes/user.routes'))
 
