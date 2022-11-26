@@ -4,6 +4,8 @@ export const setUserToLocalStorage = (user: User) => {
   localStorage.setItem('user', JSON.stringify(user))
 }
 
-export const getUserToLocalStorage = (user: String) => {
-  return localStorage.getItem('user')
+export const getFromLocalStorage = (user: string) => {
+  const getUser = localStorage.getItem(user)
+  console.log(getUser)
+  return getUser ? JSON.parse(getUser) : null
 }

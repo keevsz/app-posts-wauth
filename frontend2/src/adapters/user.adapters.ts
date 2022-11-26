@@ -1,5 +1,5 @@
 export const createUserAdapter = (user: any) => ({
-  id: user.data._id,
+  id: user.data.id,
   name: user.data.name,
   email: user.data.email,
   pic: user.data.pic,

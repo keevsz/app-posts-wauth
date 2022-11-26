@@ -1,25 +1,28 @@
-import { lazy } from 'react'
+import { lazy, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './pages/Home/AppLayout'
 import { NotFound } from './pages/Home/NotFound'
 import { ProtectedRoute } from './pages/Home/ProtectedRoute'
 import { Posts } from './pages/Post/Posts'
 import { Profile } from './pages/Profile/Profile'
-import { AppStore } from './redux/store'
-import { getUserToLocalStorage } from './utilities/localStorage.utility'
+import { createUser } from './redux/states/user'
 
 const Login = lazy(() => import('./pages/Login/Login'))
 
 const App = () => {
-  const user = getUserToLocalStorage('user')
+  const dispatch = useDispatch()
+  const user = localStorage.getItem('user')
+  dispatch(createUser(user))
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="/login" element={<Login />}></Route>
         <Route
           path="/"
           element={
-            <ProtectedRoute user={user ? JSON.parse(user) : null}>
+            <ProtectedRoute>
               <AppLayout></AppLayout>
             </ProtectedRoute>
           }

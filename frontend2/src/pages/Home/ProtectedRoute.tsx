@@ -1,12 +1,17 @@
+import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { User } from '../../models/user.model'
+import { AppStore } from '../../redux/store'
 
 interface Props {
   children: JSX.Element
-  user?: User
 }
 
-export const ProtectedRoute = ({ children, user }: Props) => {
-  if (!user) return <Navigate to="/login" />
+export const ProtectedRoute = ({ children }: Props) => {
+  console.log('protected route ')
+  const user = useSelector((store: AppStore) => store.user)
+  if (user.id === '') {
+    return <Navigate to="/login"></Navigate>
+  }
   return children
 }

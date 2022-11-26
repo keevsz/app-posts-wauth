@@ -1,5 +1,6 @@
 import { User } from "../../models/user.model";
 import { createSlice } from '@reduxjs/toolkit'
+import { getFromLocalStorage } from "../../utilities/localStorage.utility";
 
 export const UserEmptyState: User = {
   id: '',
@@ -15,14 +16,14 @@ export const userSlice = createSlice({
   initialState: UserEmptyState,
   reducers: {
     createUser: (state, action) => {
-      return action.payload
+      return action.payload ? action.payload : UserEmptyState
     },
     modifyUser: (state, action) => {
       return { ...state, ...action.payload }
     },
     resetUser: () => {
       return UserEmptyState
-    }
+    },
   }
 })
 

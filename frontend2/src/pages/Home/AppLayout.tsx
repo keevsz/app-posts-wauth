@@ -1,6 +1,17 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { resetUser } from '../../redux/states/user'
 
 export const AppLayout = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const logout = () => {
+    localStorage.removeItem('user')
+    dispatch(resetUser)
+    navigate('/login')
+  }
+
   return (
     <div>
       <nav>
@@ -20,6 +31,9 @@ export const AppLayout = () => {
             >
               Mi perfil
             </NavLink>
+          </li>
+          <li>
+            <input type="button" onClick={logout} value="salir" />
           </li>
         </ul>
       </nav>

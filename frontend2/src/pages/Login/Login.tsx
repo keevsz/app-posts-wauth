@@ -2,21 +2,48 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createUserAdapter } from '../../adapters/user.adapters'
 import useFetchAndLoad from '../../hooks/useFetchAndLoad'
 import { createUser } from '../../redux/states/user'
-import { AppStore } from '../../redux/store'
 import { login } from '../../services/public.services'
-import { setUserToLocalStorage } from '../../utilities/localStorage.utility'
+import {
+  getFromLocalStorage,
+  setUserToLocalStorage,
+} from '../../utilities/localStorage.utility'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { AppStore } from '../../redux/store'
+
+interface Inputs {
+  email: string
+  password: string
+}
 
 export const Login = () => {
-  const { loading, callEndpoint } = useFetchAndLoad() // promise interceptor
+  console.log('login')
+  const { loading, callEndpoint } = useFetchAndLoad()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>()
+
+  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const userState = useSelector((store: AppStore) => store.user)
-  const handleClick = async () => {
+
+  const onSubmit = async () => {
     const user = await callEndpoint(
-      login({ email: 'chufo@gmail.com', password: 'asdasd' })
+      login({ email: watch('email'), password: watch('password') })
     )
     setUserToLocalStorage(createUserAdapter(user))
     dispatch(createUser(createUserAdapter(user)))
+    navigate('/')
   }
+
+  const user = getFromLocalStorage('user')
+  useEffect(() => {
+    if (user) return navigate('/')
+  }, [])
+
   return (
     <>
       {loading ? (
@@ -24,12 +51,30 @@ export const Login = () => {
           <h3>Loading</h3>
         </div>
       ) : (
-        <>
-          <button onClick={handleClick}>Logearse</button>
-          <div>
-            <h3>{JSON.stringify(userState)}</h3>
-          </div>
-        </>
+        !user && (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input
+              placeholder="email"
+              {...register('email', {
+                required: 'Ingrese email',
+                pattern: {
+                  value:
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: 'Email invalido',
+                },
+              })}
+            />
+            <p>{errors.email?.message}</p>
+            <input
+              placeholder="password"
+              {...register('password', {
+                required: 'Ingrese contraseña',
+              })}
+            />
+            <p>{errors.password?.message}</p>
+            <input type="submit" />
+          </form>
+        )
       )}
     </>
   )
