@@ -21,7 +21,7 @@ const getAll = async () => {
 
 const remove = async ({ id }) => {
   const comment = await Comment.findByIdAndDelete(id)
-  if (!comment) return { error: 'CommentService_remove: Comment not founded' }
+  if (!comment) return { error: 'CommentService_remove: Comment not found' }
   loggers.info('CommentService_remove: A comment has been deleted')
   return 'Ok'
 }

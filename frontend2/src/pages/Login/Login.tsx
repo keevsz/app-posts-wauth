@@ -44,6 +44,15 @@ export const Login = () => {
     if (user) return navigate('/')
   }, [])
 
+  const redirectToGoogleAuth = async () => {
+    const googleLoginURL =
+      'https://kevsz-sm-backend.onrender.com/api/user/login/google'
+    const newWindow = window.open(
+      googleLoginURL,
+      '_blank',
+      'width=500,height=500,margin:auto'
+    )
+  }
   return (
     <>
       {loading ? (
@@ -52,28 +61,35 @@ export const Login = () => {
         </div>
       ) : (
         !user && (
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                placeholder="email"
+                {...register('email', {
+                  required: 'Ingrese email',
+                  pattern: {
+                    value:
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: 'Email invalido',
+                  },
+                })}
+              />
+              <p>{errors.email?.message}</p>
+              <input
+                placeholder="password"
+                {...register('password', {
+                  required: 'Ingrese contraseña',
+                })}
+              />
+              <p>{errors.password?.message}</p>
+              <input type="submit" />
+            </form>
             <input
-              placeholder="email"
-              {...register('email', {
-                required: 'Ingrese email',
-                pattern: {
-                  value:
-                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Email invalido',
-                },
-              })}
+              type="button"
+              value="Google"
+              onClick={redirectToGoogleAuth}
             />
-            <p>{errors.email?.message}</p>
-            <input
-              placeholder="password"
-              {...register('password', {
-                required: 'Ingrese contraseña',
-              })}
-            />
-            <p>{errors.password?.message}</p>
-            <input type="submit" />
-          </form>
+          </>
         )
       )}
     </>

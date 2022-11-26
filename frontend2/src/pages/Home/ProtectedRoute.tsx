@@ -8,7 +8,6 @@ interface Props {
 }
 
 export const ProtectedRoute = ({ children }: Props) => {
-  console.log('protected route ')
   const user = useSelector((store: AppStore) => store.user)
   if (user.id === '') {
     return <Navigate to="/login"></Navigate>
