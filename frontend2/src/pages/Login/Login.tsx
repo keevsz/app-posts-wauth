@@ -4,15 +4,17 @@ import useFetchAndLoad from '../../hooks/useFetchAndLoad'
 import { createUser } from '../../redux/states/user'
 import { AppStore } from '../../redux/store'
 import { login } from '../../services/public.services'
+import { setUserToLocalStorage } from '../../utilities/localStorage.utility'
 
 export const Login = () => {
   const { loading, callEndpoint } = useFetchAndLoad() // promise interceptor
   const dispatch = useDispatch()
-  const useState = useSelector((store: AppStore) => store.user)
+  const userState = useSelector((store: AppStore) => store.user)
   const handleClick = async () => {
     const user = await callEndpoint(
       login({ email: 'chufo@gmail.com', password: 'asdasd' })
     )
+    setUserToLocalStorage(createUserAdapter(user))
     dispatch(createUser(createUserAdapter(user)))
   }
   return (
@@ -25,7 +27,7 @@ export const Login = () => {
         <>
           <button onClick={handleClick}>Logearse</button>
           <div>
-            <h3>{JSON.stringify(useState)}</h3>
+            <h3>{JSON.stringify(userState)}</h3>
           </div>
         </>
       )}

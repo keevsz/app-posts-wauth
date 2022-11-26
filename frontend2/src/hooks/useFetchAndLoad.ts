@@ -14,6 +14,7 @@ const useFetchAndLoad = () => {
       result = await axiosCall.call;
     } catch (err: any) {
       setLoading(false);
+      console.log(err.response.data.error)
       throw err;
     }
     setLoading(false);

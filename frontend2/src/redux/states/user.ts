@@ -13,7 +13,7 @@ export const UserEmptyState: User = {
 export const userSlice = createSlice({
   name: 'user',
   initialState: UserEmptyState,
-  reducers: { //creacion, modificacion, borrado
+  reducers: {
     createUser: (state, action) => {
       return action.payload
     },
