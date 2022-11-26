@@ -3,7 +3,8 @@ const AuthValidator = require('../validators/authValidator')
 const UserController = require('../controllers/UserController')
 const { verifyToken } = require('../middlewares/authMiddleware')
 const passport = require('passport')
-
+const successLoginUrl = 'http://localhost:5173/login/success'
+const errorLoginUrl = 'http://localhost:5173/login/error'
 router.get(
   '/login/google',
   passport.authenticate('google', {
@@ -17,7 +18,9 @@ router.get(
 router.get(
   '/login/google/callback',
   passport.authenticate('google', {
-    failureRedirect: '/login',
+    failureMessage: 'Cannot login to Google',
+    failureRedirect: errorLoginUrl,
+    successRedirect: successLoginUrl,
     session: false,
   }),
   (req, res) => {

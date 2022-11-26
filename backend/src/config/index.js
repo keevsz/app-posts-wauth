@@ -20,6 +20,7 @@ module.exports = {
     clientID: process.env.CLIENT_ID_GOOGLE_OAUTH2,
     clientSecret: process.env.CLIENT_SECRET_GOOGLE_OAUTH2,
     callbackURL: process.env.CALLBACK_URL_OAUTH2,
+    passReqToCallback: true,
   },
   GOOGLE_SECRET: process.env.GOOGLE_SECRET,
   GMAIL_SECRET: process.env.GMAIL_SECRET,

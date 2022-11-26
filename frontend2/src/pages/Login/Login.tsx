@@ -50,7 +50,7 @@ export const Login = () => {
     const newWindow = window.open(
       googleLoginURL,
       '_blank',
-      'width=500,height=500,margin:auto'
+      'width=500,height=500'
     )
   }
   return (
