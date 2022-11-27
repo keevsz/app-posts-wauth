@@ -35,10 +35,14 @@ router.get(
 )
 
 router.get('/verify-token/:token', async (req, res) => {
-  const token = req.params.token
-  const decoded = decodedToken(token) // verifyToken
-  const user = await userService.getOne(decoded.id)
-  res.send(user)
+  try {
+    const token = req.params.token
+    const decoded = decodedToken(token) // verifyToken
+    const user = await userService.getOne(decoded.id)
+    res.send(user)
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 router.post(

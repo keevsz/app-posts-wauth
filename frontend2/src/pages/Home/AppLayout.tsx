@@ -1,6 +1,7 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { resetUser } from '../../redux/states/user'
+import { AppStore } from '../../redux/store'
 
 export const AppLayout = () => {
   const navigate = useNavigate()
@@ -8,10 +9,11 @@ export const AppLayout = () => {
 
   const logout = () => {
     localStorage.removeItem('user')
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
     dispatch(resetUser)
     navigate('/login')
-    document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:00 GMT'
   }
+  const user = useSelector((store: AppStore) => store.user)
 
   return (
     <div>
@@ -38,6 +40,7 @@ export const AppLayout = () => {
           </li>
         </ul>
       </nav>
+      {JSON.stringify({ name: user.name, email: user.email })}
       <Outlet />
     </div>
   )

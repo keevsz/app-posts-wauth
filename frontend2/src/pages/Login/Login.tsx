@@ -5,8 +5,8 @@ import { createUser } from '../../redux/states/user'
 import { login } from '../../services/public.services'
 import {
   getFromLocalStorage,
-  setUserToLocalStorage,
-} from '../../utilities/localStorage.utility'
+  loadUserToLocalStorageAndCookie,
+} from '../../utilities/handleStorage.utility'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -34,14 +34,12 @@ export const Login = () => {
     const user = await callEndpoint(
       login({ email: watch('email'), password: watch('password') })
     )
-    document.cookie = 'user=' + user.data.token
-    setUserToLocalStorage(createUserAdapter(user))
+    loadUserToLocalStorageAndCookie(user)
     dispatch(createUser(createUserAdapter(user)))
     navigate('/')
   }
 
   const user = getFromLocalStorage('user')
-  console.log(user)
   useEffect(() => {
     if (user) return navigate('/')
   }, [])

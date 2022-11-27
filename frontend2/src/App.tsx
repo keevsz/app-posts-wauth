@@ -8,7 +8,7 @@ import { LoginSuccess } from './pages/Login/LoginSuccess'
 import { Posts } from './pages/Post/Posts'
 import { Profile } from './pages/Profile/Profile'
 import { createUser } from './redux/states/user'
-import { getFromLocalStorage } from './utilities/localStorage.utility'
+import { getFromLocalStorage } from './utilities/handleStorage.utility'
 
 const Login = lazy(() => import('./pages/Login/Login'))
 
@@ -16,9 +16,7 @@ const App = () => {
   const dispatch = useDispatch()
 
   const getAndCreateUser = (userToLS: any) => {
-    if (userToLS) {
-      localStorage.setItem('user', JSON.stringify(userToLS))
-    }
+    if (userToLS) localStorage.setItem('user', JSON.stringify(userToLS))
     const user = getFromLocalStorage('user')
     dispatch(createUser(user))
   }

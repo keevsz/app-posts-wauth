@@ -1,6 +1,5 @@
 import { User } from "../../models/user.model";
 import { createSlice } from '@reduxjs/toolkit'
-import { getFromLocalStorage } from "../../utilities/localStorage.utility";
 
 export const UserEmptyState: User = {
   id: '',

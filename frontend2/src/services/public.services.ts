@@ -14,3 +14,12 @@ export const login = ({ email, password }: UserCredentials) => {
     controller,
   }
 }
+
+export const verifyTokenAndGetUser = (token: string) => {
+  const response = axios.get<any>(
+    `http://localhost:5000/api/user/verify-token/${token}`,
+  )
+
+  return response
+
+}
