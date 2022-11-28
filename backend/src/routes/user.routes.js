@@ -1,10 +1,8 @@
 const router = require('express').Router()
 const AuthValidator = require('../validators/authValidator')
 const UserController = require('../controllers/UserController')
-const { verifyToken, decodedToken } = require('../middlewares/authMiddleware')
+const { verifyToken } = require('../middlewares/authMiddleware')
 const passport = require('passport')
-const userService = require('../services/UserService')
-const { handleHttpError } = require('../utils/handleError')
 
 router.get(
   '/login/google',
@@ -25,30 +23,10 @@ router.get(
     ],
     session: false,
   }),
-  (req, res) => {
-    if (req.user) {
-      res.clearCookie('token')
-      res.cookie('token', req.user.token)
-      res.redirect('http://localhost:5173')
-    } else {
-      res.redirect('http://localhost:3000/login')
-    }
-  }
+  UserController.sendCookie
 )
 
-router.get('/verify-token/:token', async (req, res) => {
-  try {
-    const token = req.params.token
-    const decoded = decodedToken(token) // verifyToken
-    if (decoded === 'invalid signature') throw new Error('Invalid token')
-    if (decoded === 'invalid token') throw new Error('Invalid token')
-    if (decoded === 'jwt must be provided') throw new Error('Missing token')
-    const user = await userService.getOne(decoded.id)
-    res.send(user)
-  } catch ({ message }) {
-    handleHttpError({ res, message, from: 'VerifyToken_sendToken' })
-  }
-})
+router.get('/verify-token/:token', UserController.verifyTokenUrl)
 
 router.post(
   '/password-reset',

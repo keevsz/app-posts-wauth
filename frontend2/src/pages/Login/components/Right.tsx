@@ -1,5 +1,5 @@
-import { Text } from '../GoogleButton'
-import { BoxRight, Button, Title } from '../LoginForm'
+import { Text } from '../Usual'
+import { BoxRight, Button, Title } from '../styled-components/LoginForm'
 
 interface Props {
   form: boolean

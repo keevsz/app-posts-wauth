@@ -2,6 +2,8 @@ const userServices = require('../services/UserService')
 const emailService = require('../services/EmailService')
 const { matchedData } = require('express-validator')
 const { handleHttpError } = require('../utils/handleError')
+const { BASE_URL_FRONTEND } = require('../config')
+const { decodedToken } = require('../middlewares/authMiddleware')
 
 const registerUser = async (req, res) => {
   try {
@@ -111,6 +113,29 @@ const verifyEmail = async (req, res) => {
   }
 }
 
+const sendCookie = (req, res) => {
+  if (req.user) {
+    res.clearCookie('token')
+    res.cookie('token', req.user.token)
+    res.redirect(BASE_URL_FRONTEND)
+  } else {
+    res.redirect(`${BASE_URL_FRONTEND}/login`)
+  }
+}
+
+const verifyTokenUrl = async (req, res) => {
+  try {
+    const token = req.params.token
+    const decoded = decodedToken(token) // verifyToken
+    if (decoded === 'invalid signature') throw new Error('Invalid token')
+    if (decoded === 'invalid token') throw new Error('Invalid token')
+    if (decoded === 'jwt must be provided') throw new Error('Missing token')
+    const user = await userServices.getOne(decoded.id)
+    res.send(user)
+  } catch ({ message }) {
+    handleHttpError({ res, message, from: 'VerifyToken_sendToken' })
+  }
+}
 module.exports = {
   registerUser,
   loginUser,
@@ -120,4 +145,6 @@ module.exports = {
   sendEmail,
   changePassword,
   verifyEmail,
+  sendCookie,
+  verifyTokenUrl,
 }

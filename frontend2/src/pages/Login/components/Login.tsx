@@ -1,7 +1,12 @@
 import { Row } from '../../Home/Container'
-import { Icon, IconButton, Text } from '../GoogleButton'
-import { Button, LoginForm, TextInput, Title } from '../LoginForm'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Icon, IconButton, Text } from '../Usual'
+import {
+  Button,
+  LoginForm,
+  TextInput,
+  Title,
+} from '../styled-components/LoginForm'
+import { useForm } from 'react-hook-form'
 import useFetchAndLoad from '../../../hooks/useFetchAndLoad'
 import { login } from '../../../services/public.services'
 import { loadUserToLocalStorageAndCookie } from '../../../utilities/handleStorage.utility'
@@ -45,13 +50,13 @@ export const Login = () => {
     <LoginForm onSubmit={handleSubmit(onSubmit)}>
       <Title color="#278048">Ingresar</Title>
       <Row>
-        <IconButton href="http://localhost:5000/api/user/login/google">
+        <IconButton href="https://kevsz-sm-backend.onrender.com/api/user/login/google">
           <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/google_icon-icons.com_65494.png"></Icon>
         </IconButton>
-        <IconButton href="http://localhost:5000/api/user/login/google">
+        <IconButton href="#">
           <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/FB_icon-icons.com_65484.png"></Icon>
         </IconButton>
-        <IconButton href="http://localhost:5000/api/user/login/google">
+        <IconButton href="#">
           <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/TWITTER_icon-icons.com_65486.png"></Icon>
         </IconButton>
       </Row>

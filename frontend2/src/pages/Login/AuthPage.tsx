@@ -8,9 +8,9 @@ import {
 } from '../../utilities/handleStorage.utility'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Text } from './GoogleButton'
+import { Text } from './Usual'
 import { CenterVH } from '../Home/Container'
-import { Auth, BoxRight, Button, Title } from './LoginForm'
+import { Auth, BoxRight, Button, Title } from './styled-components/LoginForm'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 
@@ -20,10 +20,6 @@ export const AuthPage = () => {
 
   const [loaded, setLoadad] = useState(false)
   const [form, setForm] = useState(true)
-
-  const handleForm = () => {
-    setForm(!form)
-  }
 
   const user = getFromLocalStorage('user')
   const getData = async (cookie: string) => {
@@ -56,7 +52,11 @@ export const AuthPage = () => {
                 ? 'Registrate si no tienes una cuenta'
                 : 'Ingresa si ya tienes una cuenta'}
             </Text>
-            <Button onClick={handleForm} color="#00CC4B" type="submit">
+            <Button
+              onClick={() => setForm(!form)}
+              color="#00CC4B"
+              type="submit"
+            >
               {form ? 'Registrarse' : 'Ingresar'}
             </Button>
           </BoxRight>

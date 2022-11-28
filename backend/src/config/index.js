@@ -1,11 +1,22 @@
 require('dotenv').config()
 
 let MONGO_URI = process.env.MONGODB_URI
-if (process.env.NODE_ENV === 'test') MONGO_URI = process.env.TEST_MONGODB_URI
-if (process.env.NODE_ENV === 'development')
-  MONGO_URI = process.env.TEST_MONGODB_URI
+let BASE_URL = process.env.BASE_URL_PRODUCTION
+let callbackURL = process.env.CALLBACK_URL_OAUTH2
+let BASE_URL_FRONTEND = process.env.BASE_URL_FRONTEND_PRODUCTION
 
-let BASE_URL = process.env.BASE_URL || 'http://localhost:5000'
+if (process.env.NODE_ENV === 'test') {
+  MONGO_URI = process.env.TEST_MONGODB_URI
+  BASE_URL = process.env.BASE_URL_DEV
+  callbackURL = process.env.CALLBACK_URL_OAUTH2_DEV
+}
+
+if (process.env.NODE_ENV === 'development') {
+  MONGO_URI = process.env.TEST_MONGODB_URI
+  BASE_URL = process.env.BASE_URL_DEV
+  callbackURL = process.env.CALLBACK_URL_OAUTH2_DEV
+  BASE_URL_FRONTEND = process.env.BASE_URL_FRONTEND_DEV
+}
 
 module.exports = {
   PORT: process.env.PORT || 5000,
@@ -19,11 +30,12 @@ module.exports = {
   googleStrategyOptions: {
     clientID: process.env.CLIENT_ID_GOOGLE_OAUTH2,
     clientSecret: process.env.CLIENT_SECRET_GOOGLE_OAUTH2,
-    callbackURL: process.env.CALLBACK_URL_OAUTH2,
+    callbackURL,
   },
   GOOGLE_SECRET: process.env.GOOGLE_SECRET,
   GMAIL_SECRET: process.env.GMAIL_SECRET,
   HOST_NODEMAILER: process.env.HOST_NODEMAILER,
   PORT_NODEMAILER: process.env.PORT_NODEMAILER,
   BASE_URL,
+  BASE_URL_FRONTEND,
 }

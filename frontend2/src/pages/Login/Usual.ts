@@ -22,3 +22,8 @@ export const Text = styled.span<{ fontSize: string }>`
   color: ${props => props.color};
   font-size: ${props => props.fontSize};
 `
+
+export const Title = styled.div`
+  font-size: 2.5rem;
+  color: ${props => props.color};
+`

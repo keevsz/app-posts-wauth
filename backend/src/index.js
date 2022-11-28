@@ -8,6 +8,7 @@ const app = express()
 app.use(cors())
 
 const Strategy = require('./config/passportStrategies')
+const { BASE_URL_FRONTEND } = require('./config')
 app.use(passport.initialize())
 passport.use(Strategy.google)
 app.use(express.json())
@@ -23,7 +24,7 @@ const server = app.listen(port, console.log(`Server on: ${port}`))
 const io = require('socket.io')(server, {
   pingTimeout: 60000,
   cors: {
-    origin: 'http://localhost:3000', //frontend...
+    origin: BASE_URL_FRONTEND, //frontend...
     creadentials: true,
   },
 })

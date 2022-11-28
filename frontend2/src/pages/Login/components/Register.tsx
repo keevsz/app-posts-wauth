@@ -1,19 +1,24 @@
 import { Row } from '../../Home/Container'
-import { Icon, IconButton } from '../GoogleButton'
-import { Button, LoginForm, TextInput, Title } from '../LoginForm'
+import { Icon, IconButton } from '../Usual'
+import {
+  Button,
+  LoginForm,
+  TextInput,
+  Title,
+} from '../styled-components/LoginForm'
 
 export const Register = () => {
   return (
     <LoginForm>
       <Title color="#278048">Regitrarse</Title>
       <Row>
-        <IconButton href="http://localhost:5000/api/user/login/google">
+        <IconButton href="https://kevsz-sm-backend.onrender.com/api/user/login/google">
           <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/google_icon-icons.com_65494.png"></Icon>
         </IconButton>
-        <IconButton href="http://localhost:5000/api/user/login/google">
+        <IconButton href="#">
           <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/FB_icon-icons.com_65484.png"></Icon>
         </IconButton>
-        <IconButton href="http://localhost:5000/api/user/login/google">
+        <IconButton href="#">
           <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/TWITTER_icon-icons.com_65486.png"></Icon>
         </IconButton>
       </Row>
