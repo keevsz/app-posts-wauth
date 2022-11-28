@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
-import { User } from '../../models/user.model'
 import { AppStore } from '../../redux/store'
 
 interface Props {

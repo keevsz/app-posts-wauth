@@ -9,10 +9,11 @@ export const AppLayout = () => {
 
   const logout = () => {
     localStorage.removeItem('user')
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
     dispatch(resetUser)
     navigate('/login')
   }
+
   const user = useSelector((store: AppStore) => store.user)
 
   return (

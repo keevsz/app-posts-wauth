@@ -15,7 +15,7 @@ export const userSlice = createSlice({
   initialState: UserEmptyState,
   reducers: {
     createUser: (state, action) => {
-      return action.payload ? action.payload : UserEmptyState
+      return action.payload || UserEmptyState
     },
     modifyUser: (state, action) => {
       return { ...state, ...action.payload }
