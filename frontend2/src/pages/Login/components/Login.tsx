@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createUser } from '../../../redux/states/user'
 import { createUserAdapter } from '../../../adapters/user.adapters'
+import { Loading } from './Loading'
 
 interface Inputs {
   email: string
@@ -39,11 +40,7 @@ export const Login = () => {
   }
 
   if (loading) {
-    return (
-      <div>
-        <h3>Loading</h3>
-      </div>
-    )
+    return <Loading></Loading>
   }
 
   return (

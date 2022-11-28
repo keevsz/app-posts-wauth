@@ -13,6 +13,7 @@ import { CenterVH } from '../Home/Container'
 import { Auth, BoxRight, Button, Title } from './styled-components/LoginForm'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
+import { Loading } from './components/Loading'
 
 export const AuthPage = () => {
   let cookie = document.cookie.split('token=')[1]
@@ -42,7 +43,7 @@ export const AuthPage = () => {
     if (user) return navigate('/')
   }, [])
 
-  if (loaded) return null
+  if (loaded) return <Loading></Loading>
 
   return (
     <CenterVH>
