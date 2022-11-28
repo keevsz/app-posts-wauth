@@ -6,7 +6,14 @@ export const LoginForm = styled.form`
     flex-direction:column;
     justify-content: center;
     align-items: center;
-    gap:1rem;  
+    gap:0.7rem;
+    @media screen and (max-width: 1000px) {
+      width:100%;
+    };   
+    @media screen and (max-height: 550px) {
+    gap:0.3rem;
+    width:50%;
+    }   
 `
 
 export const TextInput = styled.input`
@@ -14,12 +21,19 @@ export const TextInput = styled.input`
   background-color: #EDEDEF;
   padding: 1rem 1rem 1rem 2rem;
   border:0 ;
+  border-radius: 0.5rem;
   font-size: 1.2rem;
   ::selection{
     background-color: #ccc;
   }
+  @media screen and (max-width: 330px) {
+    width:50%;
+  }
+  @media screen and (max-height: 385px) {
+    padding: 0.7rem 0.7rem 0.7rem 1.3rem;
+  }   
 `
-export const Button = styled.button`
+export const Button = styled.button<{ display: string }>`
     background-color: ${props => props.color};
     width: 7rem;
     border: 0.1rem solid white;
@@ -28,6 +42,13 @@ export const Button = styled.button`
     font-weight: bold;
     border-radius: 0.4rem;
     cursor: pointer;
+    transition: all .3s;
+    :hover {
+      background-color: #278048;
+    }
+    @media screen and (min-width: 1000px) {
+      display: ${props => props.display};    
+    }
 `
 
 export const BoxRight = styled.div`
@@ -39,6 +60,14 @@ export const BoxRight = styled.div`
   padding:1rem;
   width:50%;
   background-color: ${props => props.color};
+  @media screen and (max-width: 1000px) {
+    display: none;    
+    width:0%;
+  }
+  @media screen and (max-height: 550px) {
+    display: flex;    
+    width:50%;
+  }
 `
 
 export const Title = styled.div`
@@ -50,5 +79,13 @@ export const Auth = styled.div`
   height:80%;
   display:flex;
   border-radius: 1rem;
-  box-shadow: 2px 5px 10px 0.1px #666;
+  box-shadow: 2px 5px 10px 0.1px #666; 
+  @media screen and (max-width: 550px) {
+    width:95%;
+    height:95%;
+  }
+  @media screen and (max-height: 550px) {
+    width:100%;
+    height:100%;
+  }
 `

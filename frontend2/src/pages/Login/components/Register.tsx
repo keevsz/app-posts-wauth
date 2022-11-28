@@ -7,7 +7,11 @@ import {
   Title,
 } from '../styled-components/LoginForm'
 
-export const Register = () => {
+interface Props {
+  handleForm: () => void
+}
+
+export const Register = ({ handleForm }: Props) => {
   return (
     <LoginForm>
       <Title color="#278048">Regitrarse</Title>
@@ -26,9 +30,19 @@ export const Register = () => {
       <TextInput placeholder="Correo electrónico" />
       <TextInput type={'password'} placeholder="Contraseña" />
       <TextInput placeholder="Confirmar contraseña" />
-      <Button color="#00CC4B" type="submit">
-        Registrarse
-      </Button>
+      <Row>
+        <Button display="null" color="#00CC4B" type="submit">
+          Registrarse
+        </Button>
+        <Button
+          display="none"
+          onClick={handleForm}
+          color="#4a4a4abd"
+          type="button"
+        >
+          Ingresar
+        </Button>
+      </Row>
     </LoginForm>
   )
 }

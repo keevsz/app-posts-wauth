@@ -21,7 +21,11 @@ interface Inputs {
   password: string
 }
 
-export const Login = () => {
+interface Props {
+  handleForm: () => void
+}
+
+export const Login = ({ handleForm }: Props) => {
   const { loading, callEndpoint } = useFetchAndLoad()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -80,9 +84,19 @@ export const Login = () => {
       <Text fontSize="1rem" color="gray">
         Olvidé mi contraseña
       </Text>
-      <Button color="#00CC4B" type="submit">
-        Ingresar
-      </Button>
+      <Row>
+        <Button display="null" color="#00CC4B" type="submit">
+          Ingresar
+        </Button>
+        <Button
+          display="none"
+          onClick={handleForm}
+          color="#4a4a4abd"
+          type="button"
+        >
+          Registrarse
+        </Button>
+      </Row>
     </LoginForm>
   )
 }

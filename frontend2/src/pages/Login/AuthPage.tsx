@@ -43,13 +43,19 @@ export const AuthPage = () => {
     if (user) return navigate('/')
   }, [])
 
-  if (loaded) return <Loading></Loading>
+  const handleForm = () => setForm(!form)
+
+  if (loaded) return <Loading></Loading> //would be complete page loading
 
   return (
     <CenterVH>
       {!user && (
         <Auth>
-          {form ? <Login></Login> : <Register></Register>}
+          {form ? (
+            <Login handleForm={handleForm}></Login>
+          ) : (
+            <Register handleForm={handleForm}></Register>
+          )}
           <BoxRight color="#00CC4B">
             <Title color="white"> {form ? 'Registrarse' : 'Ingresar'}</Title>
             <Text color="white" fontSize="1rem">
@@ -57,11 +63,7 @@ export const AuthPage = () => {
                 ? 'Registrate si no tienes una cuenta'
                 : 'Ingresa si ya tienes una cuenta'}
             </Text>
-            <Button
-              onClick={() => setForm(!form)}
-              color="#00CC4B"
-              type="submit"
-            >
+            <Button onClick={handleForm} color="#00CC4B" type="submit">
               {form ? 'Registrarse' : 'Ingresar'}
             </Button>
           </BoxRight>
