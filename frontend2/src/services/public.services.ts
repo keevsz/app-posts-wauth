@@ -7,7 +7,7 @@ export const login = ({ email, password }: UserCredentials) => {
   const userCredentials = { email, password }
   return {
     call: axios.post<User>(
-      'http://localhost:5000/api/user/login',
+      'https://kevsz-sm-backend.onrender.com/api/user/login',
       userCredentials,
       { signal: controller.signal }
     ),
@@ -17,7 +17,7 @@ export const login = ({ email, password }: UserCredentials) => {
 
 export const verifyTokenAndGetUser = (token: string) => {
   const response = axios.get<any>(
-    `http://localhost:5000/api/user/verify-token/${token}`,
+    `https://kevsz-sm-backend.onrender.com/api/user/verify-token/${token}`,
   )
 
   return response
