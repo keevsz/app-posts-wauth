@@ -15,6 +15,7 @@ export const Register = ({ handleForm }: Props) => {
   return (
     <LoginForm>
       <Title color="#278048">Regitrarse</Title>
+      No implementado...
       <Row>
         <IconButton href="https://kevsz-sm-backend.onrender.com/api/user/login/google">
           <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/google_icon-icons.com_65494.png"></Icon>

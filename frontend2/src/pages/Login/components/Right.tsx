@@ -15,7 +15,7 @@ export const Right = ({ form, handleForm }: Props) => {
           ? 'Registrate si no tienes una cuenta'
           : 'Ingresa si ya tienes una cuenta'}
       </Text>
-      <Button onClick={handleForm} color="#00CC4B" type="submit">
+      <Button onClick={handleForm} display="null" color="#00CC4B" type="submit">
         {form ? 'Registrarse' : 'Ingresar'}
       </Button>
     </BoxRight>
