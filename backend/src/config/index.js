@@ -3,7 +3,6 @@ require('dotenv').config()
 let MONGO_URI = process.env.MONGODB_URI
 let BASE_URL = process.env.BASE_URL_PRODUCTION
 let callbackURL = process.env.CALLBACK_URL_OAUTH2
-let BASE_URL_FRONTEND = process.env.BASE_URL_FRONTEND_PRODUCTION
 
 if (process.env.NODE_ENV === 'test') {
   MONGO_URI = process.env.TEST_MONGODB_URI
@@ -15,7 +14,6 @@ if (process.env.NODE_ENV === 'development') {
   MONGO_URI = process.env.TEST_MONGODB_URI
   BASE_URL = process.env.BASE_URL_DEV
   callbackURL = process.env.CALLBACK_URL_OAUTH2_DEV
-  BASE_URL_FRONTEND = process.env.BASE_URL_FRONTEND_DEV
 }
 
 module.exports = {
@@ -37,5 +35,4 @@ module.exports = {
   HOST_NODEMAILER: process.env.HOST_NODEMAILER,
   PORT_NODEMAILER: process.env.PORT_NODEMAILER,
   BASE_URL,
-  BASE_URL_FRONTEND,
 }

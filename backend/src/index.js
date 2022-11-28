@@ -12,6 +12,7 @@ const { BASE_URL_FRONTEND } = require('./config')
 app.use(passport.initialize())
 passport.use(Strategy.google)
 app.use(express.json())
+app.use(express.static('dist'))
 app.use(morgan('tiny'))
 app.use(cookieParser())
 // app.use(cache('2 minutes')) //*redis

@@ -2,7 +2,6 @@ const userServices = require('../services/UserService')
 const emailService = require('../services/EmailService')
 const { matchedData } = require('express-validator')
 const { handleHttpError } = require('../utils/handleError')
-const { BASE_URL_FRONTEND } = require('../config')
 const { decodedToken } = require('../middlewares/authMiddleware')
 
 const registerUser = async (req, res) => {
@@ -119,9 +118,9 @@ const sendCookie = (req, res) => {
     res.clearCookie('token')
     console.log('token:', req.user)
     res.cookie('token', req.user.token)
-    res.redirect(BASE_URL_FRONTEND)
+    res.redirect('/')
   } else {
-    res.redirect(`${BASE_URL_FRONTEND}/login`)
+    res.redirect('/')
   }
 }
 

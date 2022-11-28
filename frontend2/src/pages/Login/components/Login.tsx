@@ -50,7 +50,7 @@ export const Login = () => {
     <LoginForm onSubmit={handleSubmit(onSubmit)}>
       <Title color="#278048">Ingresar</Title>
       <Row>
-        <IconButton href="https://kevsz-sm-backend.onrender.com/api/user/login/google">
+        <IconButton href="/api/user/login/google">
           <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/google_icon-icons.com_65494.png"></Icon>
         </IconButton>
         <IconButton href="#">
