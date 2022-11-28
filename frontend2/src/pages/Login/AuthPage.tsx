@@ -15,6 +15,9 @@ import { Login } from './components/Login'
 import { Register } from './components/Register'
 
 export const AuthPage = () => {
+  let cookie = document.cookie.split('token=')[1]
+  console.log('cookie=', cookie)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -31,6 +34,7 @@ export const AuthPage = () => {
 
   useEffect(() => {
     let cookie = document.cookie.split('token=')[1]
+    console.log('cookie=', cookie)
     if (cookie) {
       setLoadad(true)
       getData(cookie)
