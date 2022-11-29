@@ -8,17 +8,20 @@ import {
 } from '../../utilities/handleStorage.utility'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Text } from './Usual'
+import { Expand, ExpandTwo, Icon, Text } from './Usual'
 import { CenterVH } from '../Home/Container'
 import { Auth, BoxRight, Button, Title } from './styled-components/LoginForm'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 import { Loading } from './components/Loading'
+import { ThemeButton } from '../Home/ThemeButton'
 
-export const AuthPage = () => {
-  let cookie = document.cookie.split('token=')[1]
-  console.log('cookie=', cookie)
+interface Props {
+  handleTheme: () => void
+  theme: any
+}
 
+export const AuthPage = ({ handleTheme, theme }: Props) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -46,35 +49,45 @@ export const AuthPage = () => {
   const handleForm = () => setForm(!form)
 
   if (loaded) return <Loading></Loading> //would be complete page loading
-
   return (
-    <CenterVH>
-      {!user && (
-        <Auth>
-          {form ? (
-            <Login handleForm={handleForm}></Login>
-          ) : (
-            <Register handleForm={handleForm}></Register>
-          )}
-          <BoxRight color="#00CC4B">
-            <Title color="white"> {form ? 'Registrarse' : 'Ingresar'}</Title>
-            <Text color="white" fontSize="1rem">
-              {form
-                ? 'Registrate si no tienes una cuenta'
-                : 'Ingresa si ya tienes una cuenta'}
-            </Text>
-            <Button
-              onClick={handleForm}
-              display="null"
-              color="#00CC4B"
-              type="button"
-            >
-              {form ? 'Registrarse' : 'Ingresar'}
-            </Button>
-          </BoxRight>
-        </Auth>
-      )}
-    </CenterVH>
+    <>
+      <ThemeButton onClick={handleTheme}>
+        <Icon
+          style={{
+            width: '3rem',
+          }}
+          src="https://cdn-icons-png.flaticon.com/512/6714/6714978.png"
+        ></Icon>
+      </ThemeButton>
+      {theme.name !== 'dark' ? <Expand></Expand> : <ExpandTwo></ExpandTwo>}
+      <CenterVH>
+        {!user && (
+          <Auth>
+            {form ? (
+              <Login handleForm={handleForm}></Login>
+            ) : (
+              <Register handleForm={handleForm}></Register>
+            )}
+            <BoxRight color="#00CC4B">
+              <Title color="white"> {form ? 'Registrarse' : 'Ingresar'}</Title>
+              <Text color="white" fontSize="1rem">
+                {form
+                  ? 'Registrate si no tienes una cuenta'
+                  : 'Ingresa si ya tienes una cuenta'}
+              </Text>
+              <Button
+                onClick={handleForm}
+                display="null"
+                color="#00CC4B"
+                type="button"
+              >
+                {form ? 'Registrarse' : 'Ingresar'}
+              </Button>
+            </BoxRight>
+          </Auth>
+        )}
+      </CenterVH>
+    </>
   )
 }
 

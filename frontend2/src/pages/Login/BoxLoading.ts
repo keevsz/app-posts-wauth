@@ -6,6 +6,12 @@ export const BoxLoading = styled.form`
     flex-direction:column;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width: 1000px) {
+      width:100%;
+    }
+    @media screen and (max-height: 550px) {
+      width:50%;
+    }
 `
 export const Loader = styled.form`
   border: 5px solid #00CC4B;

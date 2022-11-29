@@ -4,14 +4,13 @@ import { Provider } from 'react-redux'
 import App from './App'
 import { FullPage } from './pages/Home/Container'
 import store from './redux/store'
+import { ThemeProvider } from 'styled-components'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Suspense fallback={<div>Cargando</div>}>
       <Provider store={store}>
-        <FullPage>
-          <App />
-        </FullPage>
+        <App />
       </Provider>
     </Suspense>
   </React.StrictMode>
