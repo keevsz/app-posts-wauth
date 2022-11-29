@@ -21,14 +21,18 @@ export const LoginForm = styled.form`
 
 export const TextInput = styled.input`
   outline: none;
-  background-color: #ededef;
-  padding: 1rem 1rem 1rem 2rem;
+  background-color: transparent;
+  padding: 1rem 1rem 0.5rem 1rem;
+  color: ${(props) => props.theme.color};
   border: 0;
-  border-radius: 0.5rem;
+  border-bottom: 0.1rem solid ${(props) => props.theme.border_input};
   font-size: 1.2rem;
   ::selection {
     background-color: #ccc;
   }
+  transition: border-bottom 0.6s;
+  transition-delay: 0.15s;
+
   @media screen and (max-width: 330px) {
     width: 50%;
   }

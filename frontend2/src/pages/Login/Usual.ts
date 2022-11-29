@@ -5,7 +5,6 @@ export const IconButton = styled.a`
   width: 2rem;
   height: 2rem;
   border: 0.1rem solid #00cc4b;
-  background-color: white;
   :hover {
     background-color: #00cc4b;
     transition: all 0.3s;
@@ -17,6 +16,9 @@ export const IconButton = styled.a`
 
 export const Icon = styled.img`
   width: 1rem;
+  ${(props) => (props.theme.name == 'dark' ? 'filter: invert(0.8);' : '')}
+  transition: all 0.6s;
+  transition-delay: 0.15s;
 `
 
 export const Text = styled.span<{ fontSize: string }>`
@@ -56,7 +58,7 @@ export const Expand = styled.div`
   }
 `
 
-export const ExpandTwo = styled.div`
+export const Unexpand = styled.div`
   height: 4rem;
   width: 4rem;
   border-radius: 50%;
@@ -65,7 +67,7 @@ export const ExpandTwo = styled.div`
   background-color: #eee;
   right: 0.7rem;
   top: 0.7rem;
-  animation: expandAnimation 0.5s reverse;
+  animation: expandAnimation 0.6s reverse;
   transform-style: expandAnimation;
   @keyframes expandAnimation {
     25% {

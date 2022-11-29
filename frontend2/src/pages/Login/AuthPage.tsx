@@ -8,13 +8,13 @@ import {
 } from '../../utilities/handleStorage.utility'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Expand, ExpandTwo, Icon, Text } from './Usual'
+import { Expand, Icon, Text, Unexpand } from './Usual'
 import { CenterVH } from '../Home/Container'
 import { Auth, BoxRight, Button, Title } from './styled-components/LoginForm'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 import { Loading } from './components/Loading'
-import { ThemeButton } from '../Home/ThemeButton'
+import { ThemeButton, ThemeButton2 } from '../Home/ThemeButton'
 
 interface Props {
   handleTheme: () => void
@@ -51,15 +51,27 @@ export const AuthPage = ({ handleTheme, theme }: Props) => {
   if (loaded) return <Loading></Loading> //would be complete page loading
   return (
     <>
-      <ThemeButton onClick={handleTheme}>
-        <Icon
-          style={{
-            width: '3rem',
-          }}
-          src="https://cdn-icons-png.flaticon.com/512/6714/6714978.png"
-        ></Icon>
-      </ThemeButton>
-      {theme.name !== 'dark' ? <Expand></Expand> : <ExpandTwo></ExpandTwo>}
+      {theme.name !== 'dark' ? (
+        <ThemeButton onClick={handleTheme}>
+          <Icon
+            style={{
+              width: '3rem',
+            }}
+            src="https://cdn-icons-png.flaticon.com/512/6714/6714978.png"
+          ></Icon>
+        </ThemeButton>
+      ) : (
+        <ThemeButton2 onClick={handleTheme}>
+          <Icon
+            style={{
+              width: '3rem',
+            }}
+            src="https://cdn-icons-png.flaticon.com/512/66/66275.png"
+          ></Icon>
+        </ThemeButton2>
+      )}
+
+      {theme.name !== 'dark' ? <Expand></Expand> : <Unexpand></Unexpand>}
       <CenterVH>
         {!user && (
           <Auth>

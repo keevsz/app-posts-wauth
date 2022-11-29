@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react"
-import themes from "../redux/themes"
-import { getFromLocalStorage } from "../utilities/handleStorage.utility"
+import { useEffect, useState } from 'react'
+import themes from '../themes'
+import { getFromLocalStorage } from '../utilities/handleStorage.utility'
 
 const getSystemTheme = () => {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? themes.DarkTheme : themes.LightTheme
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? themes.DarkTheme
+    : themes.LightTheme
 }
 
 const useThemeHandler = () => {
@@ -22,7 +24,8 @@ const useThemeHandler = () => {
   }, [theme])
 
   return {
-    handleTheme, theme
+    handleTheme,
+    theme,
   }
 }
 
