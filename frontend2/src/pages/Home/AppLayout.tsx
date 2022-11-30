@@ -2,6 +2,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { resetUser } from '../../redux/states/user'
 import { AppStore } from '../../redux/store'
+import { Text } from '../Login/Usual'
+import { ButtonTheme } from './ButtonTheme'
+import { Navbar } from './Container'
 
 export const AppLayout = () => {
   const navigate = useNavigate()
@@ -17,9 +20,12 @@ export const AppLayout = () => {
   const user = useSelector((store: AppStore) => store.user)
 
   return (
-    <div>
+    <>
+      <Navbar>
+        <Text fontSize="1rem">Alternate bg colors</Text>
+      </Navbar>
       <nav>
-        <ul>
+        {/* <ul>
           <li>
             <NavLink
               to="/"
@@ -39,10 +45,13 @@ export const AppLayout = () => {
           <li>
             <input type="button" onClick={logout} value="salir" />
           </li>
-        </ul>
+        </ul> */}
       </nav>
-      {JSON.stringify({ name: user.name, email: user.email })}
+      <Text fontSize="1.6rem">
+        {JSON.stringify({ name: user.name, email: user.email })}
+      </Text>
       <Outlet />
-    </div>
+      <ButtonTheme></ButtonTheme>
+    </>
   )
 }

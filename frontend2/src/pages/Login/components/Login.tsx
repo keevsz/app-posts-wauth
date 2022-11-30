@@ -16,13 +16,13 @@ import { createUser } from '../../../redux/states/user'
 import { createUserAdapter } from '../../../adapters/user.adapters'
 import { Loading } from './Loading'
 
+interface Props {
+  handleForm: () => void
+}
+
 interface Inputs {
   email: string
   password: string
-}
-
-interface Props {
-  handleForm: () => void
 }
 
 export const Login = ({ handleForm }: Props) => {
@@ -32,7 +32,6 @@ export const Login = ({ handleForm }: Props) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>()
 
@@ -43,22 +42,29 @@ export const Login = ({ handleForm }: Props) => {
     navigate('/')
   }
 
-  if (loading) {
-    return <Loading></Loading>
-  }
+  if (loading) return <Loading></Loading>
 
   return (
-    <LoginForm onSubmit={handleSubmit(onSubmit)}>
+    <LoginForm autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
       <Title color="#278048">Ingresar</Title>
       <Row>
-        <IconButton href="/api/user/login/google">
-          <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/google_icon-icons.com_65494.png"></Icon>
+        <IconButton href="http://localhost:5000/api/user/login/google">
+          <Icon
+            type={'icon1'}
+            src="https://cdn.icon-icons.com/icons2/791/PNG/512/google_icon-icons.com_65494.png"
+          ></Icon>
         </IconButton>
         <IconButton href="#">
-          <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/FB_icon-icons.com_65484.png"></Icon>
+          <Icon
+            type={'icon1'}
+            src="https://cdn.icon-icons.com/icons2/791/PNG/512/FB_icon-icons.com_65484.png"
+          ></Icon>
         </IconButton>
         <IconButton href="#">
-          <Icon src="https://cdn.icon-icons.com/icons2/791/PNG/512/TWITTER_icon-icons.com_65486.png"></Icon>
+          <Icon
+            type={'icon1'}
+            src="https://cdn.icon-icons.com/icons2/791/PNG/512/TWITTER_icon-icons.com_65486.png"
+          ></Icon>
         </IconButton>
       </Row>
       <TextInput

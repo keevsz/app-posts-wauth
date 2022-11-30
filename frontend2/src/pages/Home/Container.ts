@@ -27,3 +27,14 @@ export const Row = styled.div`
     flex-direction: column;
   }
 `
+export const Navbar = styled.div`
+  padding: 4vh;
+  position:absolute;
+  z-index: 1;
+  width:188.7vh;
+  height:83vh;
+  left:11vh;
+  top:9vh;
+  border-top-left-radius: 3%;
+  background-color: ${props => props.theme.bg2};
+`

@@ -118,9 +118,9 @@ const sendCookie = (req, res) => {
     res.clearCookie('token')
     console.log('token:', req.user)
     res.cookie('token', req.user.token)
-    res.redirect('/')
+    res.redirect('http://localhost:5173')
   } else {
-    res.redirect('/')
+    res.redirect('http://localhost:5173')
   }
 }
 

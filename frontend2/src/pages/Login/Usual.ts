@@ -14,15 +14,20 @@ export const IconButton = styled.a`
   justify-content: center;
 `
 
-export const Icon = styled.img`
+export const Icon = styled.img<{ type: string }>`
   width: 1rem;
-  ${(props) => (props.theme.name == 'dark' ? 'filter: invert(0.8);' : '')}
   transition: all 0.6s;
   transition-delay: 0.15s;
+  ${(props) =>
+    props.theme.name == 'dark' && props.type == 'icon1'
+      ? 'filter: invert(0.8);'
+      : ''}
 `
 
 export const Text = styled.span<{ fontSize: string }>`
-  color: ${(props) => props.color};
+  transition: color 0.6s;
+  transition-delay: 0.15s;
+  color: ${(props) => props.theme.name == 'dark' ? '#eee' : 'black'};
   font-size: ${(props) => props.fontSize};
 `
 
@@ -38,8 +43,8 @@ export const Expand = styled.div`
   z-index: 1;
   position: absolute;
   background-color: #eee;
-  right: 0.7rem;
-  top: 0.7rem;
+  right: 1rem;
+  top: 1rem;
   animation: expandAnimation 0.6s none;
   transform-style: expandAnimation;
   @keyframes expandAnimation {
@@ -65,10 +70,9 @@ export const Unexpand = styled.div`
   z-index: 1;
   position: absolute;
   background-color: #eee;
-  right: 0.7rem;
-  top: 0.7rem;
+  right: 1rem;
+  top: 1rem;
   animation: expandAnimation 0.6s reverse;
-  transform-style: expandAnimation;
   @keyframes expandAnimation {
     25% {
       border-top-right-radius: 0%;

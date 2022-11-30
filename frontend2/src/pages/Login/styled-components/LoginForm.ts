@@ -17,6 +17,15 @@ export const LoginForm = styled.form`
     gap: 0.3rem;
     width: 50%;
   }
+  animation: fadeIn ${props => props.theme.name == 'dark' ? '1.6s' : '0.5s'} ${props => props.theme.name == 'dark' ? '' : 'reverse'};;
+  @keyframes fadeIn {
+    from{
+      opacity: 0;
+    }
+    to{
+      opacity: 1;
+    }
+  }
 `
 
 export const TextInput = styled.input`
@@ -30,7 +39,7 @@ export const TextInput = styled.input`
   ::selection {
     background-color: #ccc;
   }
-  transition: border-bottom 0.6s;
+  transition: border-bottom,color 0.6s;
   transition-delay: 0.15s;
 
   @media screen and (max-width: 330px) {
@@ -67,6 +76,16 @@ export const BoxRight = styled.div`
   padding: 1rem;
   width: 50%;
   background-color: ${(props) => props.color};
+  animation: fadeIn ${props => props.theme.name == 'dark' ? '1.6s' : '0.5s'} ${props => props.theme.name == 'dark' ? '' : 'reverse'};;
+    @keyframes fadeIn {
+      from{
+        opacity: 0;
+      }
+      to{
+        opacity: 1;
+      }
+    }
+
   @media screen and (max-width: 1000px) {
     display: none;
     width: 0%;
@@ -88,11 +107,11 @@ export const Auth = styled.div`
   display: flex;
   border-radius: 1rem;
   /* box-shadow: 2px 5px 10px 0.1px #666;  */
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 675px) {
     width: 95%;
     height: 95%;
   }
-  @media screen and (max-height: 550px) {
+  @media screen and (max-height: 675px) {
     width: 100%;
     height: 100%;
   }

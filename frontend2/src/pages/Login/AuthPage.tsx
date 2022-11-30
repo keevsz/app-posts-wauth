@@ -9,19 +9,14 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Expand, Icon, Text, Unexpand } from './Usual'
-import { CenterVH } from '../Home/Container'
+import { CenterVH, FullPage } from '../Home/Container'
 import { Auth, BoxRight, Button, Title } from './styled-components/LoginForm'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
-import { Loading } from './components/Loading'
-import { ThemeButton, ThemeButton2 } from '../Home/ThemeButton'
+import { Loader } from './BoxLoading'
+import { ButtonTheme } from '../Home/ButtonTheme'
 
-interface Props {
-  handleTheme: () => void
-  theme: any
-}
-
-export const AuthPage = ({ handleTheme, theme }: Props) => {
+export const AuthPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -48,30 +43,18 @@ export const AuthPage = ({ handleTheme, theme }: Props) => {
 
   const handleForm = () => setForm(!form)
 
-  if (loaded) return <Loading></Loading> //would be complete page loading
+  if (loaded)
+    return (
+      <FullPage>
+        <CenterVH>
+          <Loader></Loader>
+        </CenterVH>
+      </FullPage>
+    )
+
   return (
     <>
-      {theme.name !== 'dark' ? (
-        <ThemeButton onClick={handleTheme}>
-          <Icon
-            style={{
-              width: '3rem',
-            }}
-            src="https://cdn-icons-png.flaticon.com/512/6714/6714978.png"
-          ></Icon>
-        </ThemeButton>
-      ) : (
-        <ThemeButton2 onClick={handleTheme}>
-          <Icon
-            style={{
-              width: '3rem',
-            }}
-            src="https://cdn-icons-png.flaticon.com/512/66/66275.png"
-          ></Icon>
-        </ThemeButton2>
-      )}
-
-      {theme.name !== 'dark' ? <Expand></Expand> : <Unexpand></Unexpand>}
+      <ButtonTheme />
       <CenterVH>
         {!user && (
           <Auth>
