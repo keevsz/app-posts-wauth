@@ -12,7 +12,6 @@ export const Avatar = styled.label`
 export const Image = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
   cursor:pointer;
   transition: all 0.3s;

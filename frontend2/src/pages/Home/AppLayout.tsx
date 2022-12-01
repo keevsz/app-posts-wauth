@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { resetUser } from '../../redux/states/user'
 import { AppStore } from '../../redux/store'
-import { Text } from '../Login/Usual'
+import { Image } from '../../styled-components/Globals'
+import { Auth, LoginForm } from '../Login/styled-components/LoginForm'
+import { Icon, IconButton, Text } from '../Login/Usual'
 import { ButtonTheme } from './ButtonTheme'
-import { Navbar } from './Container'
+import { BoxIn, Column, NavbarH, NavbarV, Space } from './Container'
 
 export const AppLayout = () => {
   const navigate = useNavigate()
@@ -21,36 +23,38 @@ export const AppLayout = () => {
 
   return (
     <>
-      <Navbar>
-        <Text fontSize="1rem">Alternate bg colors</Text>
-      </Navbar>
-      <nav>
-        {/* <ul>
-          <li>
-            <NavLink
-              to="/"
-              style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}
-            >
-              Inicio
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}
-              to="/:email"
-            >
-              Mi perfil
-            </NavLink>
-          </li>
-          <li>
-            <input type="button" onClick={logout} value="salir" />
-          </li>
-        </ul> */}
-      </nav>
-      <Text fontSize="1.6rem">
-        {JSON.stringify({ name: user.name, email: user.email })}
-      </Text>
-      <Outlet />
+      <NavbarH></NavbarH>
+      <NavbarV>
+        <Column gap="25px">
+          <Space w="" h=""></Space>
+          <Link to="/">
+            <Icon
+              type="icon1"
+              src="https://cdn-icons-png.flaticon.com/512/3388/3388840.png"
+            ></Icon>
+          </Link>
+          <Link to="/:email">
+            <Icon
+              type="icon1"
+              src="https://cdn-icons-png.flaticon.com/512/70/70854.png"
+            ></Icon>
+          </Link>
+          <Link to="/:email">
+            <Icon
+              type="icon1"
+              src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
+            ></Icon>
+          </Link>
+        </Column>
+      </NavbarV>
+
+      <BoxIn>
+        <input type="button" onClick={logout} value="salir" />
+        <Text fontSize="2rem">
+          {JSON.stringify({ email: user.email, name: user.name })}
+        </Text>
+        <Outlet />
+      </BoxIn>
       <ButtonTheme></ButtonTheme>
     </>
   )

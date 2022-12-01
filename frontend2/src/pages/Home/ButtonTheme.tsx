@@ -27,7 +27,7 @@ export const ButtonTheme = () => {
           <Icon
             type="icon2"
             style={{
-              width: '3rem',
+              width: '1.8rem',
             }}
             src="https://cdn-icons-png.flaticon.com/512/6714/6714978.png"
           ></Icon>
@@ -37,7 +37,7 @@ export const ButtonTheme = () => {
           <Icon
             type="icon2"
             style={{
-              width: '3rem',
+              width: '1.8rem',
             }}
             src="https://cdn-icons-png.flaticon.com/512/66/66275.png"
           ></Icon>

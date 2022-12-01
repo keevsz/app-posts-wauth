@@ -1,19 +1,17 @@
 import styled from 'styled-components'
-import theme from '../../redux/states/theme'
 
 export const ThemeButton = styled.div`
-  height: 4rem;
-  width: 4rem;
+  height: 3rem;
+  width: 3rem;
   position: absolute;
   border-radius: 50%;
   right: 1rem;
   top: 1rem;
-  z-index: 11;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
   animation: fadeIn ${props => props.theme.name == 'dark' ? '1.6s' : '0.5s'} ${props => props.theme.name == 'dark' ? '' : 'reverse'};
   @keyframes fadeIn {
     0% {
@@ -26,14 +24,14 @@ export const ThemeButton = styled.div`
 `
 
 export const ThemeButton2 = styled.div`
-  height: 4rem;
-  width: 4rem;
+  height: 3rem;
+  width: 3rem;
   border-radius: 50%;
   position: absolute;
   background-color: #eee;
   right: 1rem;
   top: 1rem;
-  z-index: 11;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -15,7 +15,9 @@ export const IconButton = styled.a`
 `
 
 export const Icon = styled.img<{ type: string }>`
-  width: 1rem;
+  display: block;
+  max-width: 100%;
+  height: auto;
   transition: all 0.6s;
   transition-delay: 0.15s;
   ${(props) =>
@@ -37,18 +39,18 @@ export const Title = styled.div`
 `
 
 export const Expand = styled.div`
-  height: 4rem;
-  width: 4rem;
+  height: 3rem;
+  width: 3rem;
   border-radius: 50%;
-  z-index: 1;
+  z-index: 29;
   position: absolute;
-  background-color: #eee;
+  background-color: #FAFAFA;
   right: 1rem;
   top: 1rem;
   animation: expandAnimation 0.6s none;
   transform-style: expandAnimation;
   @keyframes expandAnimation {
-    25% {
+    50% {
       border-top-right-radius: 0%;
       right: 0rem;
       top: 0rem;
@@ -64,17 +66,17 @@ export const Expand = styled.div`
 `
 
 export const Unexpand = styled.div`
-  height: 4rem;
-  width: 4rem;
+  height: 3rem;
+  width: 3rem;
   border-radius: 50%;
-  z-index: 1;
+  z-index: 29;
   position: absolute;
-  background-color: #eee;
+  background-color: #FAFAFA;
   right: 1rem;
   top: 1rem;
   animation: expandAnimation 0.6s reverse;
   @keyframes expandAnimation {
-    25% {
+    50% {
       border-top-right-radius: 0%;
       right: 0rem;
       top: 0rem;

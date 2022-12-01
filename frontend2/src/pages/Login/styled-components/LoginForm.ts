@@ -101,7 +101,7 @@ export const Title = styled.div`
   color: ${(props) => props.color};
 `
 export const Auth = styled.div`
-  z-index: 2;
+  z-index: 29;
   width: 65%;
   height: 80%;
   display: flex;
