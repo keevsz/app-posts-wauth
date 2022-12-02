@@ -1,9 +1,9 @@
 import { BoxLoading, Loader } from '../BoxLoading'
-
-export const Loading = () => {
+const Loading = () => {
   return (
     <BoxLoading>
       <Loader></Loader>
     </BoxLoading>
   )
 }
+export default Loading

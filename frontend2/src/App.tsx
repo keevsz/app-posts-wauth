@@ -1,17 +1,19 @@
-import { useEffect } from 'react'
+import { lazy, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import { AppLayout } from './pages/Home/AppLayout'
-import { FullPage } from './pages/Home/Container'
-import { NotFound } from './pages/Home/NotFound'
-import { ProtectedRoute } from './pages/Home/ProtectedRoute'
-import { AuthPage } from './pages/Login/AuthPage'
-import { Posts } from './pages/Post/Posts'
-import { Profile } from './pages/Profile/Profile'
 import { createUser } from './redux/states/user'
 import { AppStore } from './redux/store'
 import { getFromLocalStorage } from './utilities/handleStorage.utility'
+import { Suspense } from 'react'
+import { FullPage } from './styled-components/FullPage'
+
+const Posts = lazy(() => import('./pages/Post/Posts'))
+const Profile = lazy(() => import('./pages/Profile/Profile'))
+const AuthPage = lazy(() => import('./pages/Login/AuthPage'))
+const AppLayout = lazy(() => import('./pages/Home/AppLayout'))
+const NotFound = lazy(() => import('./pages/Others/NotFound'))
+const ProtectedRoute = lazy(() => import('./pages/Others/ProtectedRoute'))
 
 const App = () => {
   const dispatch = useDispatch()
@@ -23,23 +25,25 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <FullPage>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<AuthPage />}></Route>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <AppLayout></AppLayout>
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Posts></Posts>}></Route>
-              <Route path="/:email" element={<Profile></Profile>}></Route>
-            </Route>
-            <Route path="*" element={<NotFound></NotFound>}></Route>
-          </Routes>
-        </BrowserRouter>
+        <Suspense fallback={<>Cargando...</>}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<AuthPage />}></Route>
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <AppLayout></AppLayout>
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<Posts></Posts>}></Route>
+                <Route path="/:email" element={<Profile></Profile>}></Route>
+              </Route>
+              <Route path="*" element={<NotFound></NotFound>}></Route>
+            </Routes>
+          </BrowserRouter>
+        </Suspense>
       </FullPage>
     </ThemeProvider>
   )

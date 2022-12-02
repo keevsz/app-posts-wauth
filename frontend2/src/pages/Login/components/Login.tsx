@@ -14,7 +14,11 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createUser } from '../../../redux/states/user'
 import { createUserAdapter } from '../../../adapters/user.adapters'
-import { Loading } from './Loading'
+import Loading from './Loading'
+
+import google_icon from '../../../assets/google_icon.png'
+import facebook_icon from '../../../assets/facebook_icon.png'
+import twitter_icon from '../../../assets/twitter_icon.png'
 
 interface Props {
   handleForm: () => void
@@ -24,8 +28,7 @@ interface Inputs {
   email: string
   password: string
 }
-
-export const Login = ({ handleForm }: Props) => {
+const Login = ({ handleForm }: Props) => {
   const { loading, callEndpoint } = useFetchAndLoad()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -51,19 +54,31 @@ export const Login = ({ handleForm }: Props) => {
         <IconButton href="http://localhost:5000/api/user/login/google">
           <Icon
             type={'icon1'}
-            src="https://cdn.icon-icons.com/icons2/791/PNG/512/google_icon-icons.com_65494.png"
+            width="15rem"
+            height="1rem"
+            loading="eager"
+            alt="google_icon"
+            src={google_icon}
           ></Icon>
         </IconButton>
         <IconButton href="#">
           <Icon
             type={'icon1'}
-            src="https://cdn.icon-icons.com/icons2/791/PNG/512/FB_icon-icons.com_65484.png"
+            width="15rem"
+            height="1rem"
+            loading="eager"
+            alt="facebook_icon"
+            src={facebook_icon}
           ></Icon>
         </IconButton>
         <IconButton href="#">
           <Icon
             type={'icon1'}
-            src="https://cdn.icon-icons.com/icons2/791/PNG/512/TWITTER_icon-icons.com_65486.png"
+            width="15rem"
+            height="1rem"
+            loading="eager"
+            alt="twitter_icon"
+            src={twitter_icon}
           ></Icon>
         </IconButton>
       </Row>
@@ -78,7 +93,6 @@ export const Login = ({ handleForm }: Props) => {
           },
         })}
       />
-      {/* <p>{errors.email?.message}</p> */}
       <TextInput
         type={'password'}
         placeholder="Contraseña"
@@ -86,7 +100,6 @@ export const Login = ({ handleForm }: Props) => {
           required: 'Ingrese contraseña',
         })}
       />
-      {/* <p>{errors.password?.message}</p> */}
       <Text fontSize="1rem" color="gray">
         Olvidé mi contraseña
       </Text>
@@ -106,3 +119,5 @@ export const Login = ({ handleForm }: Props) => {
     </LoginForm>
   )
 }
+
+export default Login

@@ -1,3 +1,5 @@
-export const Posts = () => {
-  return <div>Post</div>
+const Posts = () => {
+  return <div>Sesion de posteos</div>
 }
+
+export default Posts

@@ -1,4 +1,5 @@
-export const Profile = () => {
+const Profile = () => {
   console.log('profile')
-  return <div>Profile</div>
+  return <div>sesion de profile</div>
 }
+export default Profile

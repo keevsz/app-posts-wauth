@@ -10,15 +10,16 @@ export const ThemeButton = styled.div`
   z-index: 30;
   display: flex;
   align-items: center;
+  background-color: #eee;
   justify-content: center;
   cursor: pointer;
-  animation: fadeIn ${props => props.theme.name == 'dark' ? '1.6s' : '0.5s'} ${props => props.theme.name == 'dark' ? '' : 'reverse'};
+  animation: fadeIn 1s ease;
   @keyframes fadeIn {
     0% {
-      opacity: 100%;
+      opacity: 0%;
     }
     100% {
-      opacity: 0%;
+      opacity: 100%;
     }
   }
 `

@@ -1,7 +1,6 @@
 import { Row } from '../../Home/Container'
-import { Icon, IconButton, Text } from '../Usual'
+import { Icon, IconButton } from '../Usual'
 import {
-  BoxRight,
   Button,
   LoginForm,
   TextInput,
@@ -14,11 +13,14 @@ import { useForm } from 'react-hook-form'
 import { loadUserToLocalStorageAndCookie } from '../../../utilities/handleStorage.utility'
 import { createUser } from '../../../redux/states/user'
 import { createUserAdapter } from '../../../adapters/user.adapters'
-import { Loading } from './Loading'
 import { registerUser, uploadImg } from '../../../services/public.services'
 import { Avatar, Image, InputImage } from '../../../styled-components/Globals'
-import axios from 'axios'
-import { useState } from 'react'
+import google_icon from '../../../assets/google_icon.png'
+import facebook_icon from '../../../assets/facebook_icon.png'
+import twitter_icon from '../../../assets/twitter_icon.png'
+import { lazy, useState } from 'react'
+const Loading = lazy(() => import('./Loading'))
+import pic_change from '../../../assets/pic_change.png'
 
 interface Props {
   handleForm: () => void
@@ -30,11 +32,9 @@ interface Inputs {
   password: string
 }
 
-export const Register = ({ handleForm }: Props) => {
+const Register = ({ handleForm }: Props) => {
   const { loading, callEndpoint } = useFetchAndLoad()
-  const [pic, setPic] = useState(
-    'https://cdn-icons-png.flaticon.com/512/685/685686.png'
-  )
+  const [pic, setPic] = useState(pic_change)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -59,26 +59,36 @@ export const Register = ({ handleForm }: Props) => {
   }
 
   if (loading) return <Loading></Loading>
+
   return (
     <LoginForm autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
       <Title color="#278048">Registrarse</Title>
       <Row>
         <IconButton href="http://localhost:5000/api/user/login/google">
           <Icon
-            type="icon1"
-            src="https://cdn.icon-icons.com/icons2/791/PNG/512/google_icon-icons.com_65494.png"
+            type={'icon1'}
+            width="15rem"
+            height="1rem"
+            alt="google_icon"
+            src={google_icon}
           ></Icon>
         </IconButton>
         <IconButton href="#">
           <Icon
-            type="icon1"
-            src="https://cdn.icon-icons.com/icons2/791/PNG/512/FB_icon-icons.com_65484.png"
+            type={'icon1'}
+            width="15rem"
+            height="1rem"
+            alt="facebook_icon"
+            src={facebook_icon}
           ></Icon>
         </IconButton>
         <IconButton href="#">
           <Icon
-            type="icon1"
-            src="https://cdn.icon-icons.com/icons2/791/PNG/512/TWITTER_icon-icons.com_65486.png"
+            type={'icon1'}
+            width="15rem"
+            height="1rem"
+            alt="twitter_icon"
+            src={twitter_icon}
           ></Icon>
         </IconButton>
       </Row>
@@ -132,3 +142,5 @@ export const Register = ({ handleForm }: Props) => {
     </LoginForm>
   )
 }
+
+export default Register

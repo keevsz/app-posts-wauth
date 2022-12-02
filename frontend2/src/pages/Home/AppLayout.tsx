@@ -1,14 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { resetUser } from '../../redux/states/user'
 import { AppStore } from '../../redux/store'
-import { Image } from '../../styled-components/Globals'
-import { Auth, LoginForm } from '../Login/styled-components/LoginForm'
-import { Icon, IconButton, Text } from '../Login/Usual'
-import { ButtonTheme } from './ButtonTheme'
+import { Icon, Text } from '../Login/Usual'
+import { ButtonTheme } from '../Others/components/ButtonTheme'
 import { BoxIn, Column, NavbarH, NavbarV, Space } from './Container'
 
-export const AppLayout = () => {
+const AppLayout = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -59,3 +57,5 @@ export const AppLayout = () => {
     </>
   )
 }
+
+export default AppLayout

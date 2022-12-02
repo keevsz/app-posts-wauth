@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "analyze": "source-map-explorer dist/assets/*.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.0",
@@ -16,6 +17,7 @@
     "react-hook-form": "^7.39.5",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
+    "source-map-explorer": "^2.5.3",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {

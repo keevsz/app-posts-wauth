@@ -7,16 +7,17 @@ import {
   loadUserToLocalStorageAndCookie,
 } from '../../utilities/handleStorage.utility'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { Expand, Icon, Text, Unexpand } from './Usual'
-import { CenterVH, FullPage } from '../Home/Container'
+import { lazy, useEffect, useState } from 'react'
+import { Text } from './Usual'
+import { CenterVH } from '../Home/Container'
 import { Auth, BoxRight, Button, Title } from './styled-components/LoginForm'
-import { Login } from './components/Login'
-import { Register } from './components/Register'
 import { Loader } from './BoxLoading'
-import { ButtonTheme } from '../Home/ButtonTheme'
+import { ButtonTheme } from '../Others/components/ButtonTheme'
+import Register from './components/Register'
+const Login = lazy(() => import('./components/Login'))
+// const Register = lazy(() => import('./components/Register'))
 
-export const AuthPage = () => {
+const AuthPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -45,11 +46,9 @@ export const AuthPage = () => {
 
   if (loaded)
     return (
-      <FullPage>
-        <CenterVH>
-          <Loader></Loader>
-        </CenterVH>
-      </FullPage>
+      <CenterVH>
+        <Loader></Loader>
+      </CenterVH>
     )
 
   return (
@@ -86,4 +85,4 @@ export const AuthPage = () => {
   )
 }
 
-export default Login
+export default AuthPage

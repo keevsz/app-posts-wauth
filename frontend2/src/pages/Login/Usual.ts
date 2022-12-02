@@ -50,7 +50,7 @@ export const Expand = styled.div`
   animation: expandAnimation 0.6s none;
   transform-style: expandAnimation;
   @keyframes expandAnimation {
-    50% {
+    25% {
       border-top-right-radius: 0%;
       right: 0rem;
       top: 0rem;
@@ -76,7 +76,7 @@ export const Unexpand = styled.div`
   top: 1rem;
   animation: expandAnimation 0.6s reverse;
   @keyframes expandAnimation {
-    50% {
+    25% {
       border-top-right-radius: 0%;
       right: 0rem;
       top: 0rem;

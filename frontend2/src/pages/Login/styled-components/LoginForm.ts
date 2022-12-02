@@ -17,7 +17,8 @@ export const LoginForm = styled.form`
     gap: 0.3rem;
     width: 50%;
   }
-  animation: fadeIn ${props => props.theme.name == 'dark' ? '1.6s' : '0.5s'} ${props => props.theme.name == 'dark' ? '' : 'reverse'};;
+  animation: fadeIn ${props => props.theme.name == 'dark' ? '1.6s' : '1s'} ;
+  
   @keyframes fadeIn {
     from{
       opacity: 0;
@@ -76,7 +77,7 @@ export const BoxRight = styled.div`
   padding: 1rem;
   width: 50%;
   background-color: ${(props) => props.color};
-  animation: fadeIn ${props => props.theme.name == 'dark' ? '1.6s' : '0.5s'} ${props => props.theme.name == 'dark' ? '' : 'reverse'};;
+  animation: fadeIn ${props => props.theme.name == 'dark' ? '1.6s' : '0.5s'};;
     @keyframes fadeIn {
       from{
         opacity: 0;

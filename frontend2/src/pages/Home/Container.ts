@@ -6,20 +6,7 @@ export const CenterVH = styled.div`
   justify-content: center;
   align-items: center;
 `
-export const FullPage = styled.div`
-  background-color: ${(props) => props.theme.bg};
-  height: 100vh;
-  z-index: 10;
-  transition-delay: ${(props) =>
-    props.theme.bg == '#FAFAFA' ? '0.6s' : '0s'}; // 0s para uno 0.6 para otro
 
-  user-select: none;
-  -moz-user-select: none; 
-  -ms-user-select: none; 
-  -khtml-user-select: none; 
-  -webkit-user-select: none; 
-  -webkit-touch-callout: none; 
-`
 
 export const Row = styled.div`
   display: flex;

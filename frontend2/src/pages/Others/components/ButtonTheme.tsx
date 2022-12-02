@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createTheme } from '../../redux/states/theme'
-import { AppStore } from '../../redux/store'
-import themes from '../../themes'
-import { Expand, Icon, Unexpand } from '../Login/Usual'
-import { ThemeButton, ThemeButton2 } from './ThemeButton'
+import { createTheme } from '../../../redux/states/theme'
+import { AppStore } from '../../../redux/store'
+import themes from '../../../themes'
+import { Expand, Icon, Unexpand } from '../../Login/Usual'
+import { ThemeButton, ThemeButton2 } from '../styled-components/ThemeButton'
+import darkmode_icon from '../../../assets/darkmode_icon.png'
+import lightmode_icon from '../../../assets/lightmode_icon.png'
 
 export const ButtonTheme = () => {
   const theme = useSelector((store: AppStore) => store.theme)
@@ -16,7 +18,6 @@ export const ButtonTheme = () => {
     theme.name == themes.DarkTheme.name
       ? dispatch(createTheme(themes.LightTheme))
       : dispatch(createTheme(themes.DarkTheme))
-    console.log('activar animacion')
     setAnimation(true)
   }
 
@@ -26,26 +27,27 @@ export const ButtonTheme = () => {
         <ThemeButton onClick={handleTheme}>
           <Icon
             type="icon2"
-            style={{
-              width: '1.8rem',
-            }}
-            src="https://cdn-icons-png.flaticon.com/512/6714/6714978.png"
+            width="30rem"
+            height="1rem"
+            loading="eager"
+            alt="darkmode_icon"
+            src={darkmode_icon}
           ></Icon>
         </ThemeButton>
       ) : (
         <ThemeButton2 onClick={handleTheme}>
           <Icon
             type="icon2"
-            style={{
-              width: '1.8rem',
-            }}
-            src="https://cdn-icons-png.flaticon.com/512/66/66275.png"
+            width="30rem"
+            height="1rem"
+            loading="eager"
+            alt="lightmode_icon"
+            src={lightmode_icon}
           ></Icon>
         </ThemeButton2>
       )}
-      {animation ? (
-        <>{theme.name !== 'dark' ? <Expand></Expand> : <Unexpand></Unexpand>}</>
-      ) : null}
+      {animation &&
+        (theme.name !== 'dark' ? <Expand></Expand> : <Unexpand></Unexpand>)}
     </>
   )
 }

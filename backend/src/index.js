@@ -5,6 +5,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 require('./config/database')()
 const app = express()
+const path = require('path')
 app.use(cors())
 
 const Strategy = require('./config/passportStrategies')
@@ -12,7 +13,10 @@ const { BASE_URL_FRONTEND } = require('./config')
 app.use(passport.initialize())
 passport.use(Strategy.google)
 app.use(express.json())
+
 app.use(express.static(__dirname + '/dist'))
+app.use('/login', express.static(path.join(__dirname, 'dist')))
+
 console.log(__dirname)
 app.use(morgan('tiny'))
 app.use(cookieParser())
