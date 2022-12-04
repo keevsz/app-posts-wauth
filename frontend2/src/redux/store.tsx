@@ -1,10 +1,11 @@
+import { Theme, User } from '@/models'
 import { configureStore } from '@reduxjs/toolkit'
-import { themeSlice } from './states/theme'
-import { userSlice } from './states/user'
+import { themeSlice } from './states/theme.slice'
+import { userSlice } from './states/user.slice'
 
 export interface AppStore {
-  user: any
-  theme: any
+  user: User
+  theme: Theme
 }
 
 export default configureStore<AppStore>({

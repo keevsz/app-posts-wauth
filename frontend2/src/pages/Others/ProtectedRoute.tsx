@@ -1,14 +1,12 @@
-import { useSelector } from 'react-redux'
+import { getFromLocalStorage } from '@/utilities'
 import { Navigate } from 'react-router-dom'
-import { AppStore } from '../../redux/store'
 
 interface Props {
   children: JSX.Element
 }
 
 const ProtectedRoute = ({ children }: Props) => {
-  const user = useSelector((store: AppStore) => store.user)
-  if (user.id === '') {
+  if (!getFromLocalStorage('user')) {
     return <Navigate to="/login"></Navigate>
   }
   return children

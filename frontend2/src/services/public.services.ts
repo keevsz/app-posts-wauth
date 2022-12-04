@@ -10,13 +10,9 @@ export const login = ({ email, password }: UserCredentials) => {
   const controller = loadAbort()
   const userCredentials = { email, password }
   return {
-    call: axios.post<User>(
-      'http://localhost:5000/api/user/login',
-      userCredentials,
-      {
-        signal: controller.signal,
-      }
-    ),
+    call: axios.post<User>('/api/user/login', userCredentials, {
+      signal: controller.signal,
+    }),
     controller,
   }
 }
@@ -30,21 +26,15 @@ export const registerUser = ({
   const controller = loadAbort()
   const userData = { email, password, name, pic }
   return {
-    call: axios.post<User>(
-      'http://localhost:5000/api/user/register',
-      userData,
-      {
-        signal: controller.signal,
-      }
-    ),
+    call: axios.post<User>('/api/user/register', userData, {
+      signal: controller.signal,
+    }),
     controller,
   }
 }
 
 export const verifyTokenAndGetUser = (token: string) => {
-  const response = axios.get<any>(
-    `http://localhost:5000/api/user/verify-token/${token}`
-  )
+  const response = axios.get<any>(`/api/user/verify-token/${token}`)
   return response
 }
 

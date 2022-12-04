@@ -1,21 +1,21 @@
+import { lazy, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 import { createUserAdapter } from '../../adapters/user.adapters'
-import { createUser } from '../../redux/states/user'
+import { createUser } from '../../redux/states/user.slice'
 import { verifyTokenAndGetUser } from '../../services/public.services'
 import {
   getFromLocalStorage,
   loadUserToLocalStorageAndCookie,
 } from '../../utilities/handleStorage.utility'
-import { useNavigate } from 'react-router-dom'
-import { lazy, useEffect, useState } from 'react'
-import { Text } from './Usual'
-import { CenterVH } from '../Home/Container'
-import { Auth, BoxRight, Button, Title } from './styled-components/LoginForm'
-import { Loader } from './BoxLoading'
-import { ButtonTheme } from '../Others/components/ButtonTheme'
+import { CenterVH } from '../Home/styled-components/Container'
+import { Auth } from './styled-components/AuthForm.styled'
+import { Loader } from '../../components/Loading.styled'
+import { ButtonTheme } from '../../components/ButtonTheme'
 import Register from './components/Register'
+import { Right } from './components/Right'
 const Login = lazy(() => import('./components/Login'))
-// const Register = lazy(() => import('./components/Register'))
 
 const AuthPage = () => {
   const dispatch = useDispatch()
@@ -24,7 +24,6 @@ const AuthPage = () => {
   const [loaded, setLoadad] = useState(false)
   const [form, setForm] = useState(true)
 
-  const user = getFromLocalStorage('user')
   const getData = async (cookie: string) => {
     const user = await verifyTokenAndGetUser(cookie)
     loadUserToLocalStorageAndCookie(user)
@@ -32,6 +31,7 @@ const AuthPage = () => {
     navigate('/')
   }
 
+  const user = getFromLocalStorage('user')
   useEffect(() => {
     let cookie = document.cookie.split('token=')[1]
     console.log('cookie=', cookie)
@@ -62,22 +62,7 @@ const AuthPage = () => {
             ) : (
               <Register handleForm={handleForm}></Register>
             )}
-            <BoxRight color="#00CC4B">
-              <Title color="white"> {form ? 'Registrarse' : 'Ingresar'}</Title>
-              <Text color="white" fontSize="1rem">
-                {form
-                  ? 'Registrate si no tienes una cuenta'
-                  : 'Ingresa si ya tienes una cuenta'}
-              </Text>
-              <Button
-                onClick={handleForm}
-                display="null"
-                color="#00CC4B"
-                type="button"
-              >
-                {form ? 'Registrarse' : 'Ingresar'}
-              </Button>
-            </BoxRight>
+            <Right form={form} handleForm={handleForm}></Right>
           </Auth>
         )}
       </CenterVH>

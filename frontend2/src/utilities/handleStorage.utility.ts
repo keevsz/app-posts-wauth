@@ -1,4 +1,4 @@
-import { createUserAdapter } from "../adapters/user.adapters";
+import { createUserAdapter } from "@/adapters/user.adapters"
 
 export const loadUserToLocalStorageAndCookie = (user: any) => {
   localStorage.setItem('user', JSON.stringify(createUserAdapter(user)))

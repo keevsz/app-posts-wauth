@@ -1,5 +1,5 @@
-import { Text } from '../Usual'
-import { BoxRight, Button, Title } from '../styled-components/LoginForm'
+import { Text } from '../../../styled-components/Usual'
+import { BoxRight, Button, Title } from '../styled-components/AuthForm.styled'
 
 interface Props {
   form: boolean
@@ -10,7 +10,7 @@ export const Right = ({ form, handleForm }: Props) => {
   return (
     <BoxRight color="#00CC4B">
       <Title color="white"> {form ? 'Registrarse' : 'Ingresar'}</Title>
-      <Text color="white" fontSize="1rem">
+      <Text style={{ color: 'white' }} fontSize="1rem">
         {form
           ? 'Registrate si no tienes una cuenta'
           : 'Ingresa si ya tienes una cuenta'}

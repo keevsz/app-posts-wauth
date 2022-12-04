@@ -18,3 +18,12 @@ export interface UserDataForRegistration {
   name: String
   pic?: String
 }
+
+export const UserEmptyState: User = {
+  id: '',
+  name: '',
+  email: '',
+  pic: '',
+  verified: false,
+  token: ''
+}
