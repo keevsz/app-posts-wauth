@@ -5,61 +5,59 @@ import {
   TextInput,
   Title,
   ToolTip,
-} from '../styled-components/AuthForm.styled'
-import useFetchAndLoad from '../../../hooks/useFetchAndLoad'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { useForm } from 'react-hook-form'
-import { loadUserToLocalStorageAndCookie } from '../../../utilities/handleStorage.utility'
-import { createUser } from '../../../redux/states/user.slice'
-import { createUserAdapter } from '../../../adapters/user.adapters'
-import { registerUser, uploadImg } from '../../../services/public.services'
-import { Avatar, Image, InputImage } from '../../../styled-components/Globals'
-import { lazy, useState } from 'react'
-const Loading = lazy(() => import('../../../components/Loading'))
-import pic_change from '../../../assets/pic_change.png'
-import IconSet from './IconSet'
-import { Row } from '@/styled-components'
-
-interface Props {
-  handleForm: () => void
-}
+} from "../styled-components/AuthForm.styled";
+import useFetchAndLoad from "../../../hooks/useFetchAndLoad";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { loadUserToLocalStorageAndCookie } from "../../../utilities/handleStorage.utility";
+import { createUser } from "../../../redux/states/user.slice";
+import { createUserAdapter } from "../../../adapters/user.adapters";
+import { registerUser, uploadImg } from "../../../services/public.services";
+import { Avatar, Image, InputImage } from "../../../styled-components/Globals";
+import { lazy, useState } from "react";
+const Loading = lazy(() => import("../../../components/Loading"));
+import pic_change from "../../../assets/pic_change.png";
+import IconSet from "./IconSet";
+import { Row } from "@/styled-components";
+import { sharingInformationService } from "@/services/sharingInfo.services";
+import { EmailRegex, PasswordRegex } from "@/models";
 
 interface Inputs {
-  name: string
-  email: string
-  password: string
-  confirm_password: string
+  name: string;
+  email: string;
+  password: string;
+  confirm_password: string;
 }
 
-const Register = ({ handleForm }: Props) => {
-  const { loading, callEndpoint } = useFetchAndLoad()
-  const [pic, setPic] = useState(pic_change)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+const Register = () => {
+  const { loading, callEndpoint } = useFetchAndLoad();
+  const [pic, setPic] = useState(pic_change);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<Inputs>()
+  } = useForm<Inputs>();
 
   const onSubmit = async ({ email, password, name }: Inputs) => {
     const user = await callEndpoint(
       registerUser({ email, password, name, pic })
-    )
-    loadUserToLocalStorageAndCookie(user)
-    dispatch(createUser(createUserAdapter(user)))
-    navigate('/')
-  }
+    );
+    loadUserToLocalStorageAndCookie(user);
+    dispatch(createUser(createUserAdapter(user)));
+    navigate("/");
+  };
 
   const uploadImage = async (files: any) => {
-    const response = await callEndpoint(uploadImg(files))
-    setPic(response.data.url)
-  }
+    const response = await callEndpoint(uploadImg(files));
+    setPic(response.data.url);
+  };
 
-  if (loading) return <Loading></Loading>
+  if (loading) return <Loading></Loading>;
 
   return (
     <Form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
@@ -77,8 +75,8 @@ const Register = ({ handleForm }: Props) => {
       <BoxInput>
         <TextInput
           placeholder="Nombres"
-          {...register('name', {
-            required: 'Ingrese nombres',
+          {...register("name", {
+            required: "Ingrese nombres",
           })}
         ></TextInput>
         {errors.name && <ToolTip text={errors.name.message}>⚠</ToolTip>}
@@ -86,12 +84,11 @@ const Register = ({ handleForm }: Props) => {
       <BoxInput>
         <TextInput
           placeholder="Correo electrónico"
-          {...register('email', {
-            required: 'Ingrese email',
+          {...register("email", {
+            required: "Ingrese email",
             pattern: {
-              value:
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: 'Email invalido',
+              value: EmailRegex,
+              message: "Email invalido",
             },
           })}
         ></TextInput>
@@ -99,23 +96,28 @@ const Register = ({ handleForm }: Props) => {
       </BoxInput>
       <BoxInput>
         <TextInput
-          type={'password'}
+          type={"password"}
           placeholder="Contraseña"
-          {...register('password', {
-            required: 'Ingrese contraseña',
+          {...register("password", {
+            required: "Ingrese contraseña",
+            pattern: {
+              value: PasswordRegex,
+              message:
+                "Password invalido, 6 - 50 caracteres, una letra mayúscula, una letra minúscula y un dígito numérico.",
+            },
           })}
         />
         {errors.password && <ToolTip text={errors.password.message}>⚠</ToolTip>}
       </BoxInput>
       <BoxInput>
         <TextInput
-          type={'password'}
+          type={"password"}
           placeholder="Confirmar contraseña"
-          {...register('confirm_password', {
-            required: 'Ingrese contraseña',
+          {...register("confirm_password", {
+            required: "Ingrese contraseña",
             validate: (val: string) => {
-              if (watch('password') != val) {
-                return 'Las contraseñas no coinciden'
+              if (watch("password") != val) {
+                return "Las contraseñas no coinciden";
               }
             },
           })}
@@ -130,7 +132,9 @@ const Register = ({ handleForm }: Props) => {
         </Button>
         <Button
           display="none"
-          onClick={handleForm}
+          onClick={() => {
+            sharingInformationService.setSubject(true);
+          }}
           color="#4a4a4abd"
           type="button"
         >
@@ -138,7 +142,7 @@ const Register = ({ handleForm }: Props) => {
         </Button>
       </Row>
     </Form>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

@@ -8,6 +8,11 @@ const { BASE_URL } = require('../config')
 
 const getEmailHtml = ({ userId, token, type }) => {
   //reset password -> redirect to frontend page https://frontend.com/reset-password/2312313123123213/123123
+
+  if (type==='password-reset') {
+    const html = `<div> Click <a href='http://localhost:5173/changepassword/${userId}/${token}'>here</a> to reset your password </div>`
+    return html
+  }
   const stringType =
     type === 'password-reset' ? 'reset your password' : 'verify your email'
   const html = `<div> Click <a href='${BASE_URL}/api/user/${type}/${userId}/${token}'>here</a> to ${stringType}</div>`

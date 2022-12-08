@@ -4,5 +4,5 @@ export const createUserAdapter = (user: any) => ({
   email: user.data.email,
   pic: user.data.pic,
   verified: user.data.verified,
-  token: user.data.token
-})
+  token: user.data.token,
+});

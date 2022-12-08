@@ -63,6 +63,7 @@ const changePassword = async ({ newPassword, token, userId }) => {
   await User.findByIdAndUpdate(userId, {
     password: hashedPassword,
   })
+  await reset_password.findByIdAndDelete(tokenExists._id)
   loggers.info('UserService_changePassword: User password has been updated')
   return 'User password updated'
 }

@@ -1,29 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { resetUser } from '../../../redux/states/user.slice'
-import { AppStore } from '../../../redux/store'
-import { Icon, Text } from '../../../styled-components/Usual'
-import { ButtonTheme } from '../../../components/ButtonTheme'
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Outlet } from "react-router-dom";
+import { resetUser } from "../../../../redux/states/user.slice";
+import { AppStore } from "../../../../redux/store";
+import { Icon, Text } from "../../../../styled-components/Usual";
+import { ButtonTheme } from "../../../../components/ButtonTheme";
 import {
   BoxIn,
   Column,
   NavbarH,
   NavbarV,
   Space,
-} from '../styled-components/Container'
+} from "../styled-components/Container";
 
-const AppLayout = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
+const Home = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((store: AppStore) => store.user);
   const logout = () => {
-    localStorage.removeItem('user')
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
-    dispatch(resetUser)
-    navigate('/login')
-  }
-
-  const user = useSelector((store: AppStore) => store.user)
+    dispatch(resetUser());
+  };
 
   return (
     <>
@@ -37,13 +31,13 @@ const AppLayout = () => {
               src="https://cdn-icons-png.flaticon.com/512/3388/3388840.png"
             ></Icon>
           </Link>
-          <Link to="/:email">
+          <Link to="/app/messages">
             <Icon
               type="icon1"
               src="https://cdn-icons-png.flaticon.com/512/70/70854.png"
             ></Icon>
           </Link>
-          <Link to="/:email">
+          <Link to="/app/profile">
             <Icon
               type="icon1"
               src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
@@ -61,7 +55,7 @@ const AppLayout = () => {
       </BoxIn>
       <ButtonTheme></ButtonTheme>
     </>
-  )
-}
+  );
+};
 
-export default AppLayout
+export default Home;

@@ -106,21 +106,19 @@ const verifyEmail = async (req, res) => {
     })
     if (response.error) throw new Error(response.error)
 
-    res.status(201).json(response)
+    res.redirect('http://localhost:5173')
   } catch ({ message }) {
     handleHttpError({ res, message, from: 'UserController_verifyEmail' })
   }
 }
 
 const sendCookie = (req, res) => {
-  console.log('user:', req.user)
   if (req.user) {
     res.clearCookie('token')
-    console.log('token:', req.user)
     res.cookie('token', req.user.token)
-    res.redirect('/')
+    res.redirect('http://localhost:5173')
   } else {
-    res.redirect('/')
+    res.redirect('http://localhost:5173')
   }
 }
 
@@ -137,6 +135,7 @@ const verifyTokenUrl = async (req, res) => {
     handleHttpError({ res, message, from: 'VerifyToken_sendToken' })
   }
 }
+
 module.exports = {
   registerUser,
   loginUser,

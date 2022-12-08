@@ -1,13 +1,13 @@
 import { Icon, IconButton } from '../../../styled-components/Usual'
 import google_icon from '../../../assets/google_icon.png'
 import facebook_icon from '../../../assets/facebook_icon.png'
-import twitter_icon from '../../../assets/twitter_icon.png'
+import twitter_icon from '@/assets/twitter_icon.png'
 import { Row } from '@/styled-components'
 
 const IconSet = () => {
   return (
     <Row>
-      <IconButton href="/api/user/login/google">
+      <IconButton href="http://localhost:5000/api/user/login/google">
         <Icon
           type={'icon1'}
           width="15rem"

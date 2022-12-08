@@ -1,33 +1,34 @@
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { createTheme } from '../redux/states/theme.slice'
-import { AppStore } from '../redux/store'
-import themes from '../themes'
-import { Expand, Icon, ThemeButton } from './ButtonTheme.styled'
-import darkmode_icon from '../assets/darkmode_icon.png'
-import lightmode_icon from '../assets/lightmode_icon.png'
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createTheme } from "../redux/states/theme.slice";
+import { AppStore } from "../redux/store";
+import themes from "../themes";
+import {
+  Expand,
+  Icon,
+  ThemeButton,
+} from "../styled-components/ButtonTheme.styled";
+import darkmode_icon from "../assets/darkmode_icon.png";
+import lightmode_icon from "../assets/lightmode_icon.png";
 
 export const ButtonTheme = () => {
-  const dispatch = useDispatch()
-  const theme = useSelector((store: AppStore) => store.theme)
+  const dispatch = useDispatch();
+  const theme = useSelector((store: AppStore) => store.theme);
 
-  const [animation, setAnimation] = useState(false)
-  const [canclick, setCanClick] = useState(true)
+  const [animation, setAnimation] = useState(false);
 
   const handleTheme = () => {
-    if (!canclick) return
+    if (animation) return;
+
     theme.name == themes.DarkTheme.name
       ? dispatch(createTheme(themes.LightTheme))
-      : dispatch(createTheme(themes.DarkTheme))
+      : dispatch(createTheme(themes.DarkTheme));
 
-    setAnimation(true)
-    setCanClick(false)
-
+    setAnimation(true);
     setTimeout(() => {
-      setAnimation(false)
-      setCanClick(true)
-    }, 650)
-  }
+      setAnimation(false);
+    }, 650);
+  };
 
   return (
     <>
@@ -36,11 +37,11 @@ export const ButtonTheme = () => {
           width="30rem"
           height="1rem"
           alt="darkmode_icon"
-          src={theme.name !== 'dark' ? darkmode_icon : lightmode_icon}
+          src={theme.name !== "dark" ? darkmode_icon : lightmode_icon}
           animation={animation}
         ></Icon>
       </ThemeButton>
       <Expand animation={animation}></Expand>
     </>
-  )
-}
+  );
+};

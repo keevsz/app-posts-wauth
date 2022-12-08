@@ -1,23 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { UserEmptyState } from '../../models'
-import { getFromLocalStorage } from '../../utilities'
+import { createSlice } from "@reduxjs/toolkit";
+import { UserEmptyState } from "../../models";
+import {
+  getFromLocalStorage,
+  loadUserToLocalStorageAndCookie,
+} from "../../utilities";
 
 export const userSlice = createSlice({
-  name: 'user',
-  initialState: getFromLocalStorage('user') || UserEmptyState,
+  name: "user",
+  initialState: getFromLocalStorage("user") || UserEmptyState,
   reducers: {
     createUser: (state, action) => {
-      return action.payload || UserEmptyState
+      loadUserToLocalStorageAndCookie(action.payload);
+      return action.payload || UserEmptyState;
     },
     modifyUser: (state, action) => {
-      return { ...state, ...action.payload }
+      loadUserToLocalStorageAndCookie(action.payload);
+      return { ...state, ...action.payload };
     },
     resetUser: () => {
-      //localstorage.removeitem
-      return UserEmptyState
+      localStorage.removeItem("user");
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+      return UserEmptyState;
     },
-  }
-})
+  },
+});
 
-export const { createUser, modifyUser, resetUser } = userSlice.actions
-export default userSlice.reducer
+export const { createUser, modifyUser, resetUser } = userSlice.actions;
+export default userSlice.reducer;

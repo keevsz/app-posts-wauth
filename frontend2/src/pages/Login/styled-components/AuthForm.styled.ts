@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Form = styled.form`
   transition: background-color 0.6s;
@@ -17,7 +17,7 @@ export const Form = styled.form`
     gap: 0.3rem;
     width: 50%;
   }
-  animation: fadeIn ${(props) => (props.theme.name == 'dark' ? '1.6s' : '1s')};
+  animation: fadeIn ${(props) => (props.theme.name == "dark" ? "1s" : "0.4s")};
 
   @keyframes fadeIn {
     from {
@@ -27,7 +27,7 @@ export const Form = styled.form`
       opacity: 1;
     }
   }
-`
+`;
 
 export const TextInput = styled.input`
   outline: none;
@@ -49,7 +49,7 @@ export const TextInput = styled.input`
   @media screen and (max-height: 385px) {
     padding: 0.7rem 0.7rem 0.7rem 1.3rem;
   }
-`
+`;
 export const Button = styled.button<{ display: string }>`
   background-color: ${(props) => props.color};
   width: 7rem;
@@ -66,7 +66,7 @@ export const Button = styled.button<{ display: string }>`
   @media screen and (min-width: 1000px) {
     display: ${(props) => props.display};
   }
-`
+`;
 
 export const BoxRight = styled.div`
   justify-content: center;
@@ -77,15 +77,7 @@ export const BoxRight = styled.div`
   padding: 1rem;
   width: 50%;
   background-color: ${(props) => props.color};
-  animation: fadeIn ${(props) => (props.theme.name == 'dark' ? '1.6s' : '0.5s')};
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+  animation: fadeIn ${(props) => (props.theme.name == "dark" ? "1s" : "0.4s")};
 
   @media screen and (max-width: 1000px) {
     display: none;
@@ -95,12 +87,12 @@ export const BoxRight = styled.div`
     display: flex;
     width: 50%;
   }
-`
+`;
 
 export const Title = styled.div`
   font-size: 2.5rem;
   color: ${(props) => props.color};
-`
+`;
 export const Auth = styled.div`
   z-index: 29;
   width: 65%;
@@ -116,11 +108,11 @@ export const Auth = styled.div`
     width: 100%;
     height: 100%;
   }
-`
+`;
 
 export const BoxInput = styled.div`
   position: relative;
-`
+`;
 
 export const ToolTip = styled.div<{ text: string | undefined }>`
   color: #e65d1a;
@@ -142,7 +134,7 @@ export const ToolTip = styled.div<{ text: string | undefined }>`
       border: 1px solid white;
       padding: 0.5rem 0.5rem;
       animation: fadeIn
-        ${(props) => (props.theme.name == 'dark' ? '0.1s' : '0s')};
+        ${(props) => (props.theme.name == "dark" ? "0.1s" : "0s")};
     }
   }
-`
+`;

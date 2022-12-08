@@ -5,9 +5,10 @@ const handleHttpError = ({
   code = 403,
   from = 'somewhere',
 }) => {
+  const getOnlyMessage = message.split(': ')[1]
   logger.error(`${message} - ${from}`)
   res.status(code)
-  res.send({ error: message })
+  res.send(getOnlyMessage )
 }
 
 module.exports = { handleHttpError }
