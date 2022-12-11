@@ -38,7 +38,8 @@ const verifyToken = async (req, res, next) => {
 const verifyEmail = async (req, res, next) => {
   try {
     const userVerified = req.user
-    if (!userVerified.verify) throw new Error('Missing verification email')
+    console.log(req.user)
+    if (!userVerified.verified) throw new Error('Missing verification email')
     next()
   } catch ({ message }) {
     handleHttpError({ res, message, from: 'authMiddleware_verifyEmail' })

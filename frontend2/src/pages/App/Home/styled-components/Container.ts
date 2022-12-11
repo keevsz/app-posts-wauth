@@ -17,7 +17,7 @@ export const NavbarH = styled.div`
   transition: all 0.6s;
   transition-delay: 0.15s;
   z-index: 30;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 80px;
   border-bottom: 1px solid ${(props) => props.theme.border_color};
@@ -27,7 +27,7 @@ export const NavbarH = styled.div`
 export const NavbarV = styled.div`
   transition: all 0.6s;
   transition-delay: 0.15s;
-  position: absolute;
+  position: fixed;
   z-index: 30;
   width: 100px;
   height: 100%;

@@ -10,7 +10,6 @@ import useFetchAndLoad from "../../../hooks/useFetchAndLoad";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { loadUserToLocalStorageAndCookie } from "../../../utilities/handleStorage.utility";
 import { createUser } from "../../../redux/states/user.slice";
 import { createUserAdapter } from "../../../adapters/user.adapters";
 import { registerUser, uploadImg } from "../../../services/public.services";
@@ -44,10 +43,10 @@ const Register = () => {
   } = useForm<Inputs>();
 
   const onSubmit = async ({ email, password, name }: Inputs) => {
+    let setPic = pic === pic_change ? "" : pic;
     const user = await callEndpoint(
-      registerUser({ email, password, name, pic })
+      registerUser({ email, password, name, pic:setPic })
     );
-    loadUserToLocalStorageAndCookie(user);
     dispatch(createUser(createUserAdapter(user)));
     navigate("/");
   };
@@ -126,7 +125,7 @@ const Register = () => {
           <ToolTip text={errors.confirm_password.message}>⚠</ToolTip>
         )}
       </BoxInput>
-      <Row>
+      <Row style={{ marginTop: "10px" }}>
         <Button display="" color="#00CC4B" type="submit">
           Registrarse
         </Button>

@@ -10,6 +10,7 @@ import {
 } from "../styled-components/ButtonTheme.styled";
 import darkmode_icon from "../assets/darkmode_icon.png";
 import lightmode_icon from "../assets/lightmode_icon.png";
+import { FullPage } from "@/styled-components";
 
 export const ButtonTheme = () => {
   const dispatch = useDispatch();

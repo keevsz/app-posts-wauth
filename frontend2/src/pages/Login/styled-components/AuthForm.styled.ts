@@ -9,7 +9,7 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.7rem;
+  gap: 1.1rem;
   @media screen and (max-width: 1000px) {
     width: 100%;
   }
@@ -33,14 +33,25 @@ export const TextInput = styled.input`
   outline: none;
   background-color: transparent;
   padding: 1rem 1rem 0.5rem 1rem;
-  color: ${(props) => props.theme.color};
+  color: #999;
+  font-size: 1.1rem;
+
+  ::placeholder {
+    color: ${(props) => (props.theme.name == "dark" ? "#fafafa" : "eee")};
+    opacity: 0.6;
+    font-size: 16px;
+    transition: color 0.6s;
+    transition-delay: 0.3s;
+  }
+  
+  border-color: ${(props) => props.theme.color};
+
   border: 0;
-  border-bottom: 0.1rem solid ${(props) => props.theme.border_input};
-  font-size: 1.2rem;
+  border-bottom: 0.1rem solid #00cc4b;
   ::selection {
     background-color: #ccc;
   }
-  transition: border-bottom, color 0.6s;
+  transition: color 0.6s;
   transition-delay: 0.3s;
 
   @media screen and (max-width: 330px) {
@@ -53,9 +64,10 @@ export const TextInput = styled.input`
 export const Button = styled.button<{ display: string }>`
   background-color: ${(props) => props.color};
   width: 7rem;
-  border: 0.1rem solid white;
+  border: 0.1rem solid
+    ${(props) => (props.display == "right" ? "#fff" : "transparent")};
   padding: 1rem;
-  color: white;
+  color: #fff;
   font-weight: bold;
   border-radius: 0.4rem;
   cursor: pointer;
@@ -91,7 +103,7 @@ export const BoxRight = styled.div`
 
 export const Title = styled.div`
   font-size: 2.5rem;
-  color: ${(props) => props.color};
+  color: #cccccc;
 `;
 export const Auth = styled.div`
   z-index: 29;

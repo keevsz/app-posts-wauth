@@ -5,4 +5,5 @@ export interface Theme {
   border_input: string
   color: string
   border_color: string
+  bg3: string
 }

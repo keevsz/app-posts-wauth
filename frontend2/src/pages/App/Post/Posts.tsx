@@ -1,5 +1,19 @@
-const Posts = () => {
-  return <div>Sesion de posteos</div>
-}
+import PostForm from "./components/PostForm";
+import PostList from "./components/PostList";
+import { PostProvider } from "./context/PostProvider";
+import { BoxForm } from "./styled-components/PostForm.styled";
 
-export default Posts
+const Posts = () => {
+  return (
+    <PostProvider>
+      <BoxForm>
+        <PostForm></PostForm>
+        <br />
+        <br />
+        <PostList></PostList>
+      </BoxForm>
+    </PostProvider>
+  );
+};
+
+export default Posts;

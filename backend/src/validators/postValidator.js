@@ -2,9 +2,8 @@ const { check } = require('express-validator')
 const validateResults = require('../utils/handleValidator')
 
 const validatorCreatePost = [
-  check('title').isString(),
   check('description').isString(),
-  check('image').optional().isString(),
+  check('image').isString(),
   (req, res, next) => {
     return validateResults(req, res, next)
   },

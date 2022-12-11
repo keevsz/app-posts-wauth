@@ -5,10 +5,9 @@ const { handleHttpError } = require('../utils/handleError')
 const createPost = async (req, res) => {
   try {
     const token = req.user.token
-    const { title, description, image } = matchedData(req)
+    const {  description, image } = matchedData(req)
     console.log(image)
     const response = await postService.create({
-      title,
       description,
       image,
       token,

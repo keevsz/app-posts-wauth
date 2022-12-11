@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const useAuthenticated = () => {
   const dispatch = useDispatch();
-
   const userState = useSelector((state: AppStore) => state.user);
 
   const getData = async (cookie: string) => {

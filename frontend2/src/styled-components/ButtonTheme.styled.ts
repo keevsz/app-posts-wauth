@@ -1,16 +1,16 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const ThemeButton = styled.div`
   height: 3rem;
   width: 3rem;
-  position: absolute;
+  position: fixed;
   border-radius: 50%;
   right: 1rem;
   top: 1rem;
   z-index: 30;
   display: flex;
   align-items: center;
-  background-color: #fafafa;
+  background-color: #eeeeee;
   justify-content: center;
   cursor: pointer;
   animation: fadeIn 1.5s ease;
@@ -19,31 +19,30 @@ export const ThemeButton = styled.div`
     opacity: 0.8;
     transition: 0.3s;
   }
-`
+`;
 
 export const Icon = styled.img<{ animation: boolean }>`
   height: auto;
   ${(props) =>
     props.animation &&
-    'animation: fadeIn 1.5s ease; @keyframes fadeIn {0%{opacity:0%;}100% {opacity: 100%;}}'}
-`
+    "animation: fadeIn 1.5s ease; @keyframes fadeIn {0%{opacity:0%;}100% {opacity: 100%;}}"}
+`;
 
 export const Expand = styled.div<{ animation: boolean }>`
   height: 3rem;
   width: 3rem;
   border-radius: 50%;
-  z-index: 29;
-  position: absolute;
-  background-color: #fafafa;
+  z-index: 10;
+  position: fixed;
+  background-color: #eeeeee;
   right: 1rem;
   top: 1rem;
   ${(props) =>
     props.animation &&
     `
   animation: expandAnimation 0.6s ${
-    props.theme.name == 'dark' ? 'reverse' : ''
+    props.theme.name == "dark" ? "reverse" : ""
   }; 
-  transform-style: expandAnimation;  
   @keyframes expandAnimation {
     25% {      
       border-top-right-radius: 0%;      
@@ -54,8 +53,8 @@ export const Expand = styled.div<{ animation: boolean }>`
       right: 0rem;      
       top: 0rem;     
        width: 208vh;      
-       height: 100vh;      
+       height: 100%;      
        border-radius: 0%;    
        }  
     }`}
-`
+`;

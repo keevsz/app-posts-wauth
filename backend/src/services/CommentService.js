@@ -14,7 +14,7 @@ const create = async ({ description, post, token }) => {
 }
 
 const getAll = async () => {
-  const comments = await Comment.find().populate('user', 'name pic email')
+  const comments = await Comment.find().populate('user', 'name pic email').sort({ createdAt: -1 })
   loggers.info('CommentService_getAll: Getting comments')
   return comments
 }
@@ -23,7 +23,8 @@ const remove = async ({ id }) => {
   const comment = await Comment.findByIdAndDelete(id)
   if (!comment) return { error: 'CommentService_remove: Comment not found' }
   loggers.info('CommentService_remove: A comment has been deleted')
-  return 'Ok'
+  console.log(id)
+  return comment
 }
 
 module.exports = { create, getAll, remove }

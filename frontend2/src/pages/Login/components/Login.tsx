@@ -47,7 +47,7 @@ const Login = () => {
 
   return (
     <Form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-      <Title color="#278048">Ingresar</Title>
+      <Title>Ingresar</Title>
       <IconSet />
       <BoxInput>
         <TextInput
@@ -73,7 +73,9 @@ const Login = () => {
         {errors.password && <ToolTip text={errors.password.message}>⚠</ToolTip>}
       </BoxInput>
 
-      <Link to={PublicRoutes.CHANGE_PASSWORD} style={{textDecoration:"none", color:"#278048"}}>¿Olvidaste tu contraseña?</Link>
+      <Link to={PublicRoutes.CHANGE_PASSWORD} style={{textDecoration:"none", marginTop: "30px"}}>
+        <Text fontSize="15px">¿Olvidaste tu contraseña?</Text>
+      </Link>
       <Row>
         <Button display="" color="#00CC4B" type="submit">
           Ingresar

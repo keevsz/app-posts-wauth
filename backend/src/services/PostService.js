@@ -3,11 +3,10 @@ const { decodedToken } = require('../middlewares/authMiddleware')
 const loggers = require('../utils/handleLogger')
 
 
-const create = async ({ title, image, description, token }) => {
+const create = async ({  image, description, token }) => {
   const user = decodedToken(token)
   const post = await Post.create({
     user: user.id,
-    title,
     description,
     image,
   })
@@ -79,7 +78,7 @@ const alterLike = async ({ userId, postId }) => {
 
   const post = await Post.findByIdAndUpdate(postId, query, {
     new: true,
-  }).populate('likes', '-password')
+  }).populate('user', 'name pic email')
 
   if (!post) return { error: 'PostService_alterLike: Post not founded' }
 

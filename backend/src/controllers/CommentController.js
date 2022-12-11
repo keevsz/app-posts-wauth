@@ -34,9 +34,8 @@ const getComments = async (req, res) => {
 const deleteComment = async (req, res) => {
   try {
     const { id } = matchedData(req)
-    const response = commentService.remove({ id })
+    const response = await commentService.remove({ id })
     if (response.error) throw new Error(response.error)
-
     res.status(201).json(response)
   } catch ({ message }) {
     handleHttpError({ res, message, from: 'CommmentController_deleteComment' })

@@ -1,22 +1,22 @@
 export interface User {
-  id?: String;
-  name: String;
-  email: String;
-  pic: String;
+  id?: string;
+  name: string;
+  email: string;
+  pic: string;
   verified: boolean;
-  token: String;
+  token: string;
 }
 
 export interface UserCredentials {
-  email: String;
-  password: String;
+  email: string;
+  password: string;
 }
 
 export interface UserDataForRegistration {
-  email: String;
-  password: String;
-  name: String;
-  pic?: String;
+  email: string;
+  password: string;
+  name: string;
+  pic?: string;
 }
 
 export const UserEmptyState: User = {

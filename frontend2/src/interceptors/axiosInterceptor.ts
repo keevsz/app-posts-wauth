@@ -5,6 +5,7 @@ import axios, { AxiosRequestConfig } from "axios";
 export const AxiosInterceptor = () => {
   const setHeaderAuthentication = (request: AxiosRequestConfig) => {
     const token = getFromCookie("token");
+    console.log(token);
     const headers = {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -14,10 +15,9 @@ export const AxiosInterceptor = () => {
   };
 
   axios.interceptors.request.use((request) => {
-    // if (request.url?.includes('/posts')) {
-    //     return setHeaderAuthentication(request)
-    // }
-    console.log("Getting request", request);
+    if (request.url?.includes("/post")) return setHeaderAuthentication(request);
+    if (request.url?.includes("/comment")) return setHeaderAuthentication(request);
+
     return request;
   });
 

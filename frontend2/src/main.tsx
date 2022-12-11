@@ -5,6 +5,7 @@ import { AxiosInterceptor } from "@/interceptors";
 import store from "./redux/store";
 import { SnackbarConfig } from "./utilities/snackbarManager";
 import { SnackbarProvider } from "notistack";
+import "./index.css"
 AxiosInterceptor();
 createRoot(document.getElementById("root") as HTMLElement).render(
   <Provider store={store}>

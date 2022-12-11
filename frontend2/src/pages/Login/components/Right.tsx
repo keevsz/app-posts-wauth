@@ -23,7 +23,7 @@ export const Right = () => {
         onClick={() => {
           sharingInformationService.setSubject(!form);
         }}
-        display="null"
+        display="right"
         color="#00CC4B"
         type="submit"
       >

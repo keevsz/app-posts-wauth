@@ -25,6 +25,7 @@ const GlobalProvider = ({ children }) => {
       navigate("/")
     }
   }, [navigate])
+  
   return (
     <ChatContext.Provider
       value={{
