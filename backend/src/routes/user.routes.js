@@ -62,7 +62,7 @@ router.post('/login', AuthValidator.validatorLogin, UserController.loginUser)
 
 router.get(
   '/',
-  verifyToken,
+  // verifyToken,
   AuthValidator.validatorGetUsers,
   UserController.getUsers
 )

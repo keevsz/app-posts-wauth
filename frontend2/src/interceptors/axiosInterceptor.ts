@@ -17,6 +17,7 @@ export const AxiosInterceptor = () => {
   axios.interceptors.request.use((request) => {
     if (request.url?.includes("/post")) return setHeaderAuthentication(request);
     if (request.url?.includes("/comment")) return setHeaderAuthentication(request);
+    if (request.url?.includes("/chat")) return setHeaderAuthentication(request);
 
     return request;
   });

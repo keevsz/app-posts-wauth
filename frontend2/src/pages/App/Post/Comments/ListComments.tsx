@@ -16,16 +16,21 @@ const ListComments = ({ post }: any) => {
     getData();
   }, []);
 
+  const fcn = comments.find((c: any) => c.post === post.id);
+  console.log(fcn);
+
   return (
-    <div>
-      <br />
-      {comments.map(
-        (comment: any) =>
-          comment.post === post.id && (
-            <CommentCard key={comment.id} comment={comment} ></CommentCard>
-          )
-      )}
-    </div>
+    <>
+      <>
+        <br />
+        {comments.map(
+          (comment: any) =>
+            comment.post === post.id && (
+              <CommentCard key={comment.id} comment={comment}></CommentCard>
+            )
+        )}
+      </>
+    </>
   );
 };
 export default ListComments;

@@ -19,7 +19,9 @@ import { usePostContext } from "../context/PostProvider";
 import { getPostAdapter } from "@/adapters/post.adapter";
 import { useState } from "react";
 import Comments from "../Comments/Comments";
-import { formatDistance } from "date-fns";
+import { format, formatDistance, parse, parseISO } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
+import { getFormattedDate } from "@/utilities/localDate.utility";
 
 interface Props {
   post: Post;
@@ -39,16 +41,6 @@ const PostCard = ({ post }: Props) => {
     setShowComments(!showComments);
   };
 
-  const getDate = () => {
-    const date = new Date(2022, 11, 10); // 10 de diciembre de 2022
-    const timeSince = formatDistance(date, new Date(), {
-      addSuffix: true,
-      includeSeconds: true,
-    });
-
-    console.log(timeSince); // e.g. "2 days ago"
-  };
-
   return (
     <>
       <Row>
@@ -61,7 +53,7 @@ const PostCard = ({ post }: Props) => {
         <FormPost>
           <PostContent>
             <Text fontSize="0.9rem">{post.user?.name}</Text>
-            <Text fontSize="0.9rem">{" " + getDate()}</Text>
+            <Text fontSize="0.9rem">{" " + getFormattedDate(post.createdAt)}</Text>
             <Space h="5px" w="" />
             <Text fontSize="1rem">{post.description}</Text>
             <Space h="10px" w="" />

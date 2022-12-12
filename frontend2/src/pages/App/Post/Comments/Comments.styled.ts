@@ -10,7 +10,7 @@ export const BoxComments = styled.div`
   padding: 1.5rem;
 `;
 
-export const CommentsAnimation = styled.div`
+export const CommentFormAnimation = styled.div`
   animation: downAnimation 0.6s;
   z-index: -10;
   position: relative;
@@ -24,6 +24,8 @@ export const CommentsAnimation = styled.div`
     }
   } ;
 `;
+
+export const CommentsAnimation = styled.div``
 
 export const InputNewComment = styled.input`
   outline: none;

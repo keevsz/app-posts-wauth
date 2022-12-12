@@ -4,13 +4,13 @@ import { useState } from "react";
 import { usePostContext } from "../context/PostProvider";
 import {
   BoxComments,
-  CommentsAnimation,
+  CommentFormAnimation,
   InputNewComment,
 } from "./Comments.styled";
 import ListComments from "./ListComments";
 
 const Comments = ({ post }: any) => {
-  const { setCommentsFunc, comments } = usePostContext();
+  const { setCommentsFunc } = usePostContext();
   const [comment, setComment] = useState("");
 
   const onSuubmit = async (e: any) => {
@@ -26,7 +26,7 @@ const Comments = ({ post }: any) => {
   };
 
   return (
-    <CommentsAnimation>
+    <CommentFormAnimation>
       <BoxComments>
         <InputNewComment
           placeholder="Nuevo comentario"
@@ -38,7 +38,7 @@ const Comments = ({ post }: any) => {
         ></InputNewComment>
         <ListComments post={post}></ListComments>
       </BoxComments>
-    </CommentsAnimation>
+    </CommentFormAnimation>
   );
 };
 export default Comments;
