@@ -3,6 +3,7 @@ import { AppStore } from "@/redux/store";
 import { deleteComment } from "@/services/posts.services";
 import { Image, Row, Text } from "@/styled-components";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Column } from "../../Home/styled-components/Container";
 import { usePostContext } from "../context/PostProvider";
 import {
@@ -17,17 +18,19 @@ const CommentCard = ({ comment }: any) => {
 
   const handleDeleteComment = async () => {
     const response = await deleteComment({ id: comment.id });
-    deleteCommentFunc(getCommentAdapter(response).id)
+    deleteCommentFunc(getCommentAdapter(response).id);
   };
-  
 
   return (
     <BoxCommentCard>
       <Row>
-        <Image
-          style={{ width: "35px", height: "35px", marginLeft: "10px" }}
-          src={comment.user.pic}
-        ></Image>
+        <Link to={`/app/${comment.user?.id}`} style={{ zIndex: 20 }}>
+          <Image
+            style={{ width: "35px", height: "35px", marginLeft: "10px" }}
+            src={comment.user.pic}
+          ></Image>
+        </Link>
+
         <CommentDescription>
           <Column gap="0rem">
             <Text fontSize="0.67rem" style={{ fontWeight: "bold" }}>

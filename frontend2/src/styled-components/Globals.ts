@@ -19,6 +19,9 @@ export const Image = styled.img`
   :hover {
     opacity: 50%;
   }
+  @media screen and (max-width: 380px) {
+    display: none;
+  }
 `;
 
 export const InputImage = styled.input`

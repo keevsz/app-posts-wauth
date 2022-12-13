@@ -1,10 +1,12 @@
 import { createPostAdapter } from "@/adapters/post.adapter";
+import Loading from "@/components/Loading";
 import useFetchAndLoad from "@/hooks/useFetchAndLoad";
 import { Button } from "@/pages/Login/styled-components/AuthForm.styled";
 import { AppStore } from "@/redux/store";
 import { createPost } from "@/services/posts.services";
 import { uploadImg } from "@/services/public.services";
 import { Image, InputImage, Row } from "@/styled-components";
+import { Loader } from "@/styled-components/Loading.styled";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -61,6 +63,7 @@ const PostForm = () => {
         <Column gap="1rem">
           <InputForm
             placeholder="¿Qué está pasando?"
+            required={true}
             rows={5}
             {...register("description", {
               required: "Invalid content",
@@ -71,7 +74,10 @@ const PostForm = () => {
               id="input"
               type="file"
               accept=".jpg,.jpeg,.png"
-              onChange={(e: any) => uploadImage(e.target.files[0])}
+              onChange={(e: any) => {
+                uploadImage(e.target.files[0]);
+                e.target.value = null;
+              }}
             ></InputImage>
             <ImageUploadImage src="https://winaero.com/blog/wp-content/uploads/2019/11/Photos-new-icon.png"></ImageUploadImage>
           </ImageInput>
@@ -95,7 +101,17 @@ const PostForm = () => {
             >
               Publicar
             </Button>
-          ): 'Loading'}
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Loader></Loader>
+            </div>
+          )}
         </Column>
       </FormPost>
     </Row>

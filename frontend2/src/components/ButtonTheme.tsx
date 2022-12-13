@@ -35,7 +35,7 @@ export const ButtonTheme = () => {
     <>
       <ThemeButton onClick={handleTheme}>
         <Icon
-          width="30rem"
+          width="45rem"
           height="1rem"
           alt="darkmode_icon"
           src={theme.name !== "dark" ? darkmode_icon : lightmode_icon}

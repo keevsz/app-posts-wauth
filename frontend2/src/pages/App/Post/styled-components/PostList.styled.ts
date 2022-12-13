@@ -10,19 +10,22 @@ export const PostContent = styled.div`
   position: relative;
 `;
 
-export const OptionsPost = styled.img`
-  width: 25px;
-  top: 0;
-  right: 0;
+export const OptionsPost = styled.div`
+  background-color: red;
+  border-radius: 50%;
+  width: 5px;
+  height: 10px;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
   transition: all 0.6s;
   transition-delay: 0.15s;
-  ${(props) => (props.theme.name == "dark" ? "filter: invert(0.8);" : "")}
+  color: white;
   :hover {
     opacity: 0.7;
   }
   position: absolute;
-  padding: 1.5rem;
+  padding: 0.5rem;
 `;
 
 export const ActionsSection = styled.div`
@@ -31,5 +34,6 @@ export const ActionsSection = styled.div`
 `;
 
 export const IconLike = styled.img`
+  filter: invert(0.7);
   cursor: pointer;
 `;

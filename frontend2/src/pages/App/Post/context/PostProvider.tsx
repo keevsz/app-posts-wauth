@@ -22,6 +22,13 @@ export const PostProvider = ({ children }: any) => {
     setPosts(updatedPosts);
   };
 
+  const deletePostFunc = (id: any) => {
+    const updatedPosts = posts.filter(
+      (postOfThis: any) => id !== postOfThis.id
+    );
+    setPosts(updatedPosts);
+  };
+
   const deleteCommentFunc = (id: string) => {
     const deleteCommentOfMap = comments.filter(
       (comment: any) => comment.id !== id
@@ -31,7 +38,6 @@ export const PostProvider = ({ children }: any) => {
 
   const getData = async () => {
     const response = await callEndpoint(getPosts());
-    console.log(response);
     setPosts(getPostsAdapter(response));
   };
 
@@ -49,7 +55,8 @@ export const PostProvider = ({ children }: any) => {
         comments,
         setCommentsFunc,
         setComments,
-        deleteCommentFunc
+        deleteCommentFunc,
+        deletePostFunc,
       }}
     >
       {children}

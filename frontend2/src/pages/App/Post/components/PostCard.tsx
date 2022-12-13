@@ -1,7 +1,11 @@
 import { Post } from "@/models/post.model";
 import { Image, Row, Text } from "@/styled-components";
 import { Column, Space } from "../../Home/styled-components/Container";
-import { FormPost, ImageUploaded } from "../styled-components/PostForm.styled";
+import {
+  DeleteImgButton,
+  FormPost,
+  ImageUploaded,
+} from "../styled-components/PostForm.styled";
 import {
   ActionsSection,
   IconLike,
@@ -14,14 +18,13 @@ import unliked_icon from "@/assets/unliked_icon.png";
 import comments_icon from "@/assets/comments_icon.png";
 import { AppStore } from "@/redux/store";
 import { useSelector } from "react-redux";
-import { alterLike } from "@/services/posts.services";
+import { alterLike, deletePost } from "@/services/posts.services";
 import { usePostContext } from "../context/PostProvider";
 import { getPostAdapter } from "@/adapters/post.adapter";
 import { useState } from "react";
 import Comments from "../Comments/Comments";
-import { format, formatDistance, parse, parseISO } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
 import { getFormattedDate } from "@/utilities/localDate.utility";
+import { Link } from "react-router-dom";
 
 interface Props {
   post: Post;
@@ -30,7 +33,7 @@ interface Props {
 const PostCard = ({ post }: Props) => {
   const userState = useSelector((state: AppStore) => state.user);
   const [showComments, setShowComments] = useState(false);
-  const { updateLike } = usePostContext();
+  const { updateLike, deletePostFunc } = usePostContext();
 
   const handleLike = async () => {
     const response = await alterLike({ userId: userState.id, postId: post.id });
@@ -41,19 +44,28 @@ const PostCard = ({ post }: Props) => {
     setShowComments(!showComments);
   };
 
+  const handleDelete = async () => {
+    await deletePost(post.id);
+    deletePostFunc(post.id);
+  };
+
   return (
     <>
       <Row>
         <Column gap="2px">
-          <Image
-            style={{ width: "60px", height: "60px" }}
-            src={post.user?.pic}
-          ></Image>
+          <Link to={`/app/${post.user?.id}`} style={{ zIndex: 20 }}>
+            <Image
+              style={{ width: "60px", height: "60px" }}
+              src={post.user?.pic}
+            ></Image>
+          </Link>
         </Column>
         <FormPost>
           <PostContent>
             <Text fontSize="0.9rem">{post.user?.name}</Text>
-            <Text fontSize="0.9rem">{" " + getFormattedDate(post.createdAt)}</Text>
+            <Text fontSize="0.9rem">
+              {" " + getFormattedDate(post.createdAt)}
+            </Text>
             <Space h="5px" w="" />
             <Text fontSize="1rem">{post.description}</Text>
             <Space h="10px" w="" />
@@ -96,7 +108,13 @@ const PostCard = ({ post }: Props) => {
           {showComments ? <Comments post={post}></Comments> : null}
 
           {post.user?.id == userState.id ? (
-            <OptionsPost src={options_post_icon}></OptionsPost>
+            <DeleteImgButton
+              onClick={() => {
+                handleDelete();
+              }}
+            >
+              x
+            </DeleteImgButton>
           ) : (
             ""
           )}

@@ -6,6 +6,7 @@ import { ButtonTheme } from "../../../../components/ButtonTheme";
 import {
   Column,
   NavbarH,
+  NavBarTop,
   NavbarV,
   Space,
 } from "../styled-components/Container";
@@ -13,6 +14,7 @@ import home_icon from "@/assets/home_icon.png";
 import messages_icon from "@/assets/messages_icon.png";
 import profile_icon from "@/assets/profile_icon.png";
 import logout_icon from "@/assets/logout_icon.png";
+import { Row } from "@/styled-components";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -43,6 +45,30 @@ const Home = () => {
           </div>
         </Column>
       </NavbarV>
+
+      <NavBarTop>
+        <Row>
+          <Space w="" h=""></Space>
+          <Link to="/app">
+            <Icon type="icon1" src={home_icon}></Icon>
+          </Link>
+          {/* <Link to="/app/messages">
+            <Icon type="icon1" src={messages_icon}></Icon>
+          </Link> */}
+          <Link to="/app/profile">
+            <Icon type="icon1" src={profile_icon}></Icon>
+          </Link>
+          <div
+            style={{
+              position: "absolute",
+              right: "4.5rem",
+              cursor: "pointer",
+            }}
+          >
+            <Icon type="icon1" src={logout_icon} onClick={logout}></Icon>
+          </div>
+        </Row>
+      </NavBarTop>
 
       <Outlet />
       <ButtonTheme></ButtonTheme>

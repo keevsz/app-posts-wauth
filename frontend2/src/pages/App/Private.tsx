@@ -13,6 +13,7 @@ const Private = () => {
       <Route path="/" element={<Home></Home>}>
         <Route path="/" element={<Posts></Posts>}></Route>
         <Route path="/profile" element={<Profile></Profile>}></Route>
+        <Route path="/:id" element={<Profile></Profile>}></Route>
         <Route path="/messages" element={<Messages></Messages>}></Route>
       </Route>
     </RoutesNotFound>

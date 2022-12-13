@@ -17,7 +17,7 @@ export const Icon = styled.img<{ type: string }>`
   height: auto;
   transition: all 0.6s;
   transition-delay: 0.15s;
-  filter: invert(0.8);
+  filter: invert(0.5);
   /* ${(props) =>
     props.theme.name == "dark" && props.type == "icon1"
       ? "filter: invert(0.8);"

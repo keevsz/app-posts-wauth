@@ -1,5 +1,8 @@
 import { createCommentAdapter } from "@/adapters/comment.adapter";
+import Loading from "@/components/Loading";
+import useFetchAndLoad from "@/hooks/useFetchAndLoad";
 import { createComment } from "@/services/posts.services";
+import { Loader } from "@/styled-components/Loading.styled";
 import { useState } from "react";
 import { usePostContext } from "../context/PostProvider";
 import {
@@ -11,17 +14,22 @@ import ListComments from "./ListComments";
 
 const Comments = ({ post }: any) => {
   const { setCommentsFunc } = usePostContext();
+  const { loading, callEndpoint } = useFetchAndLoad();
   const [comment, setComment] = useState("");
 
-  const onSuubmit = async (e: any) => {
+  const onSubmit = async (e: any) => {
+    if (loading) return;
     if (e.key === "Enter") {
       e.preventDefault();
-      const response = await createComment({
-        description: comment,
-        post: post.id,
-      });
-      setCommentsFunc(createCommentAdapter(response));
+      if (comment === "") return;
+      const response = await callEndpoint(
+        createComment({
+          description: comment,
+          post: post.id,
+        })
+      );
       setComment("");
+      setCommentsFunc(createCommentAdapter(response));
     }
   };
 
@@ -34,8 +42,20 @@ const Comments = ({ post }: any) => {
           onChange={(e) => {
             setComment(e.target.value);
           }}
-          onKeyDown={onSuubmit}
+          onKeyDown={onSubmit}
         ></InputNewComment>
+        <br />
+        {loading && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Loader></Loader>
+          </div>
+        )}
         <ListComments post={post}></ListComments>
       </BoxComments>
     </CommentFormAnimation>

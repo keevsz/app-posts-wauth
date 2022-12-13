@@ -5,12 +5,20 @@ export const BoxForm = styled.div`
   width: 650px;
   padding-left: 100px;
   margin: auto;
+  @media screen and (max-width: 800px) {
+    padding-top: 100px;
+    width: 90%;
+    padding-left: 0px;
+  }
 `;
 
 export const FormPost = styled.form`
   z-index: 20;
   width: 100%;
   position: relative;
+  @media screen and (max-width: 800px) {
+    width: 90%;
+  }
 `;
 
 export const InputForm = styled.textarea`

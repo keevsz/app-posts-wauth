@@ -1,23 +1,33 @@
 import styled from "styled-components";
 
 export const ProfileBox = styled.div`
-  width: 775px;
   height: 70px;
-  margin: auto;
-  padding-left: 100px;
 `;
 
 export const ProfileUser = styled.div`
-  padding-left: 100px;
   z-index: 20;
   transition: background-color 0.6s;
   transition-delay: 0.15s;
   background-color: ${(props) => props.theme.bg3};
   border-radius: 5px;
-  padding: 10px;
-  margin: 2rem;
-  width: 720px;
+  width: 650px;
   height: 150px;
-  margin-top: 120px;
   position: absolute;
+  @media screen and (max-width: 800px) {
+    width: 90%;
+    padding-left: 0px;
+  }
+`;
+
+export const BoxProfile = styled.div`
+  padding-top: 120px;
+  width: 650px;
+  padding-left: 100px;
+  margin: auto;
+  @media screen and (max-width: 800px) {
+    padding-top: 100px;
+    width: 90%;
+    padding-left: 0px;
+
+  }
 `;

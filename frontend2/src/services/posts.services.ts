@@ -27,16 +27,32 @@ export const alterLike = ({ userId, postId }: any) => {
   return axios.post<any>("http://localhost:5000/api/post/like", data);
 };
 
+export const deletePost = ( id : any) => {
+  return axios.delete<any>(`http://localhost:5000/api/post/${id}`);
+};
+
+
 export const createComment = ({ description, post }: any) => {
   const data = { description, post };
-  return axios.post<any>("http://localhost:5000/api/comment", data);
+  const controller = loadAbort();
+  return {
+    call: axios.post<any>("http://localhost:5000/api/comment", data, {
+      signal: controller.signal,
+    }),
+    controller,
+  };
 };
-
 
 export const getComments = () => {
-  return axios.get<any>("http://localhost:5000/api/comment");
+  const controller = loadAbort();
+  return {
+    call: axios.get<any>("http://localhost:5000/api/comment", {
+      signal: controller.signal,
+    }),
+    controller,
+  };
 };
 
-export const deleteComment = ({id}:any) => {
+export const deleteComment = ({ id }: any) => {
   return axios.delete<any>(`http://localhost:5000/api/comment/${id}`);
 };

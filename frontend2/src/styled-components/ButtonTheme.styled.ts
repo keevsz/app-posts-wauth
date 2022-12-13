@@ -10,7 +10,7 @@ export const ThemeButton = styled.div`
   z-index: 30;
   display: flex;
   align-items: center;
-  background-color: #eeeeee;
+  background-color: transparent;
   justify-content: center;
   cursor: pointer;
   animation: fadeIn 1.5s ease;
@@ -22,6 +22,7 @@ export const ThemeButton = styled.div`
 `;
 
 export const Icon = styled.img<{ animation: boolean }>`
+  filter: invert(0.5);
   height: auto;
   ${(props) =>
     props.animation &&
@@ -29,14 +30,14 @@ export const Icon = styled.img<{ animation: boolean }>`
 `;
 
 export const Expand = styled.div<{ animation: boolean }>`
-  height: 3rem;
-  width: 3rem;
+  height: 4rem;
+  width: 4rem;
   border-radius: 50%;
   z-index: 10;
   position: fixed;
   background-color: #eeeeee;
-  right: 1rem;
-  top: 1rem;
+  right: 0.5rem;
+  top: 0.5rem;
   ${(props) =>
     props.animation &&
     `

@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const AuthValidator = require('../validators/authValidator')
 const UserController = require('../controllers/UserController')
-const { verifyToken } = require('../middlewares/authMiddleware')
+// const { verifyToken } = require('../middlewares/authMiddleware')
 const passport = require('passport')
 
 router.get(
@@ -69,7 +69,7 @@ router.get(
 
 router.get(
   '/:id',
-  verifyToken,
+  // verifyToken,
   AuthValidator.validatorGetUser,
   UserController.getUser
 )

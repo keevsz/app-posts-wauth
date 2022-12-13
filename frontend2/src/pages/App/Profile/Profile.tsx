@@ -1,71 +1,63 @@
-import { getPostsAdapter } from "@/adapters/post.adapter";
-import useFetchAndLoad from "@/hooks/useFetchAndLoad";
-import { Post } from "@/models/post.model";
 import { AppStore } from "@/redux/store";
-import { getPosts } from "@/services/posts.services";
+import { getUserService } from "@/services/users.services";
 import { Image, Row, Text } from "@/styled-components";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Column, Space } from "../Home/styled-components/Container";
 import PostList from "../Post/components/PostList";
 import { PostProvider } from "../Post/context/PostProvider";
-import { ProfileBox, ProfileUser } from "./Profile.styled";
+import { BoxProfile, ProfileBox, ProfileUser } from "./Profile.styled";
 
 const Profile = () => {
-  const user = useSelector((store: AppStore) => store.user);
-  const { callEndpoint, loading } = useFetchAndLoad();
-  const [myPosts, setMyPosts] = useState([]);
+  const [user, setUser] = useState({} as any);
+  const userGlobal = useSelector((store: AppStore) => store.user);
+  const params = useParams();
 
-  const getMyPosts = async () => {
-    const response = await callEndpoint(getPosts());
-    const CleanResponse = getPostsAdapter(response);
-    const Filtered = CleanResponse.filter(
-      (post: Post) => post.user?.id === user.id
-    );
-    setMyPosts(Filtered);
+  const getUser = async () => {
+    const response = await getUserService(params.id);
+    setUser(response.data);
   };
 
   useEffect(() => {
-    getMyPosts();
-  }, []);
+    if (params.id) {
+      getUser();
+      return;
+    }
+    setUser(userGlobal);
+  }, [params.id]);
 
   return (
     <PostProvider>
-      <ProfileBox>
-        <ProfileUser>
-          <Row style={{ padding: "1rem" }}>
-            <Image
-              style={{ width: "120px", height: "120px" }}
-              src={user.pic}
-            ></Image>
-            <Column gap="1rem" style={{ padding: "1.5rem" }}>
-              <Row>
-                <Text fontSize="1rem">{user.email}</Text>
+      {user.id && (
+        <BoxProfile>
+          <ProfileBox>
+            <ProfileUser>
+              <Row style={{ padding: "1rem" }}>
+                <Image
+                  style={{ width: "120px", height: "120px" }}
+                  src={user.pic}
+                ></Image>
+                <Column gap="1rem" style={{ padding: "2.2rem" }}>
+                  <Row>
+                    <Text fontSize="1rem">{user.email}</Text>
+                  </Row>
+                  <Row>
+                    <Text fontSize="1rem">{user.name}</Text>
+                  </Row>
+                </Column>
               </Row>
-              <Row>
-                <Text fontSize="1rem">{myPosts.length + " posts"}</Text>
-              </Row>
-              <Row>
-                <Text fontSize="1rem">{user.name}</Text>
-              </Row>
-            </Column>
-          </Row>
-          <br />
-          <Text fontSize="1rem">
-            Mis publicaciones <hr />
-          </Text>
-        </ProfileUser>
-      </ProfileBox>
-      <div
-        style={{
-          margin: "auto",
-          width: "720px",
-          marginTop: "300px",
-          paddingLeft: "100px",
-        }}
-      >
-        <PostList></PostList>
-      </div>
+              <br />
+              <br />
+              <Text fontSize="1rem">
+                Publicaciones <hr />
+              </Text>
+            </ProfileUser>
+          </ProfileBox>
+          <Space h="13rem" w="" />
+          <PostList></PostList>
+        </BoxProfile>
+      )}
     </PostProvider>
   );
 };

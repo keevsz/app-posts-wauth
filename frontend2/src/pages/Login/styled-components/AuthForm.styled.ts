@@ -43,7 +43,7 @@ export const TextInput = styled.input`
     transition: color 0.6s;
     transition-delay: 0.3s;
   }
-  
+
   border-color: ${(props) => props.theme.color};
 
   border: 0;
@@ -54,9 +54,6 @@ export const TextInput = styled.input`
   transition: color 0.6s;
   transition-delay: 0.3s;
 
-  @media screen and (max-width: 330px) {
-    width: 50%;
-  }
   @media screen and (max-height: 385px) {
     padding: 0.7rem 0.7rem 0.7rem 1.3rem;
   }
@@ -113,8 +110,8 @@ export const Auth = styled.div`
   border-radius: 1rem;
   /* box-shadow: 2px 5px 10px 0.1px #666;  */
   @media screen and (max-width: 675px) {
-    width: 95%;
-    height: 95%;
+    width: 100%;
+    height: 100%;
   }
   @media screen and (max-height: 675px) {
     width: 100%;
