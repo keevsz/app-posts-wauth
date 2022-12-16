@@ -1,12 +1,14 @@
-import { Comment, Post } from '@/models'
+import { Comment } from '@/models'
 import axios from 'axios'
 import { loadAbort } from '../utilities/loadAbort.utility'
+const baseURL = import.meta.env.VITE_APP_URL_BACKEND
+
 
 export const createPost = ({ description, image, user }: any) => {
   const controller = loadAbort()
   const Post = { description, image, user }
   return {
-    call: axios.post<any>('/api/post', Post, {
+    call: axios.post<any>(`${baseURL}/api/post`, Post, {
       signal: controller.signal,
     }),
     controller,
@@ -16,7 +18,7 @@ export const createPost = ({ description, image, user }: any) => {
 export const getPosts = () => {
   const controller = loadAbort()
   return {
-    call: axios.get<any>('/api/post', {
+    call: axios.get<any>(`${baseURL}/api/post`, {
       signal: controller.signal,
     }),
     controller,

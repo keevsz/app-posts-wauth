@@ -4,13 +4,15 @@ import {
   UserCredentials,
 } from "../models/user.model";
 import { loadAbort } from "../utilities/loadAbort.utility";
+const baseURL = import.meta.env.VITE_APP_URL_BACKEND
+
 
 export const login = ({ email, password }: Partial<UserCredentials>) => {
   const controller = loadAbort();
   const userCredentials = { email, password };
   return {
     call: axios.post<User>(
-      "/api/user/login",
+      `${baseURL}/api/user/login`,
       userCredentials,
       {
         signal: controller.signal,
@@ -30,7 +32,7 @@ export const registerUser = ({
   const userData = { email, password, name, pic };
   return {
     call: axios.post<User>(
-      "/api/user/register",
+      `${baseURL}/api/user/register`,
       userData,
       {
         signal: controller.signal,
@@ -42,7 +44,7 @@ export const registerUser = ({
 
 export const verifyTokenAndGetUser = (token: string) => {
   const response = axios.get<any>(
-    `/api/user/verify-token/${token}`
+    `${baseURL}/api/user/verify-token/${token}`
   );
   return response;
 };
@@ -70,7 +72,7 @@ export const sendEmailToVerify = (email: String) => {
   const data = { userEmail: email, type: "email-verify" };
   return {
     call: axios.post(
-      "/api/user/email-verify",
+      `${baseURL}/api/user/email-verify`,
       data,
       {
         signal: controller.signal,
@@ -85,7 +87,7 @@ export const sendEmailChangePassword = (email: String) => {
   const data = { userEmail: email, type: "password-reset" };
   return {
     call: axios.post(
-      "/api/user/password-reset",
+      `${baseURL}/api/user/password-reset`,
       data,
       {
         signal: controller.signal,
@@ -100,7 +102,7 @@ export const changePasswordService = (password: String,userId:String |undefined,
   const data = { newPassword: password };  
   return {
     call: axios.post(
-      `/api/user/password-reset/${userId}/${token}`,
+      `${baseURL}/api/user/password-reset/${userId}/${token}`,
       data,
       {
         signal: controller.signal,
