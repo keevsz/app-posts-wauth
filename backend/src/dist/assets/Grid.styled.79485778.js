@@ -1,4 +1,4 @@
-import{r,s as t}from"./index.150851d7.js";const h=()=>{const[e,i]=r.exports.useState(!1);let o;const s=async n=>{n.controller&&(o=n.controller),i(!0);let a={};try{a=await n.call}catch(l){throw i(!1),l}return i(!1),a},d=()=>{i(!1),o&&o.abort()};return r.exports.useEffect(()=>()=>{d()},[]),{loading:e,callEndpoint:s}},p=t.div`
+import{r,s as t}from"./index.141e8e9c.js";const h=()=>{const[e,i]=r.exports.useState(!1);let o;const s=async n=>{n.controller&&(o=n.controller),i(!0);let a={};try{a=await n.call}catch(l){throw i(!1),l}return i(!1),a},d=()=>{i(!1),o&&o.abort()};return r.exports.useEffect(()=>()=>{d()},[]),{loading:e,callEndpoint:s}},p=t.div`
   height: 100vh;
   display: flex;
   justify-content: center;
