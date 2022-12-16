@@ -15,6 +15,8 @@ app.use(express.json())
 
 app.use(express.static(__dirname + '/dist'))
 app.use('/login', express.static(path.join(__dirname, 'dist')))
+app.use('/app', express.static(path.join(__dirname, 'dist')))
+app.use('/', express.static(path.join(__dirname, 'dist')))
 
 app.use(morgan('tiny'))
 app.use(cookieParser())
