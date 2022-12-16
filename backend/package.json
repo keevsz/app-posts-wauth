@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node src",
-    "dev": "cross-env NODE_ENV=development nodemon src",
+    "start": "cross-env NODE_ENV=production node index",
+    "dev": "cross-env NODE_ENV=development nodemon index",
     "lint": "eslint ."
   },
   "keywords": [],
