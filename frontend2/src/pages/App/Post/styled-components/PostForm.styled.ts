@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const BoxForm = styled.div`
   padding-top: 120px;
@@ -10,7 +10,8 @@ export const BoxForm = styled.div`
     width: 90%;
     padding-left: 0px;
   }
-`;
+  
+`
 
 export const FormPost = styled.form`
   z-index: 20;
@@ -19,10 +20,11 @@ export const FormPost = styled.form`
   @media screen and (max-width: 800px) {
     width: 90%;
   }
-`;
+`
 
 export const InputForm = styled.textarea`
-  transition: background-color 0.6s;
+  border-color: ${props=> props.theme.border_color};
+  transition: all 0.6s;
   transition-delay: 0.15s;
   resize: none;
   outline: none;
@@ -31,7 +33,7 @@ export const InputForm = styled.textarea`
   font-size: 1.1rem;
   border-radius: 5px;
   background-color: ${(props) => props.theme.bg3};
-`;
+`
 
 export const ImageUploadImage = styled.img`
   width: 35px;
@@ -45,7 +47,7 @@ export const ImageUploadImage = styled.img`
   right: 10px;
   top: 5px;
   border-radius: 5px;
-`;
+`
 
 export const ImageInput = styled.label`
   position: absolute;
@@ -57,7 +59,7 @@ export const ImageInput = styled.label`
   @media screen and (max-height: 470px) {
     display: none;
   }
-`;
+`
 
 export const ImageUploaded = styled.img`
   width: 100%;
@@ -67,25 +69,33 @@ export const ImageUploaded = styled.img`
   transition: all 0.6s;
   transition-delay: 0.15s;
   border: 1px solid ${(props) => props.theme.border_color};
-`;
+`
 
 export const DeleteImgButton = styled.a`
   border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
   position: absolute;
   right: -10px;
   top: -10px;
-  background-color: #c51414;
-  color: white;
+  font-weight: bold;
+  background-color: ${(props) =>
+    props.theme.name === 'dark' ? '#808080' : '#ccc'};
+  color: ${(props) => (props.theme.name === 'dark' ? '#fff' : '#fff')};
   :hover {
-    opacity: 0.8;
-    cursor: pointer;
+    right: -11px;
+    top: -11px;
+    width: 27px;
+    height: 27px;
+    opacity: 0.9;
   }
+  transition: all 0.1s;
+  transition: background-color 1s;
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const BoxImageUploaded = styled.div`
   display: flex;
@@ -95,4 +105,4 @@ export const BoxImageUploaded = styled.div`
   width: 567px;
   height: 300px;
   color: #999;
-`;
+`

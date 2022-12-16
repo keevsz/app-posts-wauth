@@ -2,16 +2,15 @@ import axios from "axios";
 import {
   User,
   UserCredentials,
-  UserDataForRegistration,
 } from "../models/user.model";
 import { loadAbort } from "../utilities/loadAbort.utility";
 
-export const login = ({ email, password }: UserCredentials) => {
+export const login = ({ email, password }: Partial<UserCredentials>) => {
   const controller = loadAbort();
   const userCredentials = { email, password };
   return {
     call: axios.post<User>(
-      "http://localhost:5000/api/user/login",
+      "/api/user/login",
       userCredentials,
       {
         signal: controller.signal,
@@ -26,12 +25,12 @@ export const registerUser = ({
   password,
   name,
   pic,
-}: UserDataForRegistration) => {
+}: Partial<UserCredentials>) => {
   const controller = loadAbort();
   const userData = { email, password, name, pic };
   return {
     call: axios.post<User>(
-      "http://localhost:5000/api/user/register",
+      "/api/user/register",
       userData,
       {
         signal: controller.signal,
@@ -43,7 +42,7 @@ export const registerUser = ({
 
 export const verifyTokenAndGetUser = (token: string) => {
   const response = axios.get<any>(
-    `http://localhost:5000/api/user/verify-token/${token}`
+    `/api/user/verify-token/${token}`
   );
   return response;
 };
@@ -71,7 +70,7 @@ export const sendEmailToVerify = (email: String) => {
   const data = { userEmail: email, type: "email-verify" };
   return {
     call: axios.post(
-      "http://localhost:5000/api/user/email-verify",
+      "/api/user/email-verify",
       data,
       {
         signal: controller.signal,
@@ -86,7 +85,7 @@ export const sendEmailChangePassword = (email: String) => {
   const data = { userEmail: email, type: "password-reset" };
   return {
     call: axios.post(
-      "http://localhost:5000/api/user/password-reset",
+      "/api/user/password-reset",
       data,
       {
         signal: controller.signal,
@@ -101,7 +100,7 @@ export const changePasswordService = (password: String,userId:String |undefined,
   const data = { newPassword: password };  
   return {
     call: axios.post(
-      `http://localhost:5000/api/user/password-reset/${userId}/${token}`,
+      `/api/user/password-reset/${userId}/${token}`,
       data,
       {
         signal: controller.signal,

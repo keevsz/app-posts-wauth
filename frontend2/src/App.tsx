@@ -6,22 +6,22 @@ import { AppStore } from "./redux/store";
 import { Suspense } from "react";
 import { FullPage } from "./styled-components/FullPage";
 import { PrivateRoutes, PublicRoutes } from "./models/routes";
-import { AuthGuard } from "./guards/AuthGuard";
+import { AuthGuard } from "@/guards/AuthGuard";
 import RoutesNotFound from "./utilities/routesNotFound";
-import VerifyEmail from "./pages/VerifyEmail/VerifyEmail";
-import { EmailVerifiedGuard } from "./guards/EmailVerifiedGuard";
-import ChangePassword from "./pages/ChangePassword/ChangePassword";
-import ChangePasswordForm from "./pages/ChangePassword/ChangePasswordForm";
 
 const AuthPage = lazy(() => import("./pages/Login/AuthPage"));
 const Private = lazy(() => import("./pages/App/Private"));
+const ChangePassword = lazy(() => import("./pages/ChangePassword/ChangePasswordForm"));
+const ChangePasswordForm = lazy(() => import("./pages/App/Private"));
+const VerifyEmail = lazy(() => import("./pages/VerifyEmail/VerifyEmail"));
+const EmailVerifiedGuard = lazy(() => import("./guards/EmailVerifiedGuard"));
 
 const App = () => {
   const theme = useSelector((store: AppStore) => store.theme);
   return (
     <ThemeProvider theme={theme}>
       <FullPage>
-        <Suspense fallback={<>Loading...</>}>
+        <Suspense fallback={<></>}>
           <BrowserRouter>
             <RoutesNotFound>
               <Route path="/" element={<Navigate to={PrivateRoutes.APP} />} />

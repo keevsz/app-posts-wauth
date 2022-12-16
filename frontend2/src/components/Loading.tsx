@@ -1,4 +1,5 @@
-import { BoxLoading, Loader } from "../styled-components/Loading.styled";
+import { BoxLoading, Loader } from "@/styled-components/Loading.styled";
+
 const Loading = () => {
   return (
     <BoxLoading>

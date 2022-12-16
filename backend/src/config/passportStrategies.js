@@ -4,6 +4,7 @@ const UserService = require('../services/UserService')
 const { generatePassword } = require('../utils/handlePassword')
 const generateToken = require('./generateToken')
 const passport = require('passport')
+const { uploadImage } = require('../services/CloudinaryService')
 
 passport.serializeUser((user, done) => {
   done(null, user.id)
@@ -27,7 +28,7 @@ const google = new GoogleStrategy(googleStrategyOptions, async function (
       if (!userExists.verified) {
         console.log('error: not verified') // LINK ACCOUNT WITH GOOGLE
         return done(
-          'VERIFY YOUR EMAIL BEFORE USING THIS TYPE OF AUTH, IF YOU THINK ITS AN ERROR, CONTACT WITH US',
+          'THIS EMAIL ACCOUNT HAS ALREADY BEEN REGISTERED, VERIFY YOUR EMAIL. IF YOU THINK ITS AN ERROR, CONTACT WITH US: keviiv1q2@gmail.com',
           null
         )
       }
@@ -41,10 +42,11 @@ const google = new GoogleStrategy(googleStrategyOptions, async function (
       return done(null, user)
     }
 
+    const { url } = await uploadImage(photos[0].value)
     const newUser = await UserService.create({
       email: emails[0].value,
       name: displayName,
-      pic: photos[0].value,
+      pic: url,
       password: generatePassword(),
       verified: true,
     })

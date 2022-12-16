@@ -1,6 +1,7 @@
+import { Theme } from '@/models'
 import { createSlice } from '@reduxjs/toolkit'
-import themes from '../../themes'
-import { getFromLocalStorage } from '../../utilities/handleStorage.utility'
+import themes from '@/themes'
+import { getFromLocalStorage } from '@/utilities'
 
 const getSystemTheme = () => {
   const defaultTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -10,7 +11,7 @@ const getSystemTheme = () => {
   return defaultTheme
 
 }
-export const DefaultTheme: any = getFromLocalStorage('theme') || getSystemTheme()
+export const DefaultTheme: Theme = getFromLocalStorage('theme') || getSystemTheme()
 
 export const themeSlice = createSlice({
   name: 'user',

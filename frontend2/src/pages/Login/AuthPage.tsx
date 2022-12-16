@@ -1,7 +1,7 @@
 import { lazy, useEffect, useState } from "react";
 import { CenterVH } from "../App/Home/styled-components/Container";
 import { Auth } from "./styled-components/AuthForm.styled";
-import { ButtonTheme } from "../../components/ButtonTheme";
+import { ButtonTheme } from "@/components/ButtonTheme";
 import { Right } from "./components/Right";
 import { sharingInformationService } from "@/services/sharingInfo.services";
 import Register from "./components/Register";

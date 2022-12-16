@@ -1,22 +1,25 @@
-import { ButtonTheme } from "@/components/ButtonTheme";
-import useFetchAndLoad from "@/hooks/useFetchAndLoad";
-import { sendEmailChangePassword } from "@/services/public.services";
-import { Text } from "@/styled-components";
-import { useState } from "react";
-import { CenterVH, Column } from "../App/Home/styled-components/Container";
-import { TextInput } from "../Login/styled-components/AuthForm.styled";
+import { ButtonTheme } from '@/components/ButtonTheme'
+import { sendEmailChangePassword } from '@/services/public.services'
+import { Icon, Text } from '@/styled-components'
+import { useState } from 'react'
+import { CenterVH, Column } from '../App/Home/styled-components/Container'
+import { TextInput } from '../Login/styled-components/AuthForm.styled'
 import {
   BoxVerifyEmail,
   ButtonVerifyEmail,
-} from "../VerifyEmail/VerifyEmail.styled";
+} from '../VerifyEmail/VerifyEmail.styled'
+import back_icon from '@/assets/back_icon.png'
+import { useNavigate } from 'react-router-dom'
+import { useFetchAndLoad } from '@/hooks'
 
 const ChangePassword = () => {
-  const [email, setEmail] = useState("");
-  const { callEndpoint, loading } = useFetchAndLoad();
+  const [email, setEmail] = useState('')
+  const { callEndpoint, loading } = useFetchAndLoad()
+  const navigate = useNavigate()
 
   const sendEmail = async () => {
-    await callEndpoint(sendEmailChangePassword(email));
-  };
+    await callEndpoint(sendEmailChangePassword(email))
+  }
   return (
     <>
       <ButtonTheme></ButtonTheme>
@@ -33,12 +36,29 @@ const ChangePassword = () => {
               placeholder="Correo electrónico"
             ></TextInput>
             <ButtonVerifyEmail disabled={loading} onClick={sendEmail}>
-              {loading ? "Enviando..." : "Enviar correo"}
+              {loading ? 'Enviando...' : 'Enviar correo'}
             </ButtonVerifyEmail>
           </Column>
         </BoxVerifyEmail>
+        <div
+          style={{
+            cursor: 'pointer',
+            position: 'absolute',
+            width: '10px',
+            top: '20px',
+            left: '20px',
+            zIndex: 100,
+          }}
+        >
+          <Icon
+            style={{ width: '3rem', height: '3rem' }}
+            type="icon1"
+            src={back_icon}
+            onClick={() => {navigate('/login')}}
+          ></Icon>
+        </div>
       </CenterVH>
     </>
-  );
-};
-export default ChangePassword;
+  )
+}
+export default ChangePassword

@@ -1,25 +1,17 @@
-import {
-  BoxInput,
-  Button,
-  Form,
-  TextInput,
-  Title,
-  ToolTip,
-} from "../styled-components/AuthForm.styled";
-import { useForm } from "react-hook-form";
-import useFetchAndLoad from "../../../hooks/useFetchAndLoad";
-import { login } from "../../../services/public.services";
-import { loadUserToLocalStorageAndCookie } from "../../../utilities/handleStorage.utility";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { createUser } from "../../../redux/states/user.slice";
-import { createUserAdapter } from "../../../adapters/user.adapters";
-import Loading from "../../../components/Loading";
-import IconSet from "./IconSet";
-import { Row, Text } from "@/styled-components";
-import { EmailRegex } from "@/models";
+import { createUserAdapter } from "@/adapters";
+import { Loading } from "@/components";
+import { useFetchAndLoad } from "@/hooks";
+import { EmailRegex, PrivateRoutes, PublicRoutes } from "@/models";
+import { createUser } from "@/redux/states/user.slice";
+import { login } from "@/services/public.services";
 import { sharingInformationService } from "@/services/sharingInfo.services";
-import { PrivateRoutes, PublicRoutes } from "@/models/routes";
+import { Row, Text } from "@/styled-components";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { BoxInput, Button, Form, TextInput, Title, ToolTip } from "../styled-components/AuthForm.styled";
+import IconSet from "./IconSet";
+
 
 interface Inputs {
   email: string;

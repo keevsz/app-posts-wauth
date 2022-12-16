@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { UserEmptyState } from "../../models";
+import { UserEmptyState } from "@/models";
 import {
   getFromLocalStorage,
   loadUserToLocalStorageAndCookie,
-} from "../../utilities";
+} from "@/utilities";
 
 export const userSlice = createSlice({
   name: "user",

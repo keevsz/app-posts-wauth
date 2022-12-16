@@ -1,11 +1,11 @@
 const DarkTheme = {
   name: 'dark',
   bg: '#090C17',
-  bg2: '#121624',
+  bg2: '#1E2337',
   border_input: '#fff',
   color: '#fff',
   border_color: '#363636',
-  bg3: "#1E2337"
+  bg3: "#121624"
 }
 const LightTheme = {
   name: 'light',

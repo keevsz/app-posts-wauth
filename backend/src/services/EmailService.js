@@ -7,15 +7,77 @@ const user_verification = require('../models/User_verification')
 const { BASE_URL } = require('../config')
 
 const getEmailHtml = ({ userId, token, type }) => {
-  //reset password -> redirect to frontend page https://frontend.com/reset-password/2312313123123213/123123
-
-  if (type==='password-reset') {
-    const html = `<div> Click <a href='http://localhost:5173/changepassword/${userId}/${token}'>here</a> to reset your password </div>`
+  if (type === 'password-reset') {
+    const html = `<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Cambio de contraseña</title>
+        <style>
+            body {
+                text-align: center;
+            }
+            a {
+              text-decoration: none;
+              background-color: #9ACD32;
+              color: white;
+              padding: 15px 32px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin: 4px 2px;
+              cursor: pointer;
+          }
+        </style>
+    </head>
+    <body>
+        <h1>Cambio de contraseña</h1>
+        <p>Click en el botón de abajo para cambiar su contraseña:</p>
+        <a href='${BASE_URL}/changepassword/${userId}/${token}'>Cambiar contraseña</a>
+        <footer>
+            <p>Si usted no ha solicitado un cambio de contraseña, ignore este correo.</p>
+        </footer>
+    </body>
+    </html>`
     return html
   }
-  const stringType =
-    type === 'password-reset' ? 'reset your password' : 'verify your email'
-  const html = `<div> Click <a href='${BASE_URL}/api/user/${type}/${userId}/${token}'>here</a> to ${stringType}</div>`
+
+  const html = `<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <title>Verificación de correo electrónico</title>
+      <style>
+    body {
+        text-align: center;
+        background-color: #444;
+        color: white;
+    }
+    a {
+        text-decoration: none;
+        background-color: #9ACD32;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+</style>
+  </head>
+  <body>
+      <h1>Verificación de correo electrónico</h1>
+      <p>Click en el botón de abajo para verificar su correo electrónico:</p>
+      <a href='${BASE_URL}/api/user/${type}/${userId}/${token}'>Verificar</a>
+      <footer>
+          <p>Si usted no ha solicitado ninguna petición, ignore este correo.</p>
+      </footer>
+  </body>
+  </html>
+  `
   return html
 }
 
@@ -32,14 +94,14 @@ const send = async ({ userEmail, type }) => {
       })
     }
     await transporter.sendMail({
-      from: 'keviv1q2@gmail.com',
+      from: 'keviiv1q2@gmail.com',
       to: userEmail,
-      subject: 'Hello ✔',
+      subject: 'Kevsz App',
       text: 'Reset password',
       html: getEmailHtml({ userId: userExists._id, token: token.token, type }),
     })
     loggers.info('EmailService_send: Email sended to recovery password')
-    return `Email type ${type}, sended to ${userEmail}`
+    return `Email sended to ${userEmail}`
   }
 
   if (type === 'email-verify') {
@@ -54,14 +116,14 @@ const send = async ({ userEmail, type }) => {
       })
     }
     await transporter.sendMail({
-      from: 'keviv1q2@gmail.com',
+      from: 'keviiv1q2@gmail.com',
       to: userEmail,
-      subject: 'Hello ✔',
+      subject: 'Kevsz App',
       text: 'Verify your email',
       html: getEmailHtml({ userId: userExists._id, token: token.token, type }),
     })
     loggers.info('EmailService_send: Email sended to verify email')
-    return `Email type ${type}, sended to ${userEmail}`
+    return `Email sended to ${userEmail}`
   }
   return { error: 'EmailService: Invalid type' }
 }

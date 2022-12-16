@@ -1,1 +1,0 @@
-{"version":3,"file":"Posts.c3ce9b4b.js","sources":["../../src/pages/Post/Posts.tsx"],"sourcesContent":["const Posts = () => {\r\n  return <div>Sesion de posteos</div>\r\n}\r\n\r\nexport default Posts\r\n"],"names":["Posts"],"mappings":"wCAAA,MAAMA,EAAQ,MACL,MAAA,CAAA,SAAA,mBAAA,CAA4B"}

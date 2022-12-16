@@ -1,3 +1,5 @@
+import { Post } from "@/models";
+
 export const createPostAdapter = (post: any) => ({
   id: post.data[0]._id,
   description: post.data[0].description,

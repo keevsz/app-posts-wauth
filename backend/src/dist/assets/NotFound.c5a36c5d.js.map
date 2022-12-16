@@ -1,1 +1,0 @@
-{"version":3,"file":"NotFound.c5a36c5d.js","sources":["../../src/pages/Others/NotFound.tsx"],"sourcesContent":["const NotFound = () => {\r\n  return <div>NotFound</div>\r\n}\r\n\r\nexport default NotFound\r\n"],"names":["NotFound"],"mappings":"wCAAA,MAAMA,EAAW,MACR,MAAA,CAAA,SAAA,UAAA,CAAmB"}

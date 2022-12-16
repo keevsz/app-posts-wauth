@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createTheme } from "../redux/states/theme.slice";
-import { AppStore } from "../redux/store";
-import themes from "../themes";
+import { createTheme } from "@/redux/states/theme.slice";
+import { AppStore } from "@/redux/store";
+import themes from "@/themes";
 import {
   Expand,
   Icon,
   ThemeButton,
-} from "../styled-components/ButtonTheme.styled";
-import darkmode_icon from "../assets/darkmode_icon.png";
-import lightmode_icon from "../assets/lightmode_icon.png";
-import { FullPage } from "@/styled-components";
+} from "@/styled-components/ButtonTheme.styled";
+import darkmode_icon from "@/assets/darkmode_icon.png";
+import lightmode_icon from "@/assets/lightmode_icon.png";
 
 export const ButtonTheme = () => {
   const dispatch = useDispatch();

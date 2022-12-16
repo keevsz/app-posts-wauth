@@ -106,7 +106,7 @@ const verifyEmail = async (req, res) => {
     })
     if (response.error) throw new Error(response.error)
 
-    res.redirect('http://localhost:5173')
+    res.redirect('/')
   } catch ({ message }) {
     handleHttpError({ res, message, from: 'UserController_verifyEmail' })
   }
@@ -116,9 +116,9 @@ const sendCookie = (req, res) => {
   if (req.user) {
     res.clearCookie('token')
     res.cookie('token', req.user.token)
-    res.redirect('http://localhost:5173')
+    res.redirect('/')
   } else {
-    res.redirect('http://localhost:5173')
+    res.redirect('/')
   }
 }
 

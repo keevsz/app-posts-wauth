@@ -1,6 +1,6 @@
 import { createCommentAdapter } from "@/adapters/comment.adapter";
-import Loading from "@/components/Loading";
 import useFetchAndLoad from "@/hooks/useFetchAndLoad";
+import { Post } from "@/models";
 import { createComment } from "@/services/posts.services";
 import { Loader } from "@/styled-components/Loading.styled";
 import { useState } from "react";
@@ -12,12 +12,16 @@ import {
 } from "./Comments.styled";
 import ListComments from "./ListComments";
 
-const Comments = ({ post }: any) => {
+interface Props {
+  post: Post;
+}
+
+const Comments = ({ post }: Props) => {
   const { setCommentsFunc } = usePostContext();
   const { loading, callEndpoint } = useFetchAndLoad();
   const [comment, setComment] = useState("");
 
-  const onSubmit = async (e: any) => {
+  const onSubmit = async (e: React.KeyboardEvent) => {
     if (loading) return;
     if (e.key === "Enter") {
       e.preventDefault();

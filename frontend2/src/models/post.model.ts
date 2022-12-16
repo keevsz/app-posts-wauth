@@ -1,11 +1,10 @@
-import { User } from "./user.model"
+import { User } from './user.model'
 
 export interface Post {
-  id?: string
+  id: string
   description: string
-  image?: string
-  user?:User
+  image: string
+  user: Partial<User>
   likes: [string]
   createdAt: string
 }
-

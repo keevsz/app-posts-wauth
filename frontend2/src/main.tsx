@@ -9,7 +9,7 @@ import "./index.css"
 AxiosInterceptor();
 createRoot(document.getElementById("root") as HTMLElement).render(
   <Provider store={store}>
-    <SnackbarProvider autoHideDuration={2500}> 
+    <SnackbarProvider autoHideDuration={3500}> 
       <SnackbarConfig />
       <App />
     </SnackbarProvider>

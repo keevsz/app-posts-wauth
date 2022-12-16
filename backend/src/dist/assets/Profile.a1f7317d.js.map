@@ -1,1 +1,0 @@
-{"version":3,"file":"Profile.a1f7317d.js","sources":["../../src/pages/Profile/Profile.tsx"],"sourcesContent":["const Profile = () => {\r\n  console.log('profile')\r\n  return <div>sesion de profile</div>\r\n}\r\nexport default Profile\r\n"],"names":["Profile","console","log"],"mappings":"wCAAA,MAAMA,EAAU,KACdC,QAAQC,IAAI,SAAS,IACd,MAAA,CAAA,SAAA,mBAAA,CAA4B"}

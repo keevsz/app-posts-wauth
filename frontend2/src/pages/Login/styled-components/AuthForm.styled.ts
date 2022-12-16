@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Form = styled.form`
   transition: background-color 0.6s;
   transition-delay: 0.15s;
-  background-color: ${(props) => props.theme.bg2};
+  background-color: ${(props) => props.theme.bg3};
   width: 50%;
   display: flex;
   flex-direction: column;

@@ -1,15 +1,15 @@
 import axios from "axios";
 
-export const getUsersFiltered = (search: any) => {
+export const getUsersFiltered = (search: string) => {
   const response = axios.get<any>(
-    `http://localhost:5000/api/user?search=${search}`
+    `/api/user?search=${search}`
   );
   return response;
 };
 
-export const getUserService = (id: any) => {
+export const getUserService = (id: string) => {
   const response = axios.get<any>(
-    `http://localhost:5000/api/user/${id}`
+    `/api/user/${id}`
   );
   return response;
 };

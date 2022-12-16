@@ -1,14 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const BoxComments = styled.div`
   border-radius: 5px;
-  background-color: ${(props) => props.theme.bg3};
+  background-color: ${(props) => props.theme.name ==='dark'? props.theme.bg2 : '#fff'};
   transition: background-color 0.6s;
   transition-delay: 0.15s;
   position: relative;
   margin-top: -14px;
   padding: 1.5rem;
-`;
+`
 
 export const CommentFormAnimation = styled.div`
   animation: downAnimation 0.6s;
@@ -23,15 +23,14 @@ export const CommentFormAnimation = styled.div`
       margin-top: 0px;
     }
   } ;
-`;
-
-export const CommentsAnimation = styled.div``
+`
 
 export const InputNewComment = styled.input`
   outline: none;
   border-radius: 10px;
   border: 0;
-  background-color: ${(props) => props.theme.bg2};
+  background-color: ${(props) => props.theme.name ==='dark'? props.theme.bg3 : '#eee'};
+
   width: 94%;
   font-size: 16px;
   color: #999;
@@ -40,7 +39,7 @@ export const InputNewComment = styled.input`
   padding: 0.7rem 1rem;
 
   ::placeholder {
-    color: ${(props) => (props.theme.name == "dark" ? "#fafafa" : "eee")};
+    color: ${(props) => (props.theme.name == 'dark' ? '#fafafa' : 'eee')};
     opacity: 0.6;
     font-size: 16px;
     transition: color 0.6s;
@@ -60,22 +59,22 @@ export const InputNewComment = styled.input`
   @media screen and (max-height: 385px) {
     padding: 0.7rem 0.7rem 0.7rem 1.3rem;
   }
-`;
+`
 
 export const BoxCommentCard = styled.div`
   position: relative;
   margin-bottom: 1rem;
-`;
+`
 export const CommentDescription = styled.div`
-  background-color: ${(props) => props.theme.bg2};
+  background-color: ${(props) => props.theme.name ==='dark'? props.theme.bg3 : '#eee'};
   transition: all 0.6s;
   transition-delay: 0.15s;
   border-radius: 10px;
   margin-left: -5px;
   max-width: 80%;
   padding: 0.6rem 0.6rem;
-  word-wrap: break-word;
-`;
+  word-break: break-word;
+`
 
 export const DeleteCommentButton = styled.a`
   border-radius: 50%;
@@ -93,4 +92,4 @@ export const DeleteCommentButton = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`

@@ -1,49 +1,72 @@
-import { getPostsAdapter } from "@/adapters/post.adapter";
-import useFetchAndLoad from "@/hooks/useFetchAndLoad";
-import { getPosts } from "@/services/posts.services";
-import { createContext, useContext, useEffect, useState } from "react";
+import { getPostsAdapter } from '@/adapters/post.adapter'
+import useFetchAndLoad from '@/hooks/useFetchAndLoad'
+import { Post } from '@/models'
+import { Comment } from '@/models/comment.model'
+import { getPosts } from '@/services/posts.services'
+import { createContext, useContext, useEffect, useState } from 'react'
 
-export const PostContext = createContext([] as any);
+type PostContextProps = {
+  posts: Post[]
+  setPostsFunc: (post: Post) => void
+  loading: boolean
+  updateLike: (post: Post) => void
+  comments: Comment[]
+  setCommentsFunc: (comment: Comment) => void
+  deleteCommentFunc: (id: string) => void
+  deletePostFunc: (id: string) => void
+  loadComments: (comments: Comment[]) => void
+}
 
-export const PostProvider = ({ children }: any) => {
-  const { loading, callEndpoint } = useFetchAndLoad();
+interface Props {
+  children: JSX.Element | JSX.Element[]
+}
 
-  const [posts, setPosts] = useState([] as any);
-  const [comments, setComments] = useState([] as any);
+export const PostContext = createContext<PostContextProps>(
+  {} as PostContextProps
+)
 
-  const setPostsFunc = (value: never) => setPosts([value, ...posts]);
+export const PostProvider = ({ children }: Props) => {
+  const { loading, callEndpoint } = useFetchAndLoad()
 
-  const setCommentsFunc = (value: never) => setComments([value, ...comments]);
+  const [posts, setPosts] = useState<Post[]>([])
+  const [comments, setComments] = useState<Comment[]>([])
 
-  const updateLike = ({ post }: any) => {
-    const updatedPosts = posts.map((postOfThis: any) =>
+  const setPostsFunc = (post: Post) => setPosts([post, ...posts])
+
+  const setCommentsFunc = (comment: Comment) =>
+    setComments([comment, ...comments])
+
+  const loadComments = (comments: Comment[]) => setComments(comments)
+
+  const updateLike = (post: Post) => {
+    const updatedPosts = posts.map((postOfThis: Post) =>
       post.id === postOfThis.id ? post : postOfThis
-    );
-    setPosts(updatedPosts);
-  };
+    )
+    setPosts(updatedPosts)
+  }
 
-  const deletePostFunc = (id: any) => {
+  const deletePostFunc = (id: string) => {
     const updatedPosts = posts.filter(
-      (postOfThis: any) => id !== postOfThis.id
-    );
-    setPosts(updatedPosts);
-  };
+      (postOfThis: Post) => id !== postOfThis.id
+    )
+    setPosts(updatedPosts)
+  }
 
   const deleteCommentFunc = (id: string) => {
     const deleteCommentOfMap = comments.filter(
-      (comment: any) => comment.id !== id
-    );
-    setComments(deleteCommentOfMap);
-  };
+      (comment: Comment) => comment.id !== id
+    )
+    setComments(deleteCommentOfMap)
+  }
 
   const getData = async () => {
-    const response = await callEndpoint(getPosts());
-    setPosts(getPostsAdapter(response));
-  };
+    const response = await callEndpoint(getPosts())
+    setPosts(getPostsAdapter(response))
+  }
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData()
+  }, [])
 
   return (
     <PostContext.Provider
@@ -54,20 +77,20 @@ export const PostProvider = ({ children }: any) => {
         updateLike,
         comments,
         setCommentsFunc,
-        setComments,
         deleteCommentFunc,
         deletePostFunc,
+        loadComments,
       }}
     >
       {children}
     </PostContext.Provider>
-  );
-};
+  )
+}
 
 export const usePostContext = () => {
-  const context = useContext(PostContext);
+  const context = useContext(PostContext)
   if (context === undefined) {
-    throw new Error("usePostContext undefined here");
+    throw new Error('usePostContext undefined here')
   }
-  return context;
-};
+  return context
+}
