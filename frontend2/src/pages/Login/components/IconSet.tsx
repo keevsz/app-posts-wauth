@@ -7,7 +7,7 @@ import { Row } from '@/styled-components'
 const IconSet = () => {
   return (
     <Row>
-      <IconButton href="http://localhost:5000/api/user/login/google">
+      <IconButton href="/api/user/login/google">
         <Icon
           type={'icon1'}
           width="15rem"
