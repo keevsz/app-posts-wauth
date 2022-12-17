@@ -116,10 +116,14 @@ const verifyEmail = async (req, res) => {
 const sendCookie = (req, res) => {
   if (req.user) {
     res.clearCookie('token')
-    res.cookie('token', req.user.token, { maxAge: 10000 })
-    res.redirect(BASE_URL)
+    res.cookie('token', req.user.token, {
+      domain: 'postsapp-kvs.vercel.app',
+      sameSite: 'none',
+      secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    })
+    res.redirect(BASE_URL | '/')
   } else {
-    res.redirect(BASE_URL)
+    res.redirect(BASE_URL | '/')
   }
 }
 

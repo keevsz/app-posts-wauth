@@ -2,19 +2,12 @@ const express = require('express')
 const passport = require('passport')
 const morgan = require('morgan')
 const cors = require('cors')
-const { BASE_URL } = require('./src/config')
 const cookieParser = require('cookie-parser')
 require('./src/config/database')()
 const app = express()
 const path = require('path')
 
-const corsOptions = {
-  //To allow requests from client
-  origin: [BASE_URL, 'http://127.0.0.1', 'http://104.142.122.231'],
-  credentials: true,
-  exposedHeaders: ['set-cookie'],
-}
-app.use(cors(corsOptions))
+app.use(cors())
 
 const Strategy = require('./src/config/passportStrategies')
 app.use(passport.initialize())

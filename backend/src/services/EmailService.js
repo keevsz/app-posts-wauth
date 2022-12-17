@@ -4,7 +4,7 @@ const loggers = require('../utils/handleLogger')
 const reset_password = require('../models/Reset_password')
 const { generatePassword } = require('../utils/handlePassword')
 const user_verification = require('../models/User_verification')
-const { BASE_URL } = require('../config')
+const { BASE_URL } = require('../config') | ''
 
 const getEmailHtml = ({ userId, token, type }) => {
   if (type === 'password-reset') {
