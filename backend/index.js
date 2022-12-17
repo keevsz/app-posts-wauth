@@ -6,9 +6,17 @@ const cookieParser = require('cookie-parser')
 require('./src/config/database')()
 const app = express()
 const path = require('path')
-app.use(cors())
+
+const corsOptions = {
+  //To allow requests from client
+  origin: [BASE_URL, 'http://127.0.0.1', 'http://104.142.122.231'],
+  credentials: true,
+  exposedHeaders: ['set-cookie'],
+}
+app.use(cors(corsOptions))
 
 const Strategy = require('./src/config/passportStrategies')
+const { BASE_URL } = require('./src/config')
 app.use(passport.initialize())
 passport.use(Strategy.google)
 app.use(express.json())
