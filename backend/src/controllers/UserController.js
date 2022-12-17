@@ -117,7 +117,7 @@ const sendCookie = (req, res) => {
   if (req.user) {
     res.clearCookie('token')
     res.cookie('token', req.user.token, {
-      domain: 'postsapp-kvs.vercel.app',
+      domain: 'https://postsapp-backend-kvs.vercel.app',
       sameSite: 'none',
       secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
     })
