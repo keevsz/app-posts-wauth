@@ -1,8 +1,7 @@
 import { Comment } from '@/models'
 import axios from 'axios'
 import { loadAbort } from '../utilities/loadAbort.utility'
-const baseURL = import.meta.env.VITE_APP_URL_BACKEND
-
+const baseURL = import.meta.env.VITE_APP_URL_BACKEND || ''
 
 export const createPost = ({ description, image, user }: any) => {
   const controller = loadAbort()

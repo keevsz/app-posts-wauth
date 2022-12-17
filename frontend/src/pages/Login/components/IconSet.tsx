@@ -3,7 +3,7 @@ import google_icon from '@/assets/google_icon.png'
 import facebook_icon from '@/assets/facebook_icon.png'
 import twitter_icon from '@/assets/twitter_icon.png'
 import { Row } from '@/styled-components'
-const baseURL = import.meta.env.VITE_APP_URL_BACKEND
+const baseURL = import.meta.env.VITE_APP_URL_BACKEND || ''
 
 
 const IconSet = () => {

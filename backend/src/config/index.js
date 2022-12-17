@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 let MONGO_URI = process.env.MONGODB_URI
-let BASE_URL = process.env.BASE_URL_PRODUCTION
+let BASE_URL = process.env.BASE_URL_PRODUCTION 
 let callbackURL = process.env.CALLBACK_URL_OAUTH2
 
 if (process.env.NODE_ENV === 'test') {

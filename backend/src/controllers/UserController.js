@@ -3,7 +3,6 @@ const emailService = require('../services/EmailService')
 const { matchedData } = require('express-validator')
 const { handleHttpError } = require('../utils/handleError')
 const { decodedToken } = require('../middlewares/authMiddleware')
-const { BASE_URL } = require('../config')
 
 const registerUser = async (req, res) => {
   try {
@@ -107,7 +106,7 @@ const verifyEmail = async (req, res) => {
     })
     if (response.error) throw new Error(response.error)
 
-    res.redirect(BASE_URL)
+    res.redirect('/')
   } catch ({ message }) {
     handleHttpError({ res, message, from: 'UserController_verifyEmail' })
   }
@@ -115,12 +114,10 @@ const verifyEmail = async (req, res) => {
 
 const sendCookie = (req, res) => {
   if (req.user) {
-    res.cookie('token', req.user.token, {
-      domain: `${BASE_URL}/login`,
-    })
-    res.redirect(BASE_URL)
+    res.cookie('token', req.user.token)
+    res.redirect('/')
   } else {
-    res.redirect(BASE_URL)
+    res.redirect('/')
   }
 }
 
