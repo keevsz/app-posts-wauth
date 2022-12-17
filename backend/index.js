@@ -7,7 +7,7 @@ require('./src/config/database')()
 const app = express()
 const path = require('path')
 
-app.use(cors())
+app.use(cors({ credentials: true, origin: true }))
 
 const Strategy = require('./src/config/passportStrategies')
 app.use(passport.initialize())
