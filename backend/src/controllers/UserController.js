@@ -115,8 +115,9 @@ const verifyEmail = async (req, res) => {
 
 const sendCookie = (req, res) => {
   if (req.user) {
-    res.clearCookie('token')
-    res.cookie('token', req.user.token)
+    res.cookie('token', req.user.token, {
+      domain: BASE_URL,
+    })
     res.redirect(BASE_URL)
   } else {
     res.redirect(BASE_URL)
