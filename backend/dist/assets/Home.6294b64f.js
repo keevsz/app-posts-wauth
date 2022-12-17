@@ -1,0 +1,10 @@
+import{s as f,a as e,L as i,k as g,r as c,j as a,y as x,b as y,F as b,O as _,w as v}from"./index.09fec51b.js";import{T as U,N as k,e as w,d as C,S as p,a as s,f as L,R as T}from"./Grid.styled.19ecda45.js";import{B}from"./ButtonTheme.22128c4f.js";import{l as d}from"./logout_icon.6d36bd61.js";import{c as S}from"./AuthForm.styled.3ee66b68.js";import{g as F}from"./users.services.9922400e.js";const m="/assets/home_icon.bf11583f.png",h="/assets/profile_icon.3a7b862c.png",N=f.div`
+  margin-top: 15px;
+  margin-left: calc(50% - 40px);
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  background-color: ${o=>o.theme.bg3};
+  transition: all 0.6s;
+  transition-delay: 0.15s;
+`,j=({user:o,setFilter:t})=>e(i,{onClick:()=>{t("")},to:`${g.APP}/${o.id}`,style:{zIndex:20,textDecoration:"none"},children:e("div",{style:{cursor:"pointer",padding:"1rem"},children:e(U,{fontSize:"0.9rem",children:o.name})})}),I=()=>{const[o,t]=c.exports.useState([]),[n,l]=c.exports.useState(""),u=async()=>{const r=await F(n);t(x(r))};return c.exports.useEffect(()=>{n!=""&&u()},[n]),a(N,{children:[e(S,{placeholder:"Buscar usuarios",onChange:r=>{l(r.target.value)},style:{border:"none",marginTop:"-5px"}}),n&&o.map(r=>e(j,{setFilter:l,user:r},r.id))]})},H=()=>{const o=y(),t=()=>{o(v())};return a(b,{children:[e(k,{children:e(I,{})}),e(w,{children:a(C,{gap:"25px",style:{marginLeft:"25%"},children:[e(p,{w:"",h:"5px"}),e(i,{to:"/app",children:e(s,{type:"icon1",alt:"home_icon",src:m})}),e(i,{to:"/app/profile",children:e(s,{type:"icon1",alt:"profile_icon",src:h})}),e("div",{style:{position:"absolute",bottom:"20px",cursor:"pointer"},children:e(s,{type:"icon1",alt:"logout_icon",src:d,onClick:t})})]})}),e(L,{children:a(T,{children:[e(p,{w:"",h:""}),e(i,{to:"/app",children:e(s,{type:"icon1",alt:"home_icon",src:m})}),e(i,{to:"/app/profile",children:e(s,{type:"icon1",alt:"profile_icon",src:h})}),e("div",{style:{position:"absolute",right:"4.5rem",cursor:"pointer"},children:e(s,{type:"icon1",alt:"logout_icon",src:d,onClick:t})})]})}),e(_,{}),e(B,{})]})};export{H as default};
